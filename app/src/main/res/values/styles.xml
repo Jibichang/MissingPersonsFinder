@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/blue</item>
         <item name="colorButtonNormal">@color/blue</item>
     </style>
+
     <style name="PrimaryColoredButton" parent="Base.Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/yellow</item>
         <item name="colorControlHighlight">@color/yellow</item>
@@ -25,9 +26,13 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="lost" parent="AppTheme" >
+    <style name="lost" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/blue</item>
         <item name="colorPrimaryDark">@color/yorange</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

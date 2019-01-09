@@ -32,7 +32,7 @@ public class FoundLostActivity extends AppCompatActivity {
             }
         });
 
-        Button nextButton = findViewById(R.id.button_next);
+        Button nextButton = findViewById(R.id.button_skip);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

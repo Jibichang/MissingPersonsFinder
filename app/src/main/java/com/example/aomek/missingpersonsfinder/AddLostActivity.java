@@ -31,6 +31,15 @@ public class AddLostActivity extends AppCompatActivity {
             }
         });
 
+        Button foundButton = findViewById(R.id.button_bar_found);
+        foundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AddLostActivity.this, FoundLostActivity.class);
+                startActivity(i);
+            }
+        });
+
 
     }
 }

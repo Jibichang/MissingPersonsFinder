@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button_bar_add"
+            android:id="@+id/button_bar_found"
             style="@android:style/Widget.DeviceDefault.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/button_bar_found"
+            android:id="@+id/button_bar_add"
             style="@android:style/Widget.DeviceDefault.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,9 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
         android:ems="10"
         android:hint="ชื่อ"
         android:inputType="textPersonName"
@@ -60,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <EditText
         android:id="@+id/edittext_lname"
@@ -83,7 +83,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/spinner3"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_age"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittext_name" />
@@ -305,7 +305,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/spinner_age"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -316,5 +316,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/spinner_gender"
         app:layout_constraintTop_toTopOf="@+id/spinner_gender" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="ประกาศตามหาบุคคลสูญหาย"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

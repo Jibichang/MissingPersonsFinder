@@ -39,5 +39,14 @@ public class FindMoreActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        Button foundButton = findViewById(R.id.button_bar_found);
+        foundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(FindMoreActivity.this, FoundLostActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
