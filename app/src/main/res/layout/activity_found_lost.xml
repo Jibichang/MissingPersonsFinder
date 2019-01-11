@@ -6,6 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".FoundLostActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button_bar_found"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="แจ้งเจอ"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button_bar_main"
+            style="@android:style/Widget.DeviceDefault.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="หน้าหลัก"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_bar_add"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="แจ้งหาย"
+            android:textSize="18sp" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/edittext_lname2"
         android:layout_width="0dp"
@@ -34,7 +72,7 @@
         android:ems="10"
         android:hint="ชื่อ"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toStartOf="@+id/edittext_lname2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -84,15 +122,5 @@
         android:text="ข้าม"
         app:layout_constraintEnd_toStartOf="@+id/button_next"
         app:layout_constraintTop_toTopOf="@+id/button_next" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground"
-        tools:layout_editor_absoluteY="610dp" />
 
 </android.support.constraint.ConstraintLayout>
