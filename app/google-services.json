@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "535459761500",
+    "firebase_url": "https://missingpersons-4626b.firebaseio.com",
+    "project_id": "missingpersons-4626b",
+    "storage_bucket": "missingpersons-4626b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535459761500:android:cb84b564889ae7e9",
+        "android_client_info": {
+          "package_name": "com.example.aomek.missingpersonsfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535459761500-mprha9tjd50tth35pcrk4pv7nfenqqro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZJzrnQgfguG-o-9ajbO_rTDlPw_A2UKM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
