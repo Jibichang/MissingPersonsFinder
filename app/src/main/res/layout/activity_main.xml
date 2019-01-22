@@ -55,8 +55,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="ลักษณะทางกายภาพ"
+        android:hint="(ตย. ผอม ท้วม สูง)"
         android:inputType="textPersonName"
+        android:paddingLeft="16dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/button_find"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -64,30 +65,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinner_place"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/spinner2"
+        android:gravity="center"
+        android:paddingRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_type"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittext_detail" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinner_type"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/button_find_more"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/spinner_place"
         app:layout_constraintTop_toBottomOf="@+id/edittext_detail" />
 
     <ListView
@@ -123,15 +126,15 @@
     <Button
         android:id="@+id/button_find_more"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_width="109dp"
+        android:layout_height="36dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="ค้นหาเพิ่มเติม"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/spinner_type"
         app:layout_constraintTop_toBottomOf="@+id/edittext_detail" />
 
     <android.support.constraint.ConstraintLayout

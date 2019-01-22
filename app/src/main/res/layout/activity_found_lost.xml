@@ -17,22 +17,23 @@
 
         <Button
             android:id="@+id/button_bar_found"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="แจ้งเจอ"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button_bar_main"
             style="@android:style/Widget.DeviceDefault.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="หน้าหลัก"
+            android:text="แจ้งเจอ"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+             />
+
+        <Button
+            android:id="@+id/button_bar_main"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="หน้าหลัก"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button_bar_add"
