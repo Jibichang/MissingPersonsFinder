@@ -15,15 +15,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.model.UserGH;
 import com.example.aomek.missingpersonsfinder.model.newMember;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 
@@ -31,7 +35,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import okhttp3.internal.http.StatusLine;
 import retrofit2.Call;
@@ -49,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
+    private List<Lost> mLostItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit restAdapter = new Retrofit.Builder()
 //                .baseUrl("https://api.github.com")
-                .baseUrl("http://10.0.2.2")
+                .baseUrl("https://269b2268.ngrok.io")
                 .addConverterFactory(GsonConverterFactory.create())
-//                .setEndpoint("http://10.0.2.2/missing-person-master/")
                 .build();
 
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
@@ -88,13 +97,26 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
-        Call call = retrofit.getLost();
-        call.enqueue(new Callback() {
+        Call<LostModel> call = retrofit.getLostModel();
+        call.enqueue(new Callback<LostModel>() {
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call<LostModel> call, Response<LostModel> response) {
                 if (response.body() != null) {
-                    Lost lost = (Lost) response.body();
-                    Toast.makeText(getApplicationContext(), "Name : " + lost.getFname(),Toast.LENGTH_LONG).show();
+                    LostModel lostmodel = response.body();
+                    List<Lost> lost = lostmodel.getBody();
+                    mLostItemList = new ArrayList<>();
+//                    Lost lost = (Lost) response.body();
+//                    Toast.makeText(getApplicationContext(), "OK" + lost.get(),Toast.LENGTH_LONG).show();
+                    for (int i = 0; i < lost.size(); i++) {
+                        String fname = lost.get(i).getFname();
+                        String lname = lost.get(i).getLname();
+                        String detail = lost.get(i).getDetail();
+                        String date = lost.get(i).getRegDate();
+
+                        Lost item = new Lost(fname, lname, detail, date);
+                        mLostItemList.add(item);
+                    }
+                    setupListView();
                 }
             }
             @Override
@@ -103,11 +125,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        Toast.makeText(this,"Name : " + lost.getLogin(),
-//                    Toast.LENGTH_LONG).show();
-
-//        new HttpAsyncTask().execute();
 
         Button addButton = findViewById(R.id.button_bar_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -173,11 +190,21 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setSpinnerPlace(){
         Spinner placeSpinner = findViewById(R.id.spinner_place);
-        Lost.setListplace();
+//        Lost.setListplace();
 
         ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, Lost.getListplace());
         placeSpinner.setAdapter(adapterPlace);
+    }
+
+    private void setupListView() {
+        LostListAdapter adapter = new LostListAdapter(
+                MainActivity.this,
+                R.layout.list_lost,
+                mLostItemList
+        );
+        ListView lv = findViewById(R.id.listview_lost);
+        lv.setAdapter(adapter);
     }
 
 

@@ -112,7 +112,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
-        android:text="รายชื่อบุคคลสูญหายที่ติดตาม"
+        android:text="รายชื่อบุคคลสูญหายที่ประกาศตามหา"
         android:textColor="@color/bback"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

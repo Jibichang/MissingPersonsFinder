@@ -38,6 +38,24 @@ public class FoundLostDetailActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        Button backButton = findViewById(R.id.button_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(FoundLostDetailActivity.this, FoundLostActivity.class);
+                startActivity(i);
+            }
+        });
+
+        Button nextButton = findViewById(R.id.button_next);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(FoundLostDetailActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
     public void setSpinnerAge(){
         Spinner ageSpinner = findViewById(R.id.spinner_age);
@@ -56,7 +74,7 @@ public class FoundLostDetailActivity extends AppCompatActivity {
     }
     public void setSpinnerPlace(){
         Spinner placeSpinner = findViewById(R.id.spinner_place1);
-        Lost.setListplace();
+//        Lost.setListplace();
 
         ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, Lost.getListplace());

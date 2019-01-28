@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.aomek.missingpersonsfinder.model.Lost;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -22,5 +24,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        // set place list
+        Lost.setListplace();
     }
 }

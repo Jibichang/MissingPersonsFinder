@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 public class Lost {
 
@@ -55,6 +56,27 @@ public class Lost {
     @SerializedName("guest_id")
     @Expose
     private String guestId;
+    @SerializedName("reg_date")
+    @Expose
+    private String regDate;
+
+    public Lost(String fname, String lname, String detail, String date){
+        this.fname = fname;
+        this.lname = lname;
+        this.detail = detail;
+        this.regDate = date;
+    }
+
+    @Override
+    public String toString() {
+        String msg = String.format(
+                Locale.getDefault(),
+                "%s (%s)",
+                this.fname,
+                this.lname
+        );
+        return msg;
+    }
 
     public String getPname() {
         return pname;
@@ -168,6 +190,14 @@ public class Lost {
         this.guestId = guestId;
     }
 
+    public String getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(String regDate) {
+        this.regDate = regDate;
+    }
+
     public static void setListType(){
         listtype.clear();
         listtype.add("ลักพาตัว");
@@ -205,6 +235,7 @@ public class Lost {
     }
 
     public static void setListplace(){
+        listage.clear();
         listplace.add("กรุงเทพมหานคร");
         listplace.add("สมุทรปราการ");
         listplace.add("นนทบุรี");
