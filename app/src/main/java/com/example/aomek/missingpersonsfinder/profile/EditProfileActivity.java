@@ -1,10 +1,15 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.profile;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
+import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
 
 public class EditProfileActivity extends AppCompatActivity {
 

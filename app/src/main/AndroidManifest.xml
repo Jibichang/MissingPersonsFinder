@@ -3,7 +3,7 @@
     package="com.example.aomek.missingpersonsfinder">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -15,32 +15,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".home.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".loginActivity" />
-        <activity android:name=".registerActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".AddLostActivity" />
-        <activity android:name=".FindMoreActivity" />
-        <activity android:name=".FoundLostActivity" />
-        <activity android:name=".FoundLostDetailActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".login.loginActivity" />
+        <activity android:name=".login.registerActivity" />
+        <activity android:name=".home.MainActivity" />
+        <activity android:name=".add.AddLostActivity" />
+        <activity android:name=".find.FindMoreActivity" />
+        <activity android:name=".find.FoundLostActivity" />
+        <activity android:name=".find.FoundLostDetailActivity" />
+        <activity android:name=".profile.SettingActivity" />
+        <activity android:name=".profile.EditProfileActivity" />
         <activity
-            android:name=".LoginAppActivity"
+            android:name=".login.LoginAppActivity"
             android:label="@string/title_activity_login_app" />
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".result.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListLostActivity" />
+        <activity android:name=".result.ListLostActivity" />
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home"></activity>
+            android:name=".home.HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity android:name=".find.FindAndSelectActivity" />
+        <activity android:name=".AddPersonsActivity"></activity>
     </application>
 
 </manifest>

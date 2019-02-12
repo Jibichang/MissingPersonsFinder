@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ScrollingActivity"
+    tools:context=".result.ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
 
     <TextView
@@ -13,6 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="fsdfdsfdf" />
+        android:text="This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable.
+This function was adapted from the logic of the Sort class in the PHP framework PICKLES. PICKLES is a PHP framework written by myself (Josh Sherman, the author of this blog) and has been in development for 8 or so years now. The focus of the framework is to give the developer more liberties by doing less while providing a solid foundation to build websites and being highly extendable." />
 
 </android.support.v4.widget.NestedScrollView>

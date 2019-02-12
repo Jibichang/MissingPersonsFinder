@@ -123,5 +123,9 @@
     <string name="title_home">หน้าหลัก</string>
     <string name="title_found">แจ้งเจอ</string>
     <string name="title_add">แจ้งหาย</string>
+    <string name="title_profile">โปรไฟล์</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

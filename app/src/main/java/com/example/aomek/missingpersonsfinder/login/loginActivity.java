@@ -1,19 +1,17 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.login;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import org.json.JSONArray;
+import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class loginActivity extends AppCompatActivity {
 

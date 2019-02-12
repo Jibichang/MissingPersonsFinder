@@ -1,15 +1,23 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.profile;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
+import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Member;
 
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_EMAIL;
@@ -32,41 +40,10 @@ public class SettingActivity extends AppCompatActivity {
         mHelper = new DatabaseHelper(SettingActivity.this);
         mDb = mHelper.getWritableDatabase();
 
-        Button addButton = findViewById(R.id.button_bar_add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SettingActivity.this, AddLostActivity.class);
-                startActivity(i);
-            }
-        });
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_profile);
 
-        Button foundButton = findViewById(R.id.button_bar_found);
-        foundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SettingActivity.this, FoundLostActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button mainButton = findViewById(R.id.button_bar_main);
-        mainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SettingActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button editPFButton = findViewById(R.id.button_edit_pf);
-        editPFButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SettingActivity.this, EditProfileActivity.class);
-                startActivity(i);
-            }
-        });
 
     }
     @Override
@@ -100,4 +77,26 @@ public class SettingActivity extends AppCompatActivity {
         TextView userTextView = findViewById(R.id.textview_user);
         userTextView.setText(name);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            Intent i = new Intent(SettingActivity.this, MainActivity.class);
+                            startActivity(i);
+                            return true;
+                        case R.id.navigation_found:
+                            Intent j = new Intent(SettingActivity.this, FoundLostActivity.class);
+                            startActivity(j);
+                            return true;
+                        case R.id.navigation_add:
+                            return true;
+                        case R.id.navigation_profile:
+                            return true;
+                    }
+                    return false;
+                }
+            };
 }

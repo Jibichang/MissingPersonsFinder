@@ -1,72 +1,52 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.find;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import okhttp3.OkHttpClient;
-
-public class AddLostActivity extends AppCompatActivity {
+public class FoundLostDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_lost);
+        setContentView(R.layout.activity_found_lost_detail);
 
         setSpinnerAge();
         setSpinnerGender();
         setSpinnerPlace();
 
-        Button backButton = findViewById(R.id.button_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(AddLostActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
-
         Button mainButton = findViewById(R.id.button_bar_main);
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AddLostActivity.this, MainActivity.class);
+                Intent i = new Intent(FoundLostDetailActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
 
-        Button foundButton = findViewById(R.id.button_bar_found);
-        foundButton.setOnClickListener(new View.OnClickListener() {
+        Button addButton = findViewById(R.id.button_bar_add);
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AddLostActivity.this, FoundLostActivity.class);
+                Intent i = new Intent(FoundLostDetailActivity.this, AddLostActivity.class);
+                startActivity(i);
+            }
+        });
+
+        Button backButton = findViewById(R.id.button_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(FoundLostDetailActivity.this, FoundLostActivity.class);
                 startActivity(i);
             }
         });
@@ -75,12 +55,10 @@ public class AddLostActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AddLostActivity.this, LoginAppActivity.class);
+                Intent i = new Intent(FoundLostDetailActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
-
-
     }
     public void setSpinnerAge(){
         Spinner ageSpinner = findViewById(R.id.spinner_age);
@@ -97,7 +75,6 @@ public class AddLostActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, Lost.getListGender());
         genderSpinner.setAdapter(adapterGender);
     }
-
     public void setSpinnerPlace(){
         Spinner placeSpinner = findViewById(R.id.spinner_place1);
 //        Lost.setListplace();
@@ -106,6 +83,4 @@ public class AddLostActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, Lost.getListplace());
         placeSpinner.setAdapter(adapterPlace);
     }
-
-
 }

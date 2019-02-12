@@ -1,4 +1,4 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.find;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
+import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 
 public class FindMoreActivity extends AppCompatActivity {

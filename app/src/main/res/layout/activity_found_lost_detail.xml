@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoundLostDetailActivity">
+    tools:context=".find.FoundLostDetailActivity">
 
     <Button
         android:id="@+id/button_back"
@@ -217,8 +217,6 @@
             android:id="@+id/edittext_detail1"
             android:layout_width="347dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="60dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="(ตย. ผอม ท้วม สูง)"
@@ -232,8 +230,6 @@
             android:id="@+id/edittext_detail2"
             android:layout_width="346dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="60dp"
             android:ems="10"
             android:hint="(ตย. รอยสัก แขนขาด ขาขาด)"
             android:inputType="textPersonName"

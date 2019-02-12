@@ -1,4 +1,4 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.result;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +13,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
+import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.HttpHandler;
 
 import org.json.JSONArray;

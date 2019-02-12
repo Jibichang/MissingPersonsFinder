@@ -5,17 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".home.HomeActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -30,11 +20,9 @@
     </android.support.design.widget.BottomNavigationView>
 
     <FrameLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/frame_contrain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/navigation"
-        app:layout_constraintBottom_toTopOf="@+id/navigation">
+        android:layout_height="match_parent">
 
     </FrameLayout>
 

@@ -1,4 +1,4 @@
-package com.example.aomek.missingpersonsfinder;
+package com.example.aomek.missingpersonsfinder.home;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,11 +6,12 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,29 +21,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
+import com.example.aomek.missingpersonsfinder.result.ListLostActivity;
+import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
+import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
-import com.example.aomek.missingpersonsfinder.model.UserGH;
-import com.example.aomek.missingpersonsfinder.model.newMember;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import okhttp3.internal.http.StatusLine;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
+    private String BASE_URL = "https://596d6dd5.ngrok.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,84 +64,17 @@ public class MainActivity extends AppCompatActivity {
         setSpinnerType();
         setSpinnerPlace();
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_home);
 
-        Retrofit restAdapter = new Retrofit.Builder()
-//                .baseUrl("https://api.github.com")
-                .baseUrl("https://269b2268.ngrok.io")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
-//        Call call = retrofit.getUser("jibichang");
-
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onResponse(Call call, Response response) {
-//                if (response.body() != null) {
-//                    UserGH userx = (UserGH) response.body();
-//                    Toast.makeText(getApplicationContext(), "Name : " + userx.getLogin(),Toast.LENGTH_LONG).show();
-//                }
-//            }
-//            //Toast.makeText(getApplicationContext(), "Name : " + userx.getEmail() +"user "+ userx.getUsername(),Toast.LENGTH_LONG).show();
-//            //
-//
-//            @Override
-//            public void onFailure(Call call, Throwable t) {
-//
-//            }
-//        });
-        Call<LostModel> call = retrofit.getLostModel();
-        call.enqueue(new Callback<LostModel>() {
-            @Override
-            public void onResponse(Call<LostModel> call, Response<LostModel> response) {
-                if (response.body() != null) {
-                    LostModel lostmodel = response.body();
-                    List<Lost> lost = lostmodel.getBody();
-                    mLostItemList = new ArrayList<>();
-//                    Lost lost = (Lost) response.body();
-//                    Toast.makeText(getApplicationContext(), "OK" + lost.get(),Toast.LENGTH_LONG).show();
-                    for (int i = 0; i < lost.size(); i++) {
-                        String fname = lost.get(i).getFname();
-                        String lname = lost.get(i).getLname();
-                        String detail = lost.get(i).getDetail();
-                        String date = lost.get(i).getRegDate();
-
-                        Lost item = new Lost(fname, lname, detail, date);
-                        mLostItemList.add(item);
-                    }
-                    setupListView();
-                }
-            }
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-        Button addButton = findViewById(R.id.button_bar_add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, AddLostActivity.class);
-                startActivity(i);
-            }
-        });
+        loadData();
 
         Button findmoreButton = findViewById(R.id.button_find_more);
         findmoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, FindMoreActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button foundButton = findViewById(R.id.button_bar_found);
-        foundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, FoundLostActivity.class);
                 startActivity(i);
             }
         });
@@ -207,6 +133,61 @@ public class MainActivity extends AppCompatActivity {
         lv.setAdapter(adapter);
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            return true;
+                        case R.id.navigation_found:
+                            Intent i = new Intent(MainActivity.this, FoundLostActivity.class);
+                            startActivity(i);
+                            return true;
+                        case R.id.navigation_add:
+                            return true;
+                        case R.id.navigation_profile:
+                            Intent j = new Intent(MainActivity.this, SettingActivity.class);
+                            startActivity(j);
+                            return true;
+                    }
+                    return false;
+                }
+            };
+
+    private void loadData(){
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(this.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+        Call<LostModel> call = retrofit.getLostModel();
+        call.enqueue(new Callback<LostModel>() {
+            @Override
+            public void onResponse(Call<LostModel> call, Response<LostModel> response) {
+                if (response.body() != null) {
+                    LostModel lostmodel = response.body();
+                    List<Lost> lost = lostmodel.getBody();
+                    mLostItemList = new ArrayList<>();
+                    for (int i = 0; i < lost.size(); i++) {
+                        String fname = lost.get(i).getFname();
+                        String lname = lost.get(i).getLname();
+                        String detail = lost.get(i).getDetail();
+                        String date = lost.get(i).getRegDate();
+
+                        Lost item = new Lost(fname, lname, detail, date);
+                        mLostItemList.add(item);
+                    }
+                    setupListView();
+                }
+            }
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 //    public class HttpAsyncTask extends AsyncTask<Void, Void, newMember> {
 //        @Override
