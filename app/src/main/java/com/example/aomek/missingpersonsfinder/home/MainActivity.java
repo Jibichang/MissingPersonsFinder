@@ -21,7 +21,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
+import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
 import com.example.aomek.missingpersonsfinder.result.ListLostActivity;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
-    private String BASE_URL = "https://596d6dd5.ngrok.io";
+    private String BASE_URL = "https://dccdd935.ngrok.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,41 +63,11 @@ public class MainActivity extends AppCompatActivity {
         mHelper = new DatabaseHelper(MainActivity.this);
         mDb = mHelper.getWritableDatabase();
 
-        setSpinnerType();
-        setSpinnerPlace();
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
 
         loadData();
-
-        Button findmoreButton = findViewById(R.id.button_find_more);
-        findmoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, FindMoreActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button findButton = findViewById(R.id.button_find);
-        findButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ListLostActivity.class);
-                startActivity(i);
-            }
-        });
-
-        ImageView settingImage = findViewById(R.id.imageview_setting);
-        settingImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SettingActivity.class);
-                startActivity(i);
-            }
-        });
 
 //        getName();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -105,22 +77,6 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
-    }
-
-    public void setSpinnerType(){
-        Spinner typeSpinner = findViewById(R.id.spinner_type);
-        Lost.setListType();
-        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, Lost.getListtype());
-        typeSpinner.setAdapter(adapterType);
-    }
-    public void setSpinnerPlace(){
-        Spinner placeSpinner = findViewById(R.id.spinner_place);
-//        Lost.setListplace();
-
-        ArrayAdapter<String> adapterPlace = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, Lost.getListplace());
-        placeSpinner.setAdapter(adapterPlace);
     }
 
     private void setupListView() {
@@ -145,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(i);
                             return true;
                         case R.id.navigation_add:
+                            Intent k = new Intent(MainActivity.this, AddLostActivity.class);
+                            startActivity(k);
                             return true;
                         case R.id.navigation_profile:
                             Intent j = new Intent(MainActivity.this, SettingActivity.class);
@@ -188,30 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    public class HttpAsyncTask extends AsyncTask<Void, Void, newMember> {
-//        @Override
-//        protected newMember doInBackground(Void... params) {
-//
-//            RestAdapter restAdapter = new RestAdapter.Builder()
-//                    .setEndpoint("http://10.0.2.2/KrooKlon/api/")
-//                    .build();
-//
-//            Retrofit retrofit = restAdapter.create(Retrofit.class);
-//            newMember shot = retrofit.getLost();
-//
-//            return shot;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(newMember shot) {
-//
-//            Toast.makeText(getApplicationContext(),
-//                    "Name : " + shot.getEmail(),
-//                    Toast.LENGTH_LONG).show();
-//            super.onPostExecute(shot);
-//        }
-//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

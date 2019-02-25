@@ -28,7 +28,7 @@ public class FoundLostActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(FoundLostActivity.this, FoundLostDetailActivity.class);
+                Intent i = new Intent(FoundLostActivity.this, SelecterActivity.class);
                 startActivity(i);
             }
         });
@@ -50,6 +50,8 @@ public class FoundLostActivity extends AppCompatActivity {
                         case R.id.navigation_found:
                             return true;
                         case R.id.navigation_add:
+                            Intent k = new Intent(FoundLostActivity.this, AddLostActivity.class);
+                            startActivity(k);
                             return true;
                         case R.id.navigation_profile:
                             Intent j = new Intent(FoundLostActivity.this, SettingActivity.class);

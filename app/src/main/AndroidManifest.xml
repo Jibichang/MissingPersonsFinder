@@ -43,7 +43,8 @@
             android:name=".home.HomeActivity"
             android:label="@string/title_activity_home" />
         <activity android:name=".find.FindAndSelectActivity" />
-        <activity android:name=".AddPersonsActivity"></activity>
+        <activity android:name=".AddPersonsActivity" />
+        <activity android:name=".find.SelecterActivity"></activity>
     </application>
 
 </manifest>

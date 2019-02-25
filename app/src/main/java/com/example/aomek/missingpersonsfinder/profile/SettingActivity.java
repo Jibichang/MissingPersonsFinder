@@ -17,7 +17,10 @@ import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
+import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
+import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
+import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.Member;
 
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_EMAIL;
@@ -44,6 +47,15 @@ public class SettingActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_profile);
 
+        Button editButton = findViewById(R.id.button_edit_pf);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
+
+
+            }
+        });
 
     }
     @Override
@@ -92,6 +104,8 @@ public class SettingActivity extends AppCompatActivity {
                             startActivity(j);
                             return true;
                         case R.id.navigation_add:
+                            Intent k = new Intent(SettingActivity.this, AddLostActivity.class);
+                            startActivity(k);
                             return true;
                         case R.id.navigation_profile:
                             return true;

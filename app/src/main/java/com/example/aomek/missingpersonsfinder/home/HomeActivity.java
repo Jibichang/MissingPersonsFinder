@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.aomek.missingpersonsfinder.R;
-import com.example.aomek.missingpersonsfinder.ui.addpersons.AddPersonsFragment;
 import com.example.aomek.missingpersonsfinder.ui.findandselect.FindAndSelectFragment;
 
 public class HomeActivity extends AppCompatActivity {
@@ -53,10 +52,8 @@ public class HomeActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
                     fragment = new FindAndSelectFragment();
                     loadFragment(fragment);
-
 //                    mTextMessage.setText(R.string.title_home);
 //                    FindAndSelectFragment fragment = new FindAndSelectFragment();
 //                    fragmentTransaction.add(R.id.fragment_container, fragment);
@@ -74,8 +71,6 @@ public class HomeActivity extends AppCompatActivity {
 //                    mTextMessage.setText(R.string.title_add);
                     return true;
                 case R.id.navigation_profile:
-                    fragment = new AddPersonsFragment();
-                    loadFragment(fragment);
 //                    mTextMessage.setText(R.string.title_profile);
                     return true;
             }

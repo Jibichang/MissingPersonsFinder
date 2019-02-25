@@ -14,6 +14,9 @@ public class Lost {
     private static ArrayList<String> listage = new ArrayList<String>();
     private static ArrayList<String> listplace = new ArrayList<String>();
 
+    public static boolean onStatusLogin = true;
+
+
     @SerializedName("pname")
     @Expose
     private String pname;
