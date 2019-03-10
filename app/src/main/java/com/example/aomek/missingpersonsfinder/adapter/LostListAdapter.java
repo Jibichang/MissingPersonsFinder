@@ -46,17 +46,27 @@ public class LostListAdapter extends ArrayAdapter<Lost>{
         TextView nameTextView = view.findViewById(R.id.edittext_list_name);
         TextView detailTextView = view.findViewById(R.id.edittext_list_detail);
         TextView dateTextView = view.findViewById(R.id.edittext_list_date);
+        ImageView genderImageView = view.findViewById(R.id.imgView_list_gender);
 
         Lost lostItem = mLostItemList.get(position);
         String Fname = lostItem.getFname();
         String Lname = lostItem.getLname();
-        String Detail = lostItem.getDetail();
+        String Detail = lostItem.getDetailEtc();
         String Date = lostItem.getRegDate();
+        String Gender = lostItem.getGender();
 
         String name = Fname +"  "+ Lname;
         nameTextView.setText(name);
         detailTextView.setText(Detail);
         dateTextView.setText(Date);
+
+        if (Gender.equals("M")){
+            genderImageView.setImageResource(R.drawable.icons8male);
+        }else if (Gender.equals("F")){
+            genderImageView.setImageResource(R.drawable.icons8female);
+        }else {
+            genderImageView.setImageResource(R.drawable.icons8adult);
+        }
 
 //        titleTextView.setText(title);
 //        numberTextView.setText(number);

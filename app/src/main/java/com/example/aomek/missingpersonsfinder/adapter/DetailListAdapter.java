@@ -20,10 +20,10 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 
     //vars
     private ArrayList<String> mNames = new ArrayList<String>();
-    private ArrayList<String> mImageUrls = new ArrayList<String>();
+    private ArrayList<Integer> mImageUrls = new ArrayList<Integer>();
     private Context mContext;
 
-    public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
+    public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls) {
         mNames = names;
         mImageUrls = imageUrls;
         mContext = context;

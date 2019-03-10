@@ -15,6 +15,7 @@ public class Lost {
     private static ArrayList<String> listplace = new ArrayList<String>();
 
     public static boolean onStatusLogin = true;
+    private static String BASE_URL = "https://4a7ca48f.ngrok.io";
 
 
     @SerializedName("pname")
@@ -44,42 +45,121 @@ public class Lost {
     @SerializedName("city")
     @Expose
     private String city;
-    @SerializedName("detail")
+    @SerializedName("height")
     @Expose
-    private String detail;
-    @SerializedName("specific")
+    private String height;
+    @SerializedName("weight")
     @Expose
-    private String specific;
-    @SerializedName("status")
+    private String weight;
+    @SerializedName("shape")
     @Expose
-    private String status;
+    private String shape;
+    @SerializedName("hairtype")
+    @Expose
+    private String hairtype;
+    @SerializedName("haircolor")
+    @Expose
+    private String haircolor;
+    @SerializedName("skintone")
+    @Expose
+    private String skintone;
+    @SerializedName("upperrwaist")
+    @Expose
+    private String upperrwaist;
+    @SerializedName("uppercolor")
+    @Expose
+    private String uppercolor;
+    @SerializedName("lowerwaist")
+    @Expose
+    private String lowerwaist;
+    @SerializedName("lowercolor")
+    @Expose
+    private String lowercolor;
+    @SerializedName("detail_etc")
+    @Expose
+    private String detailEtc;
+    @SerializedName("special")
+    @Expose
+    private String special;
     @SerializedName("type_id")
     @Expose
     private String typeId;
     @SerializedName("guest_id")
     @Expose
     private String guestId;
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("reg_date")
     @Expose
     private String regDate;
 
-    public Lost(String fname, String lname, String detail, String date){
+    public Lost(){
+        this.fname = null;
+        this.lname = null;
+        this.gender = null;
+        this.age = "0";
+        this.place = "-";
+        this.city = "-";
+        this.district = "-";
+        this.subdistrict = "-";
+        this.height = "0";
+        this.weight = "0";
+        this.shape = "S0";
+        this.haircolor = "-";
+        this.hairtype = "HT0";
+        this.skintone = "T0";
+        this.upperrwaist = "U00";
+        this.lowerwaist = "L00";
+        this.status = "0";
+        this.detailEtc = "-";
+
+    }
+    public Lost(String fname, String lname, String gender, String city, String height, String shape, String hairtype, String haircolor, String skintone, String detailEtc, String typeId, String status, String regDate) {
+        super();
         this.fname = fname;
         this.lname = lname;
-        this.detail = detail;
-        this.regDate = date;
+        this.gender = gender;
+        this.city = city;
+        this.height = height;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.detailEtc = detailEtc;
+        this.typeId = typeId;
+        this.status = status;
+        this.regDate = regDate;
+    }
+    public Lost(String pname, String fname, String lname, String gender, String age, String place, String subdistrict, String district, String city, String height, String weight, String shape, String hairtype, String haircolor, String skintone, String upperrwaist, String uppercolor, String lowerwaist, String lowercolor, String detailEtc, String special, String typeId, String guestId, String status, String regDate) {
+        super();
+        this.pname = pname;
+        this.fname = fname;
+        this.lname = lname;
+        this.gender = gender;
+        this.age = age;
+        this.place = place;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.city = city;
+        this.height = height;
+        this.weight = weight;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.upperrwaist = upperrwaist;
+        this.uppercolor = uppercolor;
+        this.lowerwaist = lowerwaist;
+        this.lowercolor = lowercolor;
+        this.detailEtc = detailEtc;
+        this.special = special;
+        this.typeId = typeId;
+        this.guestId = guestId;
+        this.status = status;
+        this.regDate = regDate;
     }
 
-    @Override
-    public String toString() {
-        String msg = String.format(
-                Locale.getDefault(),
-                "%s (%s)",
-                this.fname,
-                this.lname
-        );
-        return msg;
-    }
 
     public String getPname() {
         return pname;
@@ -153,28 +233,100 @@ public class Lost {
         this.city = city;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getHeight() {
+        return height;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setHeight(String height) {
+        this.height = height;
     }
 
-    public String getSpecific() {
-        return specific;
+    public String getWeight() {
+        return weight;
     }
 
-    public void setSpecific(String specific) {
-        this.specific = specific;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
-    public String getStatus() {
-        return status;
+    public String getShape() {
+        return shape;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
+    public String getHairtype() {
+        return hairtype;
+    }
+
+    public void setHairtype(String hairtype) {
+        this.hairtype = hairtype;
+    }
+
+    public String getHaircolor() {
+        return haircolor;
+    }
+
+    public void setHaircolor(String haircolor) {
+        this.haircolor = haircolor;
+    }
+
+    public String getSkintone() {
+        return skintone;
+    }
+
+    public void setSkintone(String skintone) {
+        this.skintone = skintone;
+    }
+
+    public String getUpperrwaist() {
+        return upperrwaist;
+    }
+
+    public void setUpperrwaist(String upperrwaist) {
+        this.upperrwaist = upperrwaist;
+    }
+
+    public String getUppercolor() {
+        return uppercolor;
+    }
+
+    public void setUppercolor(String uppercolor) {
+        this.uppercolor = uppercolor;
+    }
+
+    public String getLowerwaist() {
+        return lowerwaist;
+    }
+
+    public void setLowerwaist(String lowerwaist) {
+        this.lowerwaist = lowerwaist;
+    }
+
+    public String getLowercolor() {
+        return lowercolor;
+    }
+
+    public void setLowercolor(String lowercolor) {
+        this.lowercolor = lowercolor;
+    }
+
+    public String getDetailEtc() {
+        return detailEtc;
+    }
+
+    public void setDetailEtc(String detailEtc) {
+        this.detailEtc = detailEtc;
+    }
+
+    public String getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(String special) {
+        this.special = special;
     }
 
     public String getTypeId() {
@@ -193,6 +345,14 @@ public class Lost {
         this.guestId = guestId;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getRegDate() {
         return regDate;
     }
@@ -200,6 +360,25 @@ public class Lost {
     public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
+
+    public Lost(String fname, String lname, String detail, String date){
+        this.fname = fname;
+        this.lname = lname;
+        this.detailEtc = detail;
+        this.regDate = date;
+    }
+
+    @Override
+    public String toString() {
+        String msg = String.format(
+                Locale.getDefault(),
+                "%s (%s)",
+                this.fname,
+                this.lname
+        );
+        return msg;
+    }
+
 
     public static void setListType(){
         listtype.clear();
@@ -322,5 +501,7 @@ public class Lost {
         return listplace;
     }
 
-
+    public static String getBASE_URL() {
+        return BASE_URL;
+    }
 }

@@ -1,10 +1,14 @@
 package com.example.aomek.missingpersonsfinder.home;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -53,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
-    private String BASE_URL = "https://dccdd935.ngrok.io";
+    private View mProgressView;
+    private View mDataLostView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
 
-        loadData();
+//        loadData();
 
 //        getName();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -76,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+        mDataLostView = findViewById(R.id.listview_lost);
+        mProgressView = findViewById(R.id.lost_progress);
 
     }
 
@@ -114,8 +122,9 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private void loadData(){
+        showProgress(true);
         Retrofit restAdapter = new Retrofit.Builder()
-                .baseUrl(this.BASE_URL)
+                .baseUrl(Lost.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -131,18 +140,32 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < lost.size(); i++) {
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
-                        String detail = lost.get(i).getDetail();
+                        String gender = lost.get(i).getGender();
+                        String city = lost.get(i).getCity();
+                        String height = lost.get(i).getHeight();
+                        String shape = lost.get(i).getShape();
+                        String hairtype = lost.get(i).getHairtype();
+                        String haircolor = lost.get(i).getHaircolor();
+                        String skintone = lost.get(i).getSkintone();
+                        String type_id = lost.get(i).getTypeId();
+                        String status = lost.get(i).getStatus();
+                        String detail = lost.get(i).getDetailEtc();
                         String date = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(fname, lname, detail, date);
+                        Lost item = new Lost(fname, lname,gender,city,height,shape,hairtype,haircolor,skintone, detail,type_id,status, date);
                         mLostItemList.add(item);
                     }
                     setupListView();
+
                 }
+                ImageButton search = findViewById(R.id.button_search_lost);
+                search.setVisibility(View.VISIBLE);
+                showProgress(false);
             }
             @Override
             public void onFailure(Call call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
+                showProgress(false);
             }
         });
     }
@@ -168,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         loadPhoneData();
+        loadData();
 //        setupListView();
     }
     public void loadPhoneData(){
@@ -183,6 +207,39 @@ public class MainActivity extends AppCompatActivity {
         c.close();
         TextView userTextView = findViewById(R.id.textview_user);
         userTextView.setText(namex);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mDataLostView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
 }

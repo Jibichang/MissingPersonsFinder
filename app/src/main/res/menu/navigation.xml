@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/navigation_found"
-        android:icon="@drawable/user"
+        android:icon="@drawable/icons8find"
         android:title="@string/title_found" />
 
     <item
         android:id="@+id/navigation_add"
-        android:icon="@drawable/user"
+        android:icon="@drawable/icons8plus"
         android:title="@string/title_add" />
 
     <item

@@ -87,7 +87,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="ตกลง"
+        android:text="ถัดไป"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -207,15 +207,6 @@
             app:layout_constraintStart_toStartOf="@+id/edittext_place_detail"
             app:layout_constraintTop_toBottomOf="@+id/spinner_place2" />
     </android.support.constraint.ConstraintLayout>
-
-    <Button
-        android:id="@+id/button_back"
-        style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-        android:layout_width="90dp"
-        android:layout_height="55dp"
-        android:text="ยกเลิก"
-        app:layout_constraintEnd_toStartOf="@+id/button_next"
-        app:layout_constraintTop_toTopOf="@+id/button_next" />
 
     <TextView
         android:id="@+id/textView7"

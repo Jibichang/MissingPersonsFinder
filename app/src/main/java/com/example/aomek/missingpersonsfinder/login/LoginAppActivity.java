@@ -303,6 +303,8 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
         private final String mEmail;
         private final String mPassword;
 
+        private final String mLoginURL = "UserLoginTask";
+
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
