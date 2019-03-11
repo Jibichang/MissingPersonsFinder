@@ -22,7 +22,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     private static final String TAG = "RecyclerViewAdapter";
 
     //vars
-    private ArrayList<String> mNames = new ArrayList<String>();
+    private ArrayList<String> mNames;
     private ArrayList<Integer> mImageUrls = new ArrayList<Integer>();
     private Context mContext;
     private int selectedPosition = -1;
@@ -49,6 +49,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
                 .into(holder.image);
 
         holder.name.setText(mNames.get(position));
+//        holder.name.setTextColor(Color.RED);
 
 //        holder.checkBox.setChecked(selectedPosition == position);
 //        if(selectedPosition == position){
@@ -57,7 +58,6 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 //        else{
 //            holder.checkBox.setChecked(false);
 //        }
-
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

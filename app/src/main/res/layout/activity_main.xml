@@ -10,8 +10,8 @@
         android:id="@+id/button_search_lost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
         app:elevation="5dp"
@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="50dp"
-        app:srcCompat="@android:drawable/ic_menu_search"
+        app:srcCompat="@android:drawable/ic_dialog_info"
         app:useCompatPadding="true" />
 
     <ProgressBar

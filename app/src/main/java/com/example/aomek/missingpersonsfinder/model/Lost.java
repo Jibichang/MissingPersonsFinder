@@ -15,6 +15,7 @@ public class Lost {
     private static ArrayList<String> listplace = new ArrayList<String>();
 
     public static boolean onStatusLogin = true;
+    public static boolean onStatusSearch = true;
     private static String BASE_URL = "https://0fb203e2.ngrok.io";
 
 
