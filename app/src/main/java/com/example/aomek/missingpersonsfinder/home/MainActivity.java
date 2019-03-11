@@ -9,32 +9,25 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
-import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
-import com.example.aomek.missingpersonsfinder.result.ListLostActivity;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
-import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
@@ -158,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
                     setupListView();
 
                 }
-                ImageButton search = findViewById(R.id.button_search_lost);
-                search.setVisibility(View.VISIBLE);
+//                Fab search = findViewById(R.id.button_search_lost);
+//                search.setVisibility(View.VISIBLE);
                 showProgress(false);
             }
             @Override

@@ -15,7 +15,7 @@ public class Lost {
     private static ArrayList<String> listplace = new ArrayList<String>();
 
     public static boolean onStatusLogin = true;
-    private static String BASE_URL = "https://4a7ca48f.ngrok.io";
+    private static String BASE_URL = "https://0fb203e2.ngrok.io";
 
 
     @SerializedName("pname")

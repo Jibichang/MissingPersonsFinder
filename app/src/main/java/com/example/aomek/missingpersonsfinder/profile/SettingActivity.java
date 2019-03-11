@@ -3,24 +3,20 @@ package com.example.aomek.missingpersonsfinder.profile;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
-import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
-import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
-import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.Member;
 
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_EMAIL;

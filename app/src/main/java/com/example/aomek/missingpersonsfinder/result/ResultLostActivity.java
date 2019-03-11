@@ -1,7 +1,7 @@
 package com.example.aomek.missingpersonsfinder.result;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,10 +11,6 @@ import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
-import com.firebase.ui.auth.data.model.User;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,8 +28,8 @@ public class ResultLostActivity extends AppCompatActivity {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
-    private String strPOST;
-    private Lost obLost;
+//    private String strPOST;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,36 +46,39 @@ public class ResultLostActivity extends AppCompatActivity {
                 .build();
 
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
-        try {
-            JSONObject paramObject = new JSONObject();
+//        try {
+//            JSONObject paramObject = new JSONObject();
+////            paramObject.put("fname", "ธนโชติ");
 //            paramObject.put("fname", "ธนโชติ");
-            paramObject.put("fname", "ธนโชติ");
-            paramObject.put("lname", "บุญ");
-            paramObject.put("gender", "M");
-            paramObject.put("city", "นครสวรรค์");
-            paramObject.put("height", "0");
-//            paramObject.put("weight", "0");
-            paramObject.put("shape", "0");
-            paramObject.put("hairtype", "0");
-            paramObject.put("haircolor", "0");
-            paramObject.put("skintone", "0");
-            paramObject.put("type_id", "0");
-            paramObject.put("status", "0");
-            paramObject.put("detail_etc", " ");
-//            Toast.makeText(getApplicationContext(), paramObject.toString(),Toast.LENGTH_LONG).show();
-            strPOST = paramObject.toString();
-            TextView text = findViewById(R.id.textJSON);
-            text.setText(strPOST);
-            obLost = new Lost("ธนโชติ","บุญ","M","นครสวรรค์"
-                    ,"0","0","0","0","0",
-                    "0","0","0"," ");
-//
-           //new Gson().toJson(obLost)
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-        
-        Call<LostModel> call = retrofit.searchLost(strPOST);
+//            paramObject.put("lname", "บุญ");
+//            paramObject.put("gender", "M");
+//            paramObject.put("city", "นครสวรรค์");
+//            paramObject.put("height", "0");
+////            paramObject.put("weight", "0");
+//            paramObject.put("shape", "0");
+//            paramObject.put("hairtype", "0");
+//            paramObject.put("haircolor", "0");
+//            paramObject.put("skintone", "0");
+//            paramObject.put("type_id", "0");
+//            paramObject.put("status", "0");
+//            paramObject.put("detail_etc", " ");
+////            Toast.makeText(getApplicationContext(), paramObject.toString(),Toast.LENGTH_LONG).show();
+//            strPOST = paramObject.toString();
+//            TextView text = findViewById(R.id.textJSON);
+//            text.setText(strPOST);
+//            obLost = new Lost("ธนโชติ","บุญ","M","นครสวรรค์"
+//                    ,"0","0","0","0","0",
+//                    "0","0","0"," ");
+////
+//           //new Gson().toJson(obLost)
+//        }catch (JSONException e){
+//            e.printStackTrace();
+//        }
+        Lost obLost = new Lost("ธนโชติ","บุญ","M","นครสวรรค์"
+                ,"0","0","0","0","0",
+                "0","0","0"," ");
+
+        Call<LostModel> call = retrofit.searchLost(obLost);
         call.enqueue(new Callback<LostModel>() {
             @Override
             public void onResponse(Call<LostModel> call, Response<LostModel> response) {

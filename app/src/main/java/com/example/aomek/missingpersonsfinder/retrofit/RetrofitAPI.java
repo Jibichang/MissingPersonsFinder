@@ -29,11 +29,11 @@ public interface RetrofitAPI {
 
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/search.php")
-    Call<LostModel> searchLost(@Body String body);
+    Call<LostModel> searchLost(@Body Lost body);
 
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_one.php")
-    Call<LostModel> searchName(@Body String body);
+    Call<LostModel> searchName(@Body Lost body);
 
     //            @Field("fname") String fname,
 //            @Field("lname") String lname,

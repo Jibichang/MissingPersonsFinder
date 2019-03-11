@@ -1,11 +1,14 @@
 package com.example.aomek.missingpersonsfinder.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     private ArrayList<String> mNames = new ArrayList<String>();
     private ArrayList<Integer> mImageUrls = new ArrayList<Integer>();
     private Context mContext;
+    private int selectedPosition = -1;
 
     public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls) {
         mNames = names;
@@ -46,6 +50,14 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 
         holder.name.setText(mNames.get(position));
 
+//        holder.checkBox.setChecked(selectedPosition == position);
+//        if(selectedPosition == position){
+//            holder.checkBox.setChecked(true);
+//        }
+//        else{
+//            holder.checkBox.setChecked(false);
+//        }
+
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +77,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
+//        CheckBox checkBox;
         ImageView image;
         TextView name;
 
@@ -75,4 +87,20 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
             name = itemView.findViewById(R.id.name);
         }
     }
+
+//    public void setChecked(boolean value) {
+//        if (value) {
+//            textView.setBackgroundColor(Color.LTGRAY);
+//        } else {
+//            textView.setBackground(null);
+//        }
+//        mItem.setSelected(value);
+//        textView.setChecked(value);
+//    }
+//
+//    public interface OnItemSelectedListener {
+//        void onItemSelected(SelectableItem item);
+//    }
+
+
 }
