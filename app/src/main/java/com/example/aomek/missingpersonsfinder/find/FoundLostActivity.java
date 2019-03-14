@@ -22,14 +22,25 @@ public class FoundLostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_lost);
 
-        Button nextButton = findViewById(R.id.button_skip);
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        Button skiptoDetail = findViewById(R.id.button_skip);
+        skiptoDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(FoundLostActivity.this, SelecterActivity.class);
+                Intent i = new Intent(FoundLostActivity.this, FoundLostDetailActivity.class);
                 startActivity(i);
             }
         });
+
+        Button cttoDetail = findViewById(R.id.button_next);
+        cttoDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(FoundLostActivity.this, FoundLostDetailActivity.class);
+                startActivity(i);
+            }
+        });
+
+
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

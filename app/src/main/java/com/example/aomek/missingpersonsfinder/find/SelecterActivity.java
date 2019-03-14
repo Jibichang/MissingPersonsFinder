@@ -2,16 +2,22 @@ package com.example.aomek.missingpersonsfinder.find;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import petrov.kristiyan.colorpicker.ColorPicker;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.DetailListAdapter;
 import com.example.aomek.missingpersonsfinder.model.Details;
+import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 
 import java.util.ArrayList;
@@ -21,6 +27,9 @@ public class SelecterActivity extends AppCompatActivity {
 
     private ArrayList<String> mNames = new ArrayList<String>();
     private ArrayList<String> mImageUrls = new ArrayList<String>();
+    private final boolean isUpper = true;
+    public Lost itemSelect = new Lost();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +48,7 @@ public class SelecterActivity extends AppCompatActivity {
 //                Toast.makeText(SelecterActivity.this, value, Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        getImages();
+        initRecyclerView();
 
         Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -50,41 +59,22 @@ public class SelecterActivity extends AppCompatActivity {
             }
         });
 
-    }
+        Button selectColorUpper = findViewById(R.id.button_color_upper);
+        selectColorUpper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickColorUpper();
+            }
+        });
 
-    private void getImages(){
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+        Button selectColorLower = findViewById(R.id.button_color_lower);
+        selectColorLower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickColorLower();
+            }
+        });
 
-        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mNames.add("Havasu Falls");
-
-        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        mNames.add("Trondheim");
-
-        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        mNames.add("Portugal");
-
-        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
-        mNames.add("Rocky Mountain National Park");
-
-
-        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-        mNames.add("Mahahual");
-
-        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
-        mNames.add("Frozen Lake");
-
-
-        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
-        mNames.add("White Sands Desert");
-
-        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
-        mNames.add("Austrailia");
-
-        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
-        mNames.add("Washington");
-
-        initRecyclerView();
 
     }
 
@@ -127,5 +117,91 @@ public class SelecterActivity extends AppCompatActivity {
 
 
     }
+
+    private ArrayList<String> arrayColor(){
+        ArrayList<String> color = new ArrayList<>();
+        color.add("#e6194B");
+        color.add("#f58231");
+        color.add("#ffe119");
+        color.add("#bfef45");
+        color.add("#3cb44b");
+        color.add("#42d4f4");
+        color.add("#751aff");
+        color.add("#f359eb");
+        color.add("#a9a9a9");
+        color.add("#FFFFFF");
+        color.add("#0d0d0d");
+        color.add("#663300");
+
+        return color;
+    }
+
+    private void pickColorUpper(){
+        final ColorPicker colorPicker = new ColorPicker(SelecterActivity.this);
+
+        colorPicker.setColors(arrayColor())
+                .setColumns(5)
+                .setTitle("กรุณาเลือกสีของเครื่องแต่งกาย")
+                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    String codeColor;
+
+                    @Override
+                    public void onChooseColor(int position,int color) {
+                        codeColor = String.format("#%06X", 0xFFFFFF & color);
+                        if (codeColor.equals("#000000")){
+                            codeColor = "-";
+                            itemSelect.setUppercolor(codeColor);
+                        }else {
+                            itemSelect.setUppercolor(codeColor);
+                        }
+                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel(){
+                        codeColor = "-";
+                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+                        itemSelect.setUppercolor(codeColor);
+                    }
+
+                })
+//                .setDefaultColorButton(Color.parseColor("#663300"))
+                .setColumns(6)
+                .show();
+    }
+
+    private void pickColorLower(){
+        final ColorPicker colorPicker = new ColorPicker(SelecterActivity.this);
+
+        colorPicker.setColors(arrayColor())
+                .setColumns(5)
+                .setTitle("กรุณาเลือกสีของเครื่องแต่งกาย")
+                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    String codeColor;
+                    @Override
+                    public void onChooseColor(int position,int color) {
+                        codeColor = String.format("#%06X", 0xFFFFFF & color);
+                        if (codeColor.equals("#000000")){
+                            codeColor = "-";
+                            itemSelect.setLowercolor(codeColor);
+                        }else {
+                            itemSelect.setLowercolor(codeColor);
+                        }
+                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel(){
+                        codeColor = "-";
+                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+                        itemSelect.setLowercolor(codeColor);
+                    }
+
+                })
+//                .setDefaultColorButton(Color.parseColor("#663300"))
+                .setColumns(6)
+                .show();
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.aomek.missingpersonsfinder.result;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,22 @@ public class ResultLostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_lost);
 
+
         searchLostData();
+
+        Intent intent = getIntent();
+        String fname = intent.getStringExtra("fname");
+        String lname = intent.getStringExtra("lname");
+        String age = intent.getStringExtra("age");
+        String gender = intent.getStringExtra("gender");
+        String city = intent.getStringExtra("city");
+        String district = intent.getStringExtra("district");
+        String subdistrict = intent.getStringExtra("subdistrict");
+        String place = intent.getStringExtra("place");
+        String type_id = intent.getStringExtra("type_id");
+
+//        Toast.makeText(getApplicationContext(),fname,Toast.LENGTH_LONG).show();
+
     }
 
     private void searchLostData(){

@@ -16,7 +16,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://0fb203e2.ngrok.io";
+    private static String BASE_URL = "https://04921f5a.ngrok.io";
 
 
     @SerializedName("pname")
@@ -116,7 +116,9 @@ public class Lost {
         this.detailEtc = "-";
 
     }
-    public Lost(String fname, String lname, String gender, String city, String height, String shape, String hairtype, String haircolor, String skintone, String detailEtc, String typeId, String status, String regDate) {
+    public Lost(String fname, String lname, String gender, String city, String height,
+                String shape, String hairtype, String haircolor, String skintone,
+                String detailEtc, String typeId, String status, String regDate) {
         super();
         this.fname = fname;
         this.lname = lname;
@@ -132,7 +134,12 @@ public class Lost {
         this.status = status;
         this.regDate = regDate;
     }
-    public Lost(String pname, String fname, String lname, String gender, String age, String place, String subdistrict, String district, String city, String height, String weight, String shape, String hairtype, String haircolor, String skintone, String upperrwaist, String uppercolor, String lowerwaist, String lowercolor, String detailEtc, String special, String typeId, String guestId, String status, String regDate) {
+    public Lost(String pname, String fname, String lname, String gender, String age,
+                String place, String subdistrict, String district, String city, String height,
+                String weight, String shape, String hairtype, String haircolor, String skintone,
+                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,
+                String detailEtc, String special, String typeId, String guestId, String status,
+                String regDate) {
         super();
         this.pname = pname;
         this.fname = fname;
@@ -380,9 +387,9 @@ public class Lost {
         return msg;
     }
 
-
     public static void setListType(){
         listtype.clear();
+        listtype.add("ไม่ระบุ");
         listtype.add("ลักพาตัว");
         listtype.add("เด็กพลัดหลง");
         listtype.add("จิตเวท");
@@ -390,6 +397,7 @@ public class Lost {
         listtype.add("แย้งความปกครองบุตร");
         listtype.add("สุขภาพจิต");
         listtype.add("อาการทางสมอง");
+        listtype.add("อาการทางสมอง หลงลืม");
     }
     public static ArrayList<String> getListtype(){
         return listtype;
@@ -419,6 +427,7 @@ public class Lost {
 
     public static void setListplace(){
         listage.clear();
+        listplace.add("-");
         listplace.add("กรุงเทพมหานคร");
         listplace.add("สมุทรปราการ");
         listplace.add("นนทบุรี");

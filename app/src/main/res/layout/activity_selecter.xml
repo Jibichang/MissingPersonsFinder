@@ -125,6 +125,13 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <Button
+                android:id="@+id/button_color_upper"
+                style="@style/FirebaseUI.Button.AccountChooser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_upper" />
+
             <TextView
                 android:id="@+id/textView28"
                 android:layout_width="match_parent"
@@ -141,6 +148,13 @@
                 android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/button_color_lower"
+                style="@style/FirebaseUI.Button.AccountChooser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_lower" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -228,6 +242,23 @@
                 android:text="@string/detail_weight"
                 android:textColor="@color/bback"
                 android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ReView_weight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/detail_shape"
+                android:textColor="@color/bback"
+                android:textSize="18sp" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ReView_shape"

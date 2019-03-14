@@ -10,6 +10,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import androidx.annotation.NonNull;
+
+import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
+import com.example.aomek.missingpersonsfinder.find.FoundLostDetailActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -31,6 +34,8 @@ import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +83,16 @@ public class MainActivity extends AppCompatActivity {
         mDataLostView = findViewById(R.id.listview_lost);
         mProgressView = findViewById(R.id.lost_progress);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.button_search_lost);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),FoundLostDetailActivity.class));
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
+
     }
 
     private void setupListView() {
@@ -98,16 +113,13 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.navigation_home:
                             return true;
                         case R.id.navigation_found:
-                            Intent i = new Intent(MainActivity.this, FoundLostActivity.class);
-                            startActivity(i);
+                            startActivity(new Intent(MainActivity.this, FoundLostActivity.class));
                             return true;
                         case R.id.navigation_add:
-                            Intent k = new Intent(MainActivity.this, AddLostActivity.class);
-                            startActivity(k);
+                            startActivity(new Intent(MainActivity.this, AddLostActivity.class));
                             return true;
                         case R.id.navigation_profile:
-                            Intent j = new Intent(MainActivity.this, SettingActivity.class);
-                            startActivity(j);
+                            startActivity(new Intent(MainActivity.this, SettingActivity.class));
                             return true;
                     }
                     return false;

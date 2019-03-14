@@ -1,8 +1,11 @@
 package com.example.aomek.missingpersonsfinder.find;
 
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,7 +14,10 @@ import android.widget.Spinner;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
+import com.example.aomek.missingpersonsfinder.home.MainMenuActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FoundLostDetailActivity extends AppCompatActivity {
 
@@ -20,43 +26,20 @@ public class FoundLostDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_lost_detail);
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_found);
+
         setSpinnerAge();
         setSpinnerGender();
         setSpinnerPlace();
+        setSpinnerType();
 
-        Button mainButton = findViewById(R.id.button_bar_main);
-        mainButton.setOnClickListener(new View.OnClickListener() {
+        Button nextButtonFound = findViewById(R.id.button_next);
+        nextButtonFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(FoundLostDetailActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button addButton = findViewById(R.id.button_bar_add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(FoundLostDetailActivity.this, AddLostActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button backButton = findViewById(R.id.button_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(FoundLostDetailActivity.this, FoundLostActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button nextButton = findViewById(R.id.button_next);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(FoundLostDetailActivity.this, MainActivity.class);
-                startActivity(i);
+                 startActivity(new Intent(FoundLostDetailActivity.this, SelecterActivity.class));
             }
         });
     }
@@ -83,4 +66,37 @@ public class FoundLostDetailActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, Lost.getListplace());
         placeSpinner.setAdapter(adapterPlace);
     }
+
+    public void setSpinnerType(){
+        Spinner typeSpinner = findViewById(R.id.spinner_type);
+        Lost.setListType();
+        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, Lost.getListtype());
+        typeSpinner.setAdapter(adapterType);
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            startActivity( new Intent(getApplicationContext(), MainActivity.class));
+                            return true;
+                        case R.id.navigation_found:
+//                            Intent i = new Intent(getApplicationContext(), FoundLostActivity.class);
+//                            startActivity(i);
+                            return true;
+                        case R.id.navigation_add:
+                            Intent k = new Intent(getApplicationContext(), AddLostActivity.class);
+                            startActivity(k);
+                            return true;
+                        case R.id.navigation_profile:
+                            Intent j = new Intent(getApplicationContext(), SettingActivity.class);
+                            startActivity(j);
+                            return true;
+                    }
+                    return false;
+                }
+            };
 }

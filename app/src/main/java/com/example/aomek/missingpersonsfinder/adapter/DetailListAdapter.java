@@ -26,6 +26,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     private ArrayList<Integer> mImageUrls = new ArrayList<Integer>();
     private Context mContext;
     private int selectedPosition = -1;
+    private ItemClickListener onItemClickListener;
 
     public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls) {
         mNames = names;
@@ -64,11 +65,12 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 //                CardView cardView = view.findViewById(R.id.CV1);
 //                int color = R.color.colorPrimary;
 //                view.setForeground(new ColorDrawable(ContextCompat.getColor(mContext, color)));
-
                 Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
                 Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
             }
         });
+//        holder.getAdapterPosition();
+
     }
 
     @Override
@@ -101,6 +103,10 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 //    public interface OnItemSelectedListener {
 //        void onItemSelected(SelectableItem item);
 //    }
+        public void setItemClickListener(ItemClickListener clickListener) {
+            onItemClickListener = clickListener;
+        }
+
 
 
 }
