@@ -3,6 +3,7 @@ package com.example.aomek.missingpersonsfinder.add;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
@@ -36,7 +37,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddLostActivity extends AppCompatActivity {
+public class AddLostActivity extends AppCompatActivity implements ItemClickListener {
     EditText fnameEdittext;
     EditText lnameEdittext;
     EditText placeEdittext;
@@ -59,8 +60,6 @@ public class AddLostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lost);
 
-        intentLost = new Intent(getApplicationContext(), ResultLostActivity.class);
-
         setSpinner();
         setSpinnerDefaultCity();
 
@@ -72,8 +71,8 @@ public class AddLostActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String gender = genderSpinner.getSelectedItem().toString();
-//                selectableItem.setGender(gender);
-                intentLost.putExtra("gender", gender);
+                selectableItem.setGender(gender);
+//                intentLost.putExtra("gender", gender);
             }
 
             @Override
@@ -84,8 +83,8 @@ public class AddLostActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String age = ageSpinner.getSelectedItem().toString();
-                intentLost.putExtra("age", age);
-//                selectableItem.setAge(age);
+//                intentLost.putExtra("age", age);
+                selectableItem.setAge(age);
             }
 
             @Override
@@ -96,8 +95,8 @@ public class AddLostActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setSpinnerDefaultCity();
                 String city = placeSpinner.getSelectedItem().toString();
-                intentLost.putExtra("city", city);
-//                selectableItem.setCity(city);
+//                intentLost.putExtra("city", city);
+                selectableItem.setCity(city);
 //                Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
                 loadDistrict(city);
             }
@@ -110,8 +109,8 @@ public class AddLostActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 subSpinner.setEnabled(false);
                 String district = disSpinner.getSelectedItem().toString();
-                intentLost.putExtra("district", district);
-//                selectableItem.setDistrict(district);
+//                intentLost.putExtra("district", district);
+                selectableItem.setDistrict(district);
 //                Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
                 loadSubDistrict(district);
             }
@@ -123,8 +122,8 @@ public class AddLostActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String subdistrict = subSpinner.getSelectedItem().toString();
-                intentLost.putExtra("subdistrict", subdistrict);
-//                selectableItem.setSubdistrict(subdistrict);
+//                intentLost.putExtra("subdistrict", subdistrict);
+                selectableItem.setSubdistrict(subdistrict);
             }
 
             @Override
@@ -134,9 +133,9 @@ public class AddLostActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int typeID = typeSpinner.getSelectedItemPosition();
-                intentLost.putExtra("type_id", typeID);
+//                intentLost.putExtra("type_id", typeID);
 //                Toast.makeText(getApplicationContext(),"id : ",Toast.LENGTH_LONG).show();
-//                selectableItem.setTypeId(String.valueOf(typeID));
+                selectableItem.setTypeId(String.valueOf(typeID));
             }
 
             @Override
@@ -158,18 +157,16 @@ public class AddLostActivity extends AppCompatActivity {
                     String lname = lnameEdittext.getText().toString();
                     String place = placeEdittext.getText().toString();
 
-//                    selectableItem.setFname(fname);
-//                    selectableItem.setLname(lname);
-//                    selectableItem.setPlace(place);
+                    selectableItem.setFname(fname);
+                    selectableItem.setLname(lname);
+                    selectableItem.setPlace(place);
 
-                    intentLost.putExtra("fname", fname);
-                    intentLost.putExtra("lname", lname);
-                    intentLost.putExtra("place", place);
-//                    intentLost.putExtra("year", 1972);
-
+//                    intentLost.putExtra("fname", fname);
+//                    intentLost.putExtra("lname", lname);
+//                    intentLost.putExtra("place", place);
+                    intentLost = new Intent(getApplicationContext(), SelecterActivity.class);
                     startActivity(intentLost);
 
-//                    startActivity(new Intent(AddLostActivity.this, SelecterActivity.class));
 //                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+" : "+
 //                                    selectableItem.getLname()+ " : "+ selectableItem.getAge()+ " : "+
 //                                    selectableItem.getGender()+" : "+selectableItem.getCity()+" "+

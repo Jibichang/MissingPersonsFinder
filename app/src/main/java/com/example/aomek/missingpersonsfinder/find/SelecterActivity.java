@@ -11,19 +11,26 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.DetailListAdapter;
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.model.Details;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 
 import java.util.ArrayList;
 
-public class SelecterActivity extends AppCompatActivity {
+public class SelecterActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "SelecterActivity";
+    Spinner heightSpinner;
+    EditText etcEdittext;
 
     private ArrayList<String> mNames = new ArrayList<String>();
     private ArrayList<String> mImageUrls = new ArrayList<String>();
@@ -35,6 +42,7 @@ public class SelecterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selecter);
 
+        etcEdittext = findViewById(R.id.editText_etc);
 //        rg = (RadioGroup) findViewById(R.id.RG);
 //
 //
@@ -49,13 +57,32 @@ public class SelecterActivity extends AppCompatActivity {
 //            }
 //        });
         initRecyclerView();
+        setSpinnerHeight();
+
+        heightSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String height = heightSpinner.getSelectedItem().toString();
+                selectableItem.setHeight(height);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
-                startActivity(i);
+                String detail_etc = etcEdittext.getText().toString();
+                selectableItem.setFname(detail_etc);
+
+                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
+                        + " : "+ selectableItem.getUpperrwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
+//                startActivity(i);
             }
         });
 
@@ -78,6 +105,14 @@ public class SelecterActivity extends AppCompatActivity {
 
     }
 
+    public void setSpinnerHeight(){
+        heightSpinner = findViewById(R.id.spinner_height);
+        Lost.setListHeight();
+        ArrayAdapter<String> adapterHeigth = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, Lost.getListHeight());
+        heightSpinner.setAdapter(adapterHeigth);
+    }
+
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
@@ -89,33 +124,39 @@ public class SelecterActivity extends AppCompatActivity {
 
 //        Hair Type List
         RecyclerView recyclerView_hairType = findViewById(R.id.ReView_hairtype);
-        recyclerView_hairType.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView_hairType.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
         Details.setHairtype_list();
-        DetailListAdapter hairType = new DetailListAdapter(this, Details.getHairtype_list(), Details.getHairtype_list_img());
+        DetailListAdapter hairType = new DetailListAdapter(this, Details.getHairtype_list(),
+                Details.getHairtype_list_img(),Details.getHairtype_list_code());
         recyclerView_hairType.setAdapter(hairType);
 
 //        Shape List
         RecyclerView recyclerView_Shape = findViewById(R.id.ReView_shape);
-        recyclerView_Shape.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView_Shape.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
         Details.setShape_list();
-        DetailListAdapter Shape = new DetailListAdapter(this, Details.getShape_list(), Details.getShape_list_img());
+        DetailListAdapter Shape = new DetailListAdapter(this, Details.getShape_list(),
+                Details.getShape_list_img(), Details.getShape_list_code());
         recyclerView_Shape.setAdapter(Shape);
 
 //        Lower List
         RecyclerView recyclerView_Lower = findViewById(R.id.ReView_lower);
-        recyclerView_Lower.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView_Lower.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
         Details.setLowerwaist_list();
-        DetailListAdapter Lower = new DetailListAdapter(this, Details.getLowerwaist_list(), Details.getLowerwaist_list_img());
+        DetailListAdapter Lower = new DetailListAdapter(this, Details.getLowerwaist_list(),
+                Details.getLowerwaist_list_img(), Details.getLowerwaist_list_code());
         recyclerView_Lower.setAdapter(Lower);
 
 //        Upper List
         RecyclerView recyclerView_Upper = findViewById(R.id.ReView_upper);
-        recyclerView_Upper.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView_Upper.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
         Details.setUpperwaist_list();
-        DetailListAdapter Upper = new DetailListAdapter(this, Details.getUpperwaist_list(), Details.getUpperwaist_list_img());
+        DetailListAdapter Upper = new DetailListAdapter(this, Details.getUpperwaist_list(),
+                Details.getUpperwaist_list_img(), Details.getUpperwaist_list_code());
         recyclerView_Upper.setAdapter(Upper);
-
-
     }
 
     private ArrayList<String> arrayColor(){
@@ -150,18 +191,16 @@ public class SelecterActivity extends AppCompatActivity {
                         codeColor = String.format("#%06X", 0xFFFFFF & color);
                         if (codeColor.equals("#000000")){
                             codeColor = "-";
-                            itemSelect.setUppercolor(codeColor);
-                        }else {
-                            itemSelect.setUppercolor(codeColor);
                         }
+                        selectableItem.setUppercolor(codeColor);
                         Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel(){
                         codeColor = "-";
+                        selectableItem.setUppercolor(codeColor);
                         Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
-                        itemSelect.setUppercolor(codeColor);
                     }
 
                 })
@@ -183,18 +222,16 @@ public class SelecterActivity extends AppCompatActivity {
                         codeColor = String.format("#%06X", 0xFFFFFF & color);
                         if (codeColor.equals("#000000")){
                             codeColor = "-";
-                            itemSelect.setLowercolor(codeColor);
-                        }else {
-                            itemSelect.setLowercolor(codeColor);
                         }
+                        selectableItem.setLowercolor(codeColor);
                         Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel(){
                         codeColor = "-";
+                        selectableItem.setLowercolor(codeColor);
                         Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
-                        itemSelect.setLowercolor(codeColor);
                     }
 
                 })

@@ -176,4 +176,6 @@ public class ResultLostActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+
 }

@@ -8,18 +8,30 @@ import java.util.Locale;
 public class Details {
 
     private String detail;
+    private static ArrayList<String> type = new ArrayList<String>();
+
+
     private static ArrayList<String> shape_list = new ArrayList<String>();
     private static ArrayList<Integer> shape_list_img = new ArrayList<Integer>();
+    private static ArrayList<String> shape_list_code = new ArrayList<String>();
+
     private static ArrayList<String> hairtype_list = new ArrayList<String>();
     private static ArrayList<Integer> hairtype_list_img = new ArrayList<Integer>();
-//    private static ArrayList<String> haircolor_list = new ArrayList<String>();
+    private static ArrayList<String> hairtype_list_code = new ArrayList<String>();
+
+    //    private static ArrayList<String> haircolor_list = new ArrayList<String>();
     private static ArrayList<String> height_list = new ArrayList<String>();
     private static ArrayList<String> weight_list = new ArrayList<String>();
-//    private static ArrayList<String> skintone_list = new ArrayList<String>();
+
+    //    private static ArrayList<String> skintone_list = new ArrayList<String>();
     private static ArrayList<String> upperwaist_list = new ArrayList<String>();
     private static ArrayList<Integer> upperwaist_list_img = new ArrayList<Integer>();
+    private static ArrayList<String> upperwaist_list_code = new ArrayList<String>();
+
     private static ArrayList<String> lowerwaist_list = new ArrayList<String>();
     private static ArrayList<Integer> lowerwaist_list_img = new ArrayList<Integer>();
+    private static ArrayList<String> lowerwaist_list_code = new ArrayList<String>();
+
 //    private static ArrayList<String> detail_etc_list = new ArrayList<String>();
 
 
@@ -38,17 +50,20 @@ public class Details {
 
     public static void setShape_list() {
         shape_list_img.add(R.drawable.icons8no);
-        shape_list.add("Havasu Falls");
+        shape_list.add("ไม่ระบุ");
+        shape_list_code.add("S0");
 
-//        shape_list_img.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-//        shape_list.add("Trondheim");
-//
-//        shape_list_img.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-//        shape_list.add("Portugal");
-//
-//        shape_list_img.add("https://i.redd.it/j6myfqglup501.jpg");
-//        shape_list.add("Rocky Mountain National Park");
+        shape_list_img.add(R.drawable.icon8shape1);
+        shape_list.add("รูปร่างผอม");
+        shape_list_code.add("S1");
 
+        shape_list_img.add(R.drawable.icon8shape2);
+        shape_list.add("รูปร่างท้วม");
+        shape_list_code.add("S2");
+
+        shape_list_img.add(R.drawable.icon8shape3);
+        shape_list.add("รูปร่างเล็ก");
+        shape_list_code.add("S3");
     }
 
     public static ArrayList<String> getShape_list() {
@@ -59,50 +74,32 @@ public class Details {
         return shape_list_img;
     }
 
+    public static ArrayList<String> getShape_list_code() {
+        return shape_list_code;
+    }
+
+
     public static void setHairtype_list() {
-        hairtype_list_img.add(R.drawable.icons8hair1);
-        hairtype_list.add("Havasu Falls");
-
-        hairtype_list_img.add(R.drawable.icons8hair2);
-        hairtype_list.add("Havasu Falls");
-
-        hairtype_list_img.add(R.drawable.icons8hair3);
-        hairtype_list.add("Havasu Falls");
-
-        hairtype_list_img.add(R.drawable.icons8hair4);
-        hairtype_list.add("Havasu Falls");
-
-        hairtype_list_img.add(R.drawable.icons8hair5);
-        hairtype_list.add("Havasu Falls");
 
         hairtype_list_img.add(R.drawable.icons8no);
-        hairtype_list.add("Havasu Falls");
+        hairtype_list.add("ไม่ระบุ");
+        hairtype_list_code.add("HR0");
 
-//        hairtype_list_img.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-//        hairtype_list.add("Trondheim");
-//
-//        hairtype_list_img.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-//        hairtype_list.add("Portugal");
-//
-//        hairtype_list_img.add("https://i.redd.it/j6myfqglup501.jpg");
-//        hairtype_list.add("Rocky Mountain National Park");
-//
-//
-//        hairtype_list_img.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-//        hairtype_list.add("Mahahual");
-//
-//        hairtype_list_img.add("https://i.redd.it/k98uzl68eh501.jpg");
-//        hairtype_list.add("Frozen Lake");
+        hairtype_list_img.add(R.drawable.icon8hair1);
+        hairtype_list.add("ผมเกรียนสั้น");
+        hairtype_list_code.add("HR1");
 
+        hairtype_list_img.add(R.drawable.icon8hair2);
+        hairtype_list.add("ผมสั้น");
+        hairtype_list_code.add("HR2");
 
-//        hairtype_list_img.add("https://i.redd.it/glin0nwndo501.jpg");
-//        hairtype_list.add("White Sands Desert");
-//
-//        hairtype_list_img.add("https://i.redd.it/obx4zydshg601.jpg");
-//        hairtype_list.add("Austrailia");
-//
-//        hairtype_list_img.add("https://i.imgur.com/ZcLLrkY.jpg");
-//        hairtype_list.add("Washington");
+        hairtype_list_img.add(R.drawable.icon8hair3);
+        hairtype_list.add("ผมยาว");
+        hairtype_list_code.add("HR3");
+
+        hairtype_list_img.add(R.drawable.icon8hair4);
+        hairtype_list.add("ศีรษะล้าน");
+        hairtype_list_code.add("HR4");
     }
 
     public static ArrayList<String> getHairtype_list() {
@@ -113,26 +110,41 @@ public class Details {
         return hairtype_list_img;
     }
 
+    public static ArrayList<String> getHairtype_list_code() {
+        return hairtype_list_code;
+    }
+
+
     public static void setHeight_list() {
 
     }
 
     public static void setUpperwaist_list() {
-        upperwaist_list_img.add(R.drawable.icons8upper1);
-        upperwaist_list.add("Frozen Lake");
-
-        upperwaist_list_img.add(R.drawable.icons8upper2);
-        upperwaist_list.add("Frozen Lake");
-
-        upperwaist_list_img.add(R.drawable.icons8upper3);
-        upperwaist_list.add("Frozen Lake");
 
         upperwaist_list_img.add(R.drawable.icons8no);
-        upperwaist_list.add("Frozen Lake");
+        upperwaist_list.add("ไม่ระบุ");
+        upperwaist_list_code.add("UW0");
 
-//
-//        upperwaist_list_img.add("https://i.redd.it/glin0nwndo501.jpg");
-//        upperwaist_list.add("White Sands Desert");
+        upperwaist_list_img.add(R.drawable.icon8upper1);
+        upperwaist_list.add("เสื้อเชิ้ต");
+        upperwaist_list_code.add("UW1");
+
+        upperwaist_list_img.add(R.drawable.icon8upper2);
+        upperwaist_list.add("เสื้อยืด");
+        upperwaist_list_code.add("UW2");
+
+
+        upperwaist_list_img.add(R.drawable.icon8upper3);
+        upperwaist_list.add("เสื้อกล้าม");
+        upperwaist_list_code.add("UW3");
+
+        upperwaist_list_img.add(R.drawable.icon8upper4);
+        upperwaist_list.add("เสื้อแขนยาว");
+        upperwaist_list_code.add("UW4");
+
+        upperwaist_list_img.add(R.drawable.icon8upper5);
+        upperwaist_list.add("เดรส");
+        upperwaist_list_code.add("UW5");
     }
 
     public static ArrayList<String> getUpperwaist_list() {
@@ -143,24 +155,31 @@ public class Details {
         return upperwaist_list_img;
     }
 
+    public static ArrayList<String> getUpperwaist_list_code() {
+        return upperwaist_list_code;
+    }
+
     public static void setLowerwaist_list() {
 
-
-        lowerwaist_list_img.add(R.drawable.icons8lower1);
-        lowerwaist_list.add("Frozen Lake");
-
-        lowerwaist_list_img.add(R.drawable.icons8lower2);
-        lowerwaist_list.add("Frozen Lake");
-
-        lowerwaist_list_img.add(R.drawable.icons8lower3);
-        lowerwaist_list.add("Frozen Lake");
-
         lowerwaist_list_img.add(R.drawable.icons8no);
-        lowerwaist_list.add("Frozen Lake");
+        lowerwaist_list.add("ไม่ระบุ");
+        lowerwaist_list_code.add("LW0");
 
+        lowerwaist_list_img.add(R.drawable.icon8lower1);
+        lowerwaist_list.add("กางเกงขาสั้น");
+        lowerwaist_list_code.add("LW1");
 
-//        lowerwaist_list_img.add("https://i.redd.it/glin0nwndo501.jpg");
-//        lowerwaist_list.add("White Sands Desert");
+        lowerwaist_list_img.add(R.drawable.icon8lower2);
+        lowerwaist_list.add("กางเกงขายาว");
+        lowerwaist_list_code.add("LW2");
+
+        lowerwaist_list_img.add(R.drawable.icon8lower3);
+        lowerwaist_list.add("กระโปรงสั้น");
+        lowerwaist_list_code.add("LW3");
+
+        lowerwaist_list_img.add(R.drawable.icon8lower4);
+        lowerwaist_list.add("กระโปรงยาว");
+        lowerwaist_list_code.add("LW4");
     }
 
     public static ArrayList<String> getLowerwaist_list() {
@@ -170,4 +189,9 @@ public class Details {
     public static ArrayList<Integer> getLowerwaist_list_img() {
         return lowerwaist_list_img;
     }
+
+    public static ArrayList<String> getLowerwaist_list_code() {
+        return lowerwaist_list_code;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.aomek.missingpersonsfinder.adapter;
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
@@ -15,22 +16,26 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.ViewHolder> {
+public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.ViewHolder> implements ItemClickListener{
     private static final String TAG = "RecyclerViewAdapter";
 
     //vars
     private ArrayList<String> mNames;
-    private ArrayList<Integer> mImageUrls = new ArrayList<Integer>();
+    private ArrayList<Integer> mImageUrls;
+    private ArrayList<String> mCodes;
     private Context mContext;
     private int selectedPosition = -1;
     private ItemClickListener onItemClickListener;
 
-    public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls) {
+    public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls,ArrayList<String> code) {
         mNames = names;
         mImageUrls = imageUrls;
+        mCodes = code;
         mContext = context;
     }
 
@@ -66,7 +71,11 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 //                int color = R.color.colorPrimary;
 //                view.setForeground(new ColorDrawable(ContextCompat.getColor(mContext, color)));
                 Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, mCodes.get(position), Toast.LENGTH_SHORT).show();
+                getTypeData(mCodes.get(position));
+                Snackbar.make(view, mNames.get(position), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
             }
         });
 //        holder.getAdapterPosition();
@@ -78,8 +87,8 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
         return mImageUrls.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-//        CheckBox checkBox;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        //        CheckBox checkBox;
         ImageView image;
         TextView name;
 
@@ -90,23 +99,28 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
         }
     }
 
-//    public void setChecked(boolean value) {
-//        if (value) {
-//            textView.setBackgroundColor(Color.LTGRAY);
-//        } else {
-//            textView.setBackground(null);
-//        }
-//        mItem.setSelected(value);
-//        textView.setChecked(value);
-//    }
-//
-//    public interface OnItemSelectedListener {
-//        void onItemSelected(SelectableItem item);
-//    }
-        public void setItemClickListener(ItemClickListener clickListener) {
-            onItemClickListener = clickListener;
-        }
+    public void setItemClickListener(ItemClickListener clickListener) {
+        onItemClickListener = clickListener;
+    }
 
+    public void getTypeData(String code){
+        String substring = code.substring(0, 1);
+//        Lost obLost = new Lost();
+        switch (substring){
+            case "H":
+                selectableItem.setHairtype(code);
+                break;
+            case "S":
+                selectableItem.setShape(code);
+                break;
+            case "U":
+                selectableItem.setUpperrwaist(code);
+                break;
+            case "L":
+                selectableItem.setLowerwaist(code);
+                break;
+        }
+    }
 
 
 }

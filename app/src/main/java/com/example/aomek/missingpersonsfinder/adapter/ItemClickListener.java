@@ -5,5 +5,6 @@ import android.view.View;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 
 public interface ItemClickListener {
-    void onItemClick(View view, int position);
+//    void onItemClick(View view, int position);
+    public Lost selectableItem = new Lost();
 }

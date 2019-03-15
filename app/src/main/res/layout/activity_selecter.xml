@@ -228,25 +228,13 @@
                 android:textColor="@color/bback"
                 android:textSize="18sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ReView_height"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <Spinner
+                android:id="@+id/spinner_height"
+                android:layout_width="190dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp">
 
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/detail_weight"
-                android:textColor="@color/bback"
-                android:textSize="18sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ReView_weight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            </Spinner>
 
 
             <TextView
