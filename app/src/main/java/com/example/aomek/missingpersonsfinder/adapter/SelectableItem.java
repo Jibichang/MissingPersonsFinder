@@ -7,9 +7,9 @@ public class SelectableItem extends Lost {
 
     public SelectableItem(Lost item, boolean isSelected) {
 //        super(item.getName(),item.getSurname());
-        super(item.getFname(),item.getLname(),item.getGender(),item.getCity(),item.getHeight(),
-                item.getShape(),item.getHairtype(),item.getHaircolor(),item.getSkintone(),
-                item.getDetailEtc(),item.getTypeId(),item.getStatus(),item.getRegDate());
+//        super(item.getFname(),item.getLname(),item.getGender(),item.getCity(),item.getHeight(),
+//                item.getShape(),item.getHairtype(),item.getHaircolor(),item.getSkintone(),
+//                item.getDetailEtc(),item.getTypeId(),item.getStatus(),item.getRegDate());
         this.isSelected = isSelected;
     }
 

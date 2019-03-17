@@ -81,8 +81,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
                 Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
                         + " : "+ selectableItem.getUpperrwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
-//                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
+                startActivity(i);
             }
         });
 

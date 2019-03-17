@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
+import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
@@ -25,10 +30,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ResultLostActivity extends AppCompatActivity {
+public class ResultLostActivity extends AppCompatActivity implements ItemClickListener {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
+    private View mDataLostView;
 //    private String strPOST;
 
 
@@ -40,19 +46,62 @@ public class ResultLostActivity extends AppCompatActivity {
 
         searchLostData();
 
-        Intent intent = getIntent();
-        String fname = intent.getStringExtra("fname");
-        String lname = intent.getStringExtra("lname");
-        String age = intent.getStringExtra("age");
-        String gender = intent.getStringExtra("gender");
-        String city = intent.getStringExtra("city");
-        String district = intent.getStringExtra("district");
-        String subdistrict = intent.getStringExtra("subdistrict");
-        String place = intent.getStringExtra("place");
-        String type_id = intent.getStringExtra("type_id");
 
 //        Toast.makeText(getApplicationContext(),fname,Toast.LENGTH_LONG).show();
 
+//        final Lost lostItem = mLostItemList.get(0);
+        mDataLostView = findViewById(R.id.list_result);
+
+//        Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+//
+//        intent.putExtra("fname", lostItem.getFname());
+//        intent.putExtra("lname", lostItem.getLname());
+//
+//        intent.putExtra("age", lostItem.getAge());
+//        intent.putExtra("gender", lostItem.getGender());
+//
+//        intent.putExtra("city", lostItem.getCity());
+//        intent.putExtra("district", lostItem.getDistrict());
+//        intent.putExtra("subdistrict", lostItem.getSubdistrict());
+//        intent.putExtra("place", lostItem.getPlace());
+//
+//        intent.putExtra("hairtype", lostItem.getHairtype());
+//        intent.putExtra("haircolor", lostItem.getHaircolor());
+//
+//        intent.putExtra("upperwaist", lostItem.getUpperrwaist());
+//        intent.putExtra("uppercolor", lostItem.getUppercolor());
+//        intent.putExtra("lowerwaist", lostItem.getLowerwaist());
+//        intent.putExtra("lowercolor", lostItem.getLowercolor());
+//
+//        intent.putExtra("detail_etc", lostItem.getDetailEtc());
+//        intent.putExtra("special", lostItem.getSpecial());
+//        intent.putExtra("type_id", lostItem.getTypeId());
+//        intent.putExtra("date", lostItem.getRegDate());
+//
+//
+//        String fname = intent.getStringExtra("fname");
+//        String lname = intent.getStringExtra("lname");
+//
+//        String age = intent.getStringExtra("age");
+//        String gender = intent.getStringExtra("gender");
+//
+//        String city = intent.getStringExtra("city");
+//        String district = intent.getStringExtra("district");
+//        String subdistrict = intent.getStringExtra("subdistrict");
+//        String place = intent.getStringExtra("place");
+//
+//        String hairtype = intent.getStringExtra("hairtype");
+//        String haircolor = intent.getStringExtra("haircolor");
+//
+//        String upperwaist = intent.getStringExtra("upperwaist");
+//        String uppercolor = intent.getStringExtra("uppercolor");
+//        String lowerwaist = intent.getStringExtra("lowerwaist");
+//        String lowercolor = intent.getStringExtra("lowercolor");
+//
+//        String detail_etc = intent.getStringExtra("detail_etc");
+//        String special = intent.getStringExtra("special");
+//        String type_id = intent.getStringExtra("type_id");
+//        String date = intent.getStringExtra("date");
     }
 
     private void searchLostData(){
@@ -90,11 +139,23 @@ public class ResultLostActivity extends AppCompatActivity {
 //        }catch (JSONException e){
 //            e.printStackTrace();
 //        }
-        Lost obLost = new Lost("ธนโชติ","บุญ","M","นครสวรรค์"
-                ,"0","0","0","0","0",
-                "0","0","0"," ");
-
-        Call<LostModel> call = retrofit.searchLost(obLost);
+//        Lost obLost = new Lost(
+//                selectableItem.getFname(),selectableItem.getLname(),
+//                selectableItem.getGender(),selectableItem.getAge(),selectableItem.getPlace(),
+//                selectableItem.getSubdistrict(),selectableItem.getDistrict(),selectableItem.getCity(),
+//                selectableItem.getHeight(),selectableItem.getShape(),selectableItem.getHairtype(),
+//                selectableItem.getHaircolor(),selectableItem.getSkintone(),selectableItem.getUpperrwaist(),
+//                selectableItem.getUppercolor(),selectableItem.getLowerwaist(),selectableItem.getLowercolor(),
+//                selectableItem.getDetailEtc(),selectableItem.getSpecial(),selectableItem.getTypeId());
+        Lost obLost = new Lost("ธนโชติ","บุญ",
+                "M","","",
+                "","","นครสวรรค์",
+                "","","",
+                "","","",
+                "","",""," ",
+                "0","","");
+        Lost obLost2 = new Lost();
+        Call<LostModel> call = retrofit.searchLost(obLost2);
         call.enqueue(new Callback<LostModel>() {
             @Override
             public void onResponse(Call<LostModel> call, Response<LostModel> response) {
@@ -113,18 +174,10 @@ public class ResultLostActivity extends AppCompatActivity {
                         Lost item = new Lost(fname, lname, detail, date);
                         mLostItemList.add(item);
                     }
+                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
 //                    setupListView();
-                }
-                else {
-
-                    if(response.code() == 400){
-                        Toast.makeText(getApplicationContext(), "Failure response body NULL but Http OK 400", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Failure response body NULL and status : " + response.code(), Toast.LENGTH_LONG).show();
-                    }
-//                        LostModel lostmodel = response.body();
-//                        List<Lost> lost = lostmodel.getBody();
-//                        Toast.makeText(getApplicationContext(), "Failure response body NULL", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -175,6 +228,16 @@ public class ResultLostActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
 //            }
 //        });
+    }
+
+    private void setupListView() {
+        LostListAdapter adapter = new LostListAdapter(
+                ResultLostActivity.this,
+                R.layout.list_lost,
+                mLostItemList
+        );
+        ListView lv = findViewById(R.id.list_result);
+        lv.setAdapter(adapter);
     }
 
 

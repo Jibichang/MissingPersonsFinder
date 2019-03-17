@@ -17,7 +17,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://6b170552.ngrok.io";
+    private static String BASE_URL = "https://f28e24ee.ngrok.io";
 
 
     @SerializedName("pname")
@@ -96,53 +96,42 @@ public class Lost {
     @Expose
     private String regDate;
 
+
     public Lost(){
-        this.fname = null;
-        this.lname = null;
-        this.gender = null;
-        this.age = "0";
+        this.fname = "";
+        this.lname = "";
+        this.gender = "M";
+        this.age = "";
+
         this.place = "-";
         this.city = "-";
         this.district = "-";
         this.subdistrict = "-";
-        this.height = "0";
-        this.weight = "0";
+
+        this.height = "";
         this.shape = "S0";
         this.haircolor = "-";
         this.hairtype = "HT0";
         this.skintone = "T0";
+
         this.upperrwaist = "U00";
+        this.uppercolor = "";
         this.lowerwaist = "L00";
+        this.lowercolor = "";
+
+        this.detailEtc = "";
+        this.special = "";
         this.status = "0";
-        this.detailEtc = "-";
+        this.typeId = "";
 
     }
-    public Lost(String fname, String lname, String gender, String city, String height,
-                String shape, String hairtype, String haircolor, String skintone,
-                String detailEtc, String typeId, String status, String regDate) {
-        super();
-        this.fname = fname;
-        this.lname = lname;
-        this.gender = gender;
-        this.city = city;
-        this.height = height;
-        this.shape = shape;
-        this.hairtype = hairtype;
-        this.haircolor = haircolor;
-        this.skintone = skintone;
-        this.detailEtc = detailEtc;
-        this.typeId = typeId;
-        this.status = status;
-        this.regDate = regDate;
-    }
-    public Lost(String pname, String fname, String lname, String gender, String age,
-                String place, String subdistrict, String district, String city, String height,
-                String weight, String shape, String hairtype, String haircolor, String skintone,
-                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,
-                String detailEtc, String special, String typeId, String guestId, String status,
-                String regDate) {
-        super();
-        this.pname = pname;
+
+    public Lost(String fname, String lname, String gender, String age,
+                String city,String district, String subdistrict, String place,  String height,
+                String shape, String hairtype, String haircolor,
+                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
+                String typeId, String status,String detailEtc, String special)
+    {
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;
@@ -152,7 +141,6 @@ public class Lost {
         this.district = district;
         this.city = city;
         this.height = height;
-        this.weight = weight;
         this.shape = shape;
         this.hairtype = hairtype;
         this.haircolor = haircolor;
@@ -164,10 +152,71 @@ public class Lost {
         this.detailEtc = detailEtc;
         this.special = special;
         this.typeId = typeId;
-        this.guestId = guestId;
         this.status = status;
+    }
+
+    public Lost(String fname, String lname, String gender, String age,
+                String city,String district, String subdistrict, String place,  String height,
+                String shape, String hairtype, String haircolor,
+                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
+                String typeId, String status,String detailEtc, String special,String regDate)
+    {
+        this.fname = fname;
+        this.lname = lname;
+        this.gender = gender;
+        this.age = age;
+        this.place = place;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.city = city;
+        this.height = height;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.upperrwaist = upperrwaist;
+        this.uppercolor = uppercolor;
+        this.lowerwaist = lowerwaist;
+        this.lowercolor = lowercolor;
+        this.detailEtc = detailEtc;
+        this.special = special;
+        this.typeId = typeId;
         this.regDate = regDate;
     }
+//
+//    public Lost(String pname, String fname, String lname, String gender, String age,
+//                String place, String subdistrict, String district, String city, String height,
+//                String weight, String shape, String hairtype, String haircolor, String skintone,
+//                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,
+//                String detailEtc, String special, String typeId, String guestId, String status,
+//                String regDate) {
+//        super();
+//        this.pname = pname;
+//        this.fname = fname;
+//        this.lname = lname;
+//        this.gender = gender;
+//        this.age = age;
+//        this.place = place;
+//        this.subdistrict = subdistrict;
+//        this.district = district;
+//        this.city = city;
+//        this.height = height;
+//        this.weight = weight;
+//        this.shape = shape;
+//        this.hairtype = hairtype;
+//        this.haircolor = haircolor;
+//        this.skintone = skintone;
+//        this.upperrwaist = upperrwaist;
+//        this.uppercolor = uppercolor;
+//        this.lowerwaist = lowerwaist;
+//        this.lowercolor = lowercolor;
+//        this.detailEtc = detailEtc;
+//        this.special = special;
+//        this.typeId = typeId;
+//        this.guestId = guestId;
+//        this.status = status;
+//        this.regDate = regDate;
+//    }
 
 
     public String getPname() {

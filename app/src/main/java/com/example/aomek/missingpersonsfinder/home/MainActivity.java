@@ -146,18 +146,33 @@ public class MainActivity extends AppCompatActivity {
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
                         String gender = lost.get(i).getGender();
+                        String age = lost.get(i).getAge();
+
+                        String place = lost.get(i).getPlace();
+                        String sub = lost.get(i).getSubdistrict();
+                        String dis = lost.get(i).getDistrict();
                         String city = lost.get(i).getCity();
+
                         String height = lost.get(i).getHeight();
                         String shape = lost.get(i).getShape();
                         String hairtype = lost.get(i).getHairtype();
                         String haircolor = lost.get(i).getHaircolor();
                         String skintone = lost.get(i).getSkintone();
-                        String type_id = lost.get(i).getTypeId();
-                        String status = lost.get(i).getStatus();
+
+                        String upperwaist = lost.get(i).getUpperrwaist();
+                        String upperolor = lost.get(i).getUppercolor();
+                        String lowerwaist = lost.get(i).getLowerwaist();
+                        String lowercolor = lost.get(i).getLowercolor();
+
                         String detail = lost.get(i).getDetailEtc();
+                        String special = lost.get(i).getSpecial();
+                        String type_id = lost.get(i).getTypeId();
                         String date = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(fname, lname,gender,city,height,shape,hairtype,haircolor,skintone, detail,type_id,status, date);
+                        Lost item = new Lost(fname, lname,gender,age,place,sub,dis,city,height,
+                                shape,hairtype,haircolor,skintone,upperwaist,upperolor,lowerwaist,
+                                lowercolor, detail,special,type_id, date);
+//                        Lost item = new Lost();
                         mLostItemList.add(item);
                     }
                     setupListView();
