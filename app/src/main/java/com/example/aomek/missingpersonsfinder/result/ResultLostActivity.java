@@ -68,7 +68,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //        intent.putExtra("hairtype", lostItem.getHairtype());
 //        intent.putExtra("haircolor", lostItem.getHaircolor());
 //
-//        intent.putExtra("upperwaist", lostItem.getUpperrwaist());
+//        intent.putExtra("upperwaist", lostItem.getUpperwaist());
 //        intent.putExtra("uppercolor", lostItem.getUppercolor());
 //        intent.putExtra("lowerwaist", lostItem.getLowerwaist());
 //        intent.putExtra("lowercolor", lostItem.getLowercolor());
@@ -127,7 +127,14 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //            paramObject.put("type_id", "0");
 //            paramObject.put("status", "0");
 //            paramObject.put("detail_etc", " ");
-////            Toast.makeText(getApplicationContext(), paramObject.toString(),Toast.LENGTH_LONG).show();
+////            Toast.makeText(getApplicationContext(), selectableItem.getFname(),selectableItem.getLname(),
+//                selectableItem.getGender(),selectableItem.getAge(),selectableItem.getCity(),
+//                selectableItem.getDistrict(),selectableItem.getSubdistrict(),selectableItem.getPlace(),
+//                selectableItem.getHeight(),selectableItem.getShape(),selectableItem.getHairtype(),
+//                selectableItem.getHaircolor(),selectableItem.getUpperrwaist(),selectableItem.getUppercolor(),
+//                selectableItem.getLowerwaist(),selectableItem.getLowercolor(),
+//                selectableItem.getSkintone(),selectableItem.getTypeId(),
+//                "0",selectableItem.getDetailEtc(),selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
 //            strPOST = paramObject.toString();
 //            TextView text = findViewById(R.id.textJSON);
 //            text.setText(strPOST);
@@ -139,23 +146,47 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //        }catch (JSONException e){
 //            e.printStackTrace();
 //        }
-//        Lost obLost = new Lost(
-//                selectableItem.getFname(),selectableItem.getLname(),
-//                selectableItem.getGender(),selectableItem.getAge(),selectableItem.getPlace(),
-//                selectableItem.getSubdistrict(),selectableItem.getDistrict(),selectableItem.getCity(),
-//                selectableItem.getHeight(),selectableItem.getShape(),selectableItem.getHairtype(),
-//                selectableItem.getHaircolor(),selectableItem.getSkintone(),selectableItem.getUpperrwaist(),
-//                selectableItem.getUppercolor(),selectableItem.getLowerwaist(),selectableItem.getLowercolor(),
-//                selectableItem.getDetailEtc(),selectableItem.getSpecial(),selectableItem.getTypeId());
-        Lost obLost = new Lost("ธนโชติ","บุญ",
+
+                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+selectableItem.getLname()+
+                selectableItem.getGender()+selectableItem.getAge()+selectableItem.getCity()+
+                selectableItem.getDistrict()+selectableItem.getSubdistrict()+selectableItem.getPlace()+
+                selectableItem.getHeight()+selectableItem.getShape()+selectableItem.getHairtype()+
+                selectableItem.getHaircolor()+selectableItem.getUpperwaist()+selectableItem.getUppercolor()+
+                selectableItem.getLowerwaist()+selectableItem.getLowercolor()+
+                selectableItem.getSkintone()+selectableItem.getTypeId()+
+                "0"+selectableItem.getDetailEtc()+selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
+
+        Lost obLost = new Lost(
+                selectableItem.getFname()+" ",
+                selectableItem.getLname()+" ",
+                selectableItem.getGender()+ "",
+                selectableItem.getAge()+" ",
+                selectableItem.getCity()+" ",
+                selectableItem.getDistrict()+" ",
+                selectableItem.getSubdistrict()+" ",
+                selectableItem.getPlace()+" ",
+                selectableItem.getHeight()+" ",
+                selectableItem.getShape()+" ",
+                selectableItem.getHairtype()+" ",
+                selectableItem.getHaircolor()+" ",
+                selectableItem.getUpperwaist()+" ",
+                selectableItem.getUppercolor()+" ",
+                selectableItem.getLowerwaist()+" ",
+                selectableItem.getLowercolor()+" ",
+                selectableItem.getSkintone()+" ",
+                selectableItem.getTypeId()+" ",
+                "0",
+                selectableItem.getDetailEtc()+" ",
+                selectableItem.getSpecial()+" ");
+        Lost obLost3 = new Lost("","",
                 "M","","",
-                "","","นครสวรรค์",
+                "","","",
                 "","","",
                 "","","",
                 "","",""," ",
                 "0","","");
-        Lost obLost2 = new Lost();
-        Call<LostModel> call = retrofit.searchLost(obLost2);
+//        Lost obLost2 = new Lost();
+        Call<LostModel> call = retrofit.searchLost(obLost3);
         call.enqueue(new Callback<LostModel>() {
             @Override
             public void onResponse(Call<LostModel> call, Response<LostModel> response) {
@@ -166,16 +197,39 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                     for (int i = 0; i < lost.size(); i++) {
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
-                        String detail = lost.get(i).getDetailEtc();
+                        String gender = lost.get(i).getGender();
+                        String age = lost.get(i).getAge();
+
+                        String place = lost.get(i).getPlace();
+                        String sub = lost.get(i).getSubdistrict();
+                        String dis = lost.get(i).getDistrict();
+                        String city = lost.get(i).getCity();
+
+                        String height = lost.get(i).getHeight();
+                        String shape = lost.get(i).getShape();
+                        String hairtype = lost.get(i).getHairtype();
+                        String haircolor = lost.get(i).getHaircolor();
+
+                        String upperwaist = lost.get(i).getUpperwaist();
+                        String upperolor = lost.get(i).getUppercolor();
+                        String lowerwaist = lost.get(i).getLowerwaist();
+                        String lowercolor = lost.get(i).getLowercolor();
+
+                        String skintone = lost.get(i).getSkintone();
+                        String type_id = lost.get(i).getTypeId();
+                        String detail_etc = lost.get(i).getDetailEtc();
+                        String special = lost.get(i).getSpecial();
+
                         String date = lost.get(i).getRegDate();
+                        String status = lost.get(i).getRegDate();
 
-                        Toast.makeText(getApplicationContext(), lost.get(i).getDetailEtc(), Toast.LENGTH_LONG).show();
-
-                        Lost item = new Lost(fname, lname, detail, date);
+                        Lost item = new Lost(fname, lname, gender, age,city, dis, sub, place, height,
+                                shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
+                                lowercolor, skintone, type_id, status, detail_etc, special,date);
                         mLostItemList.add(item);
                     }
                     Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
-//                    setupListView();
+                    setupListView();
                 }else {
                     Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
                 }

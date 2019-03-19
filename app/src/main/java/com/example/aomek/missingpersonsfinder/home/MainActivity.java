@@ -157,22 +157,23 @@ public class MainActivity extends AppCompatActivity {
                         String shape = lost.get(i).getShape();
                         String hairtype = lost.get(i).getHairtype();
                         String haircolor = lost.get(i).getHaircolor();
-                        String skintone = lost.get(i).getSkintone();
 
-                        String upperwaist = lost.get(i).getUpperrwaist();
+                        String upperwaist = lost.get(i).getUpperwaist();
                         String upperolor = lost.get(i).getUppercolor();
                         String lowerwaist = lost.get(i).getLowerwaist();
                         String lowercolor = lost.get(i).getLowercolor();
 
-                        String detail = lost.get(i).getDetailEtc();
-                        String special = lost.get(i).getSpecial();
+                        String skintone = lost.get(i).getSkintone();
                         String type_id = lost.get(i).getTypeId();
-                        String date = lost.get(i).getRegDate();
+                        String detail_etc = lost.get(i).getDetailEtc();
+                        String special = lost.get(i).getSpecial();
 
-                        Lost item = new Lost(fname, lname,gender,age,place,sub,dis,city,height,
-                                shape,hairtype,haircolor,skintone,upperwaist,upperolor,lowerwaist,
-                                lowercolor, detail,special,type_id, date);
-//                        Lost item = new Lost();
+                        String date = lost.get(i).getRegDate();
+                        String status = lost.get(i).getRegDate();
+
+                        Lost item = new Lost(fname, lname, gender, age,city, dis, sub, place, height,
+                                shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
+                                lowercolor, skintone, type_id, status, detail_etc, special,date);
                         mLostItemList.add(item);
                     }
                     setupListView();

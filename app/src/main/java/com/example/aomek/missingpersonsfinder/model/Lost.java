@@ -17,7 +17,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://f28e24ee.ngrok.io";
+    private static String BASE_URL = "https://1f572be7.ngrok.io";
 
 
     @SerializedName("pname")
@@ -65,9 +65,9 @@ public class Lost {
     @SerializedName("skintone")
     @Expose
     private String skintone;
-    @SerializedName("upperrwaist")
+    @SerializedName("upperwaist")
     @Expose
-    private String upperrwaist;
+    private String upperwaist;
     @SerializedName("uppercolor")
     @Expose
     private String uppercolor;
@@ -114,7 +114,7 @@ public class Lost {
         this.hairtype = "HT0";
         this.skintone = "T0";
 
-        this.upperrwaist = "U00";
+        this.upperwaist = "U00";
         this.uppercolor = "";
         this.lowerwaist = "L00";
         this.lowercolor = "";
@@ -129,8 +129,8 @@ public class Lost {
     public Lost(String fname, String lname, String gender, String age,
                 String city,String district, String subdistrict, String place,  String height,
                 String shape, String hairtype, String haircolor,
-                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
-                String typeId, String status,String detailEtc, String special)
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
+                String type_id, String status,String detail_etc, String special)
     {
         this.fname = fname;
         this.lname = lname;
@@ -145,21 +145,21 @@ public class Lost {
         this.hairtype = hairtype;
         this.haircolor = haircolor;
         this.skintone = skintone;
-        this.upperrwaist = upperrwaist;
+        this.upperwaist = upperwaist;
         this.uppercolor = uppercolor;
         this.lowerwaist = lowerwaist;
         this.lowercolor = lowercolor;
-        this.detailEtc = detailEtc;
+        this.detailEtc = detail_etc;
         this.special = special;
-        this.typeId = typeId;
+        this.typeId = type_id;
         this.status = status;
     }
 
     public Lost(String fname, String lname, String gender, String age,
                 String city,String district, String subdistrict, String place,  String height,
                 String shape, String hairtype, String haircolor,
-                String upperrwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
-                String typeId, String status,String detailEtc, String special,String regDate)
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
+                String type_id, String status,String detail_etc, String special,String regDate)
     {
         this.fname = fname;
         this.lname = lname;
@@ -174,13 +174,14 @@ public class Lost {
         this.hairtype = hairtype;
         this.haircolor = haircolor;
         this.skintone = skintone;
-        this.upperrwaist = upperrwaist;
+        this.upperwaist = upperwaist;
         this.uppercolor = uppercolor;
         this.lowerwaist = lowerwaist;
         this.lowercolor = lowercolor;
-        this.detailEtc = detailEtc;
+        this.detailEtc = detail_etc;
         this.special = special;
-        this.typeId = typeId;
+        this.typeId = type_id;
+        this.status = status;
         this.regDate = regDate;
     }
 //
@@ -339,12 +340,12 @@ public class Lost {
         this.skintone = skintone;
     }
 
-    public String getUpperrwaist() {
-        return upperrwaist;
+    public String getUpperwaist() {
+        return upperwaist;
     }
 
-    public void setUpperrwaist(String upperrwaist) {
-        this.upperrwaist = upperrwaist;
+    public void setUpperwaist(String upperrwaist) {
+        this.upperwaist = upperrwaist;
     }
 
     public String getUppercolor() {
@@ -375,8 +376,8 @@ public class Lost {
         return detailEtc;
     }
 
-    public void setDetailEtc(String detailEtc) {
-        this.detailEtc = detailEtc;
+    public void setDetailEtc(String detail_etc) {
+        this.detailEtc = detail_etc;
     }
 
     public String getSpecial() {
@@ -391,8 +392,8 @@ public class Lost {
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
+    public void setTypeId(String type_id) {
+        this.typeId = type_id;
     }
 
     public String getGuestId() {

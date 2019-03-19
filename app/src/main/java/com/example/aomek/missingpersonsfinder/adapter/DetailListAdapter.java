@@ -114,7 +114,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
                 selectableItem.setShape(code);
                 break;
             case "U":
-                selectableItem.setUpperrwaist(code);
+                selectableItem.setUpperwaist(code);
                 break;
             case "L":
                 selectableItem.setLowerwaist(code);
