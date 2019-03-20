@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FoundLostDetailActivity.class));
+                startActivity(new Intent(getApplicationContext(),FindMoreActivity.class));
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
             }
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     LostModel lostmodel = response.body();
                     List<Lost> lost = lostmodel.getBody();
                     mLostItemList = new ArrayList<>();
-                    for (int i = 0; i < lost.size(); i++) {
+                    for (int i = 0; i < 15; i++) {
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
                         String gender = lost.get(i).getGender();

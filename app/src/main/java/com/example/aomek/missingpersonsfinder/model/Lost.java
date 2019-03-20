@@ -1,5 +1,8 @@
 package com.example.aomek.missingpersonsfinder.model;
 
+//import com.google.gson.annotations.Expose;
+//import com.google.gson.annotations.SerializedName;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,9 +20,11 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://1f572be7.ngrok.io";
+    private static String BASE_URL = "https://e61074fd.ngrok.io";
 
-
+    @SerializedName("id")
+    @Expose
+    private String id;
     @SerializedName("pname")
     @Expose
     private String pname;
@@ -96,8 +101,7 @@ public class Lost {
     @Expose
     private String regDate;
 
-
-    public Lost(){
+    public Lost() {
         this.fname = "";
         this.lname = "";
         this.gender = "M";
@@ -127,11 +131,10 @@ public class Lost {
     }
 
     public Lost(String fname, String lname, String gender, String age,
-                String city,String district, String subdistrict, String place,  String height,
+                String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
-                String upperwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
-                String type_id, String status,String detail_etc, String special)
-    {
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
+                String type_id, String status, String detail_etc, String special) {
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;
@@ -156,11 +159,10 @@ public class Lost {
     }
 
     public Lost(String fname, String lname, String gender, String age,
-                String city,String district, String subdistrict, String place,  String height,
+                String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
-                String upperwaist, String uppercolor, String lowerwaist, String lowercolor,String skintone,
-                String type_id, String status,String detail_etc, String special,String regDate)
-    {
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
+                String type_id, String status, String detail_etc, String special, String regDate) {
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;
@@ -184,6 +186,80 @@ public class Lost {
         this.status = status;
         this.regDate = regDate;
     }
+
+    @Override
+    public String toString() {
+        String msg = String.format(
+                Locale.getDefault(),
+                "ชื่อ : %s " +
+                        "นามสกลุ : %s\n" +
+                        "เพศ : %s  " +
+                        "อายุ : %s\n" +
+                        "สถานที่ : %s " +
+                        "%s " +
+                        "%s " +
+                        "%s\n" +
+                        "ส่วนสูง : %s " +
+                        "รูปร่าง : %s\n" +
+                        "ผม : %s " +
+                        "ผมสี : %s\n" +
+                        "สีผิว : %s\n" +
+                        "เสื้อผ้า : %s " +
+                        "%s " +
+                        "%s " +
+                        "%s\n" +
+                        "ลักษณะทางกายภาพ : %s " +
+                        "%s\n" +
+                        "ประเภทคนหาย : %s\n" +
+//                        "%s\n" +
+                        "%s\n",
+                this.fname,
+                this.lname,
+                strGender(),
+                this.age,
+                this.city,
+                this.district,
+                this.subdistrict,
+                this.place,
+
+                this.height,
+                this.shape,
+
+                this.hairtype,
+                this.haircolor,
+                this.skintone,
+                this.upperwaist,
+                this.uppercolor,
+                this.lowerwaist,
+                this.lowercolor,
+
+                this.detailEtc,
+                this.special,
+                strType(),
+//                this.status,
+                this.regDate
+
+                );
+        return msg;
+    }
+
+    public String strGender(){
+        if(this.gender.equals("M")){ return "ชาย"; }
+        else {  return "หญิง"; }
+    }
+
+    public String strType() {
+        if (this.typeId.equals("1")) {return "ลักพาตัว";}
+        else if (this.typeId.equals("2")) {return "เด็กพลัดหลง";}
+        else if (this.typeId.equals("3")) {return "จิตเวท";}
+        else if (this.typeId.equals("4")) {return "พัฒนาการทางสมองช้า";}
+        else if (this.typeId.equals("5")) {return "แย้งความปกครองบุตร";}
+        else if (this.typeId.equals("6")) {return "สุขภาพจิต";}
+        else if (this.typeId.equals("7")) {return "อาการทางสมอง";}
+        else if (this.typeId.equals("8")) {return "อาการทางสมอง หลงลืม";}
+        else {return "ไม่ระบุ";}
+    }
+
 //
 //    public Lost(String pname, String fname, String lname, String gender, String age,
 //                String place, String subdistrict, String district, String city, String height,
@@ -420,25 +496,15 @@ public class Lost {
         this.regDate = regDate;
     }
 
-    public Lost(String fname, String lname, String detail, String date){
+    public Lost(String fname, String lname, String detail, String date) {
         this.fname = fname;
         this.lname = lname;
         this.detailEtc = detail;
         this.regDate = date;
     }
 
-    @Override
-    public String toString() {
-        String msg = String.format(
-                Locale.getDefault(),
-                "%s (%s)",
-                this.fname,
-                this.lname
-        );
-        return msg;
-    }
 
-    public static void setListType(){
+    public static void setListType() {
         listtype.clear();
         listtype.add("ไม่ระบุ");
         listtype.add("ลักพาตัว");
@@ -450,33 +516,36 @@ public class Lost {
         listtype.add("อาการทางสมอง");
         listtype.add("อาการทางสมอง หลงลืม");
     }
-    public static ArrayList<String> getListtype(){
+
+    public static ArrayList<String> getListtype() {
         return listtype;
     }
 
-    public static void setListGender(){
+    public static void setListGender() {
         listgender.clear();
         listgender.add("หญิง");
         listgender.add("ชาย");
     }
-    public static ArrayList<String> getListGender(){
+
+    public static ArrayList<String> getListGender() {
         return listgender;
     }
 
-    public static void setListAge(){
+    public static void setListAge() {
         listage.clear();
-        listage.add("0-10 ปี");
-        listage.add("11-15 ปี");
-        listage.add("16-18 ปี");
-        listage.add("19-30 ปี");
-        listage.add("30-60 ปี");
-        listage.add("60 ปีขึ้นไป");
+        listage.add("0-10");
+        listage.add("11-15");
+        listage.add("16-18");
+        listage.add("19-30");
+        listage.add("30-60");
+        listage.add("60+");
     }
-    public static ArrayList<String> getListAge(){
+
+    public static ArrayList<String> getListAge() {
         return listage;
     }
 
-    public static void setListplace(){
+    public static void setListplace() {
         listage.clear();
         listplace.add("-");
         listplace.add("กรุงเทพมหานคร");
@@ -558,19 +627,49 @@ public class Lost {
         listplace.add("นราธิวาส");
         Collections.sort(listplace);
     }
-    public static ArrayList<String> getListplace(){
+
+    public static ArrayList<String> getListplace() {
         return listplace;
     }
 
-    public static void setListHeight(){
+    public static void setListHeight() {
         listheight.clear();
         listheight.add("-");
     }
-    public static ArrayList<String> getListHeight(){
+
+    public static ArrayList<String> getListHeight() {
         return listheight;
     }
 
     public static String getBASE_URL() {
         return BASE_URL;
+    }
+
+    public void clearData() {
+        this.fname = "";
+        this.lname = "";
+        this.gender = "M";
+        this.age = "";
+
+        this.place = "-";
+        this.city = "-";
+        this.district = "-";
+        this.subdistrict = "-";
+
+        this.height = "";
+        this.shape = "S0";
+        this.haircolor = "-";
+        this.hairtype = "HT0";
+        this.skintone = "T0";
+
+        this.upperwaist = "U00";
+        this.uppercolor = "";
+        this.lowerwaist = "L00";
+        this.lowercolor = "";
+
+        this.detailEtc = "";
+        this.special = "";
+        this.status = "0";
+        this.typeId = "";
     }
 }

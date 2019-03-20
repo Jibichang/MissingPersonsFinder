@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="50dp"
-        app:srcCompat="@android:drawable/ic_dialog_info"
+        app:srcCompat="@android:drawable/ic_menu_search"
         app:useCompatPadding="true" />
 
     <ProgressBar

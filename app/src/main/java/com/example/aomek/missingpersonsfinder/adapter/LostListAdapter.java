@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.example.aomek.missingpersonsfinder.model.Lost;
 
 import java.util.List;
 
-public class LostListAdapter extends ArrayAdapter<Lost>{
+public class LostListAdapter extends ArrayAdapter<Lost> {
     private Context mContext;
     private int mResource;
     private List<Lost> mLostItemList;
@@ -44,6 +45,8 @@ public class LostListAdapter extends ArrayAdapter<Lost>{
         TextView detailTextView = view.findViewById(R.id.edittext_list_detail);
         TextView dateTextView = view.findViewById(R.id.edittext_list_date);
         ImageView genderImageView = view.findViewById(R.id.imgView_list_gender);
+        ImageView ageImageView = view.findViewById(R.id.imgView_list_age);
+        TextView cityTextView = view.findViewById(R.id.edittext_list_city);
 
         Lost lostItem = mLostItemList.get(position);
         String Fname = lostItem.getFname();
@@ -51,18 +54,36 @@ public class LostListAdapter extends ArrayAdapter<Lost>{
         String Detail = lostItem.getDetailEtc();
         String Date = lostItem.getRegDate();
         String Gender = lostItem.getGender();
+        String Age = lostItem.getAge();
+        String City = lostItem.getCity();
 
-        String name = Fname +"  "+ Lname;
+        String name = Fname + "  " + Lname;
         nameTextView.setText(name);
         detailTextView.setText(Detail);
         dateTextView.setText(Date);
+        cityTextView.setText(City);
 
-        if (Gender.equals("M")){
+        if (Gender.equals("M")) {
             genderImageView.setImageResource(R.drawable.icons8male);
-        }else if (Gender.equals("F")){
+        } else if (Gender.equals("F")) {
             genderImageView.setImageResource(R.drawable.icons8female);
-        }else {
-            genderImageView.setImageResource(R.drawable.icons8adult);
+        } else {
+            genderImageView.setImageResource(R.drawable.icons8no2);
+        }
+
+        switch (Age) {
+            case "0-10":
+                ageImageView.setImageResource(R.drawable.icons8kid);
+                break;
+            case "11-15":
+                ageImageView.setImageResource(R.drawable.icons8kid);
+                break;
+            case "60+":
+                ageImageView.setImageResource(R.drawable.icons8old);
+                break;
+            default:
+                ageImageView.setImageResource(R.drawable.icons8adult);
+                break;
         }
 
 //        titleTextView.setText(title);

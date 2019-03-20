@@ -18,21 +18,46 @@
     <!--app:layout_constraintHorizontal_bias="0.5"-->
     <!--app:layout_constraintStart_toStartOf="parent"-->
     <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/layout_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <ProgressBar
+        android:id="@+id/lost_progress"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ListView
         android:id="@+id/list_result"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
 
     <TextView
         android:id="@+id/textView9"
@@ -50,9 +75,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="110dp"
+        android:id="@+id/layout_add"
+        android:layout_width="409dp"
+        android:layout_height="100dp"
         android:background="@drawable/bg_button_pressed"
         android:orientation="vertical"
         android:padding="8dp"
@@ -77,6 +102,6 @@
             android:layout_height="63dp"
             android:layout_marginTop="8dp"
             android:text="ประกาศตามหาบุคคลสูญหาย"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

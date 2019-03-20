@@ -1,10 +1,20 @@
 package com.example.aomek.missingpersonsfinder.result;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,11 +22,13 @@ import android.widget.Toast;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
+import com.example.aomek.missingpersonsfinder.adapter.SwipeDismissListViewTouchListener;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +47,10 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
     private View mDataLostView;
+    private View mAddView;
+    private View mProgressView;
+    private LostListAdapter adapterLost;
+    private ListView lv;
 //    private String strPOST;
 
 
@@ -44,13 +60,59 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
         setContentView(R.layout.activity_result_lost);
 
 
-        searchLostData();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_home);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                selectableItem.clearData();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
 
 
 //        Toast.makeText(getApplicationContext(),fname,Toast.LENGTH_LONG).show();
 
 //        final Lost lostItem = mLostItemList.get(0);
         mDataLostView = findViewById(R.id.list_result);
+        mAddView = findViewById(R.id.layout_add);
+
+        mProgressView = findViewById(R.id.lost_progress);
+
+        CountDownTimer countDownTimer = new CountDownTimer(20 * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                mAddView.setVisibility(View.GONE);
+            }
+            public void onFinish() {
+                mAddView.setVisibility(View.VISIBLE);
+            }
+        };
+        countDownTimer.start();
+        searchLostData();
+
+//        SwipeDismissListViewTouchListener touchListener =
+//                new SwipeDismissListViewTouchListener(
+//                        mDataLostView,
+//                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+//                            @Override
+//                            public boolean canDismiss(int position) {
+//                                return true;
+//                            }
+//
+//                            @Override
+//                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+//                                for (int position : reverseSortedPositions) {
+//
+//                                    mLostItemList.remove(position);
+////                                    lv.notifyDataSetChanged();
+//
+//                                }
+//
+//                            }
+//                        });
+//        mDataLostView.setOnTouchListener(touchListener);
 
 //        Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
 //
@@ -105,6 +167,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     }
 
     private void searchLostData(){
+        showProgress(true);
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -146,38 +209,40 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //        }catch (JSONException e){
 //            e.printStackTrace();
 //        }
-
-                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+selectableItem.getLname()+
-                selectableItem.getGender()+selectableItem.getAge()+selectableItem.getCity()+
-                selectableItem.getDistrict()+selectableItem.getSubdistrict()+selectableItem.getPlace()+
-                selectableItem.getHeight()+selectableItem.getShape()+selectableItem.getHairtype()+
-                selectableItem.getHaircolor()+selectableItem.getUpperwaist()+selectableItem.getUppercolor()+
-                selectableItem.getLowerwaist()+selectableItem.getLowercolor()+
-                selectableItem.getSkintone()+selectableItem.getTypeId()+
-                "0"+selectableItem.getDetailEtc()+selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
+//
+//                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+selectableItem.getLname()+
+//                selectableItem.getGender()+selectableItem.getAge()+selectableItem.getCity()+
+//                selectableItem.getDistrict()+selectableItem.getSubdistrict()+selectableItem.getPlace()+
+//                selectableItem.getHeight()+selectableItem.getShape()+selectableItem.getHairtype()+
+//                selectableItem.getHaircolor()+selectableItem.getUpperwaist()+selectableItem.getUppercolor()+
+//                selectableItem.getLowerwaist()+selectableItem.getLowercolor()+
+//                selectableItem.getSkintone()+selectableItem.getTypeId()+
+//                "0"+selectableItem.getDetailEtc()+selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
 
         Lost obLost = new Lost(
-                selectableItem.getFname()+" ",
-                selectableItem.getLname()+" ",
-                selectableItem.getGender()+ "",
-                selectableItem.getAge()+" ",
-                selectableItem.getCity()+" ",
-                selectableItem.getDistrict()+" ",
-                selectableItem.getSubdistrict()+" ",
-                selectableItem.getPlace()+" ",
-                selectableItem.getHeight()+" ",
-                selectableItem.getShape()+" ",
-                selectableItem.getHairtype()+" ",
-                selectableItem.getHaircolor()+" ",
-                selectableItem.getUpperwaist()+" ",
-                selectableItem.getUppercolor()+" ",
-                selectableItem.getLowerwaist()+" ",
-                selectableItem.getLowercolor()+" ",
-                selectableItem.getSkintone()+" ",
-                selectableItem.getTypeId()+" ",
+                selectableItem.getFname(),
+                selectableItem.getLname(),
+                selectableItem.getGender(),
+                selectableItem.getAge(),
+                selectableItem.getCity(),
+                selectableItem.getDistrict(),
+                selectableItem.getSubdistrict(),
+                selectableItem.getPlace(),
+                selectableItem.getHeight(),
+                selectableItem.getShape(),
+                selectableItem.getHairtype(),
+                selectableItem.getHaircolor(),
+                selectableItem.getUpperwaist(),
+                selectableItem.getUppercolor(),
+                selectableItem.getLowerwaist(),
+                selectableItem.getLowercolor(),
+                selectableItem.getSkintone(),
+                selectableItem.getTypeId(),
                 "0",
-                selectableItem.getDetailEtc()+" ",
-                selectableItem.getSpecial()+" ");
+                selectableItem.getDetailEtc(),
+                selectableItem.getSpecial()
+        );
+
         Lost obLost3 = new Lost("","",
                 "M","","",
                 "","","",
@@ -186,7 +251,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 "","",""," ",
                 "0","","");
 //        Lost obLost2 = new Lost();
-        Call<LostModel> call = retrofit.searchLost(obLost3);
+        Call<LostModel> call = retrofit.searchLost(obLost);
         call.enqueue(new Callback<LostModel>() {
             @Override
             public void onResponse(Call<LostModel> call, Response<LostModel> response) {
@@ -228,16 +293,18 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                                 lowercolor, skintone, type_id, status, detail_etc, special,date);
                         mLostItemList.add(item);
                     }
-                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
+                    showProgress(false);
                     setupListView();
                 }else {
-                    Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
+                    showProgress(false);
+//                    Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -285,13 +352,69 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     }
 
     private void setupListView() {
-        LostListAdapter adapter = new LostListAdapter(
+        adapterLost = new LostListAdapter(
                 ResultLostActivity.this,
                 R.layout.list_lost,
                 mLostItemList
         );
-        ListView lv = findViewById(R.id.list_result);
-        lv.setAdapter(adapter);
+        lv = findViewById(R.id.list_result);
+        lv.setAdapter(adapterLost);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Lost item = mLostItemList.get(position);
+
+                Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+                intent.putExtra("stringLost", item.toString());
+                startActivity(intent);
+//                PhoneItem item = mPhoneItemList.get(position);
+//
+//                final PhoneItem phoneItem = mPhoneItemList.get(position);
+//
+//                switch (i) {
+//                    case 0: // Edit
+//                        Intent intent = new Intent(MainActivity.this, EditPhoneItemActivity.class);
+//                        intent.putExtra("title", phoneItem.title);
+//                        intent.putExtra("number", phoneItem.number);
+//                        intent.putExtra("id", phoneItem._id);
+//                        startActivity(intent);
+//                        break;}
+//
+            }
+        });
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mDataLostView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
 

@@ -46,10 +46,10 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
     Spinner genderSpinner;
     Spinner placeSpinner;
     Spinner typeSpinner;
-
     Spinner disSpinner;
     Spinner subSpinner;
-    Lost selectableItem = new Lost();
+
+//    Lost selectableItem = new Lost();
     Intent intentLost;
 
     ArrayList<String> mlistDistrict = new ArrayList<>();
@@ -71,6 +71,14 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String gender = genderSpinner.getSelectedItem().toString();
+                switch (gender){
+                    case "หญิง":
+                        gender = "F";
+                        break;
+                    case "ชาย":
+                        gender = "M";
+                        break;
+                }
                 selectableItem.setGender(gender);
 //                intentLost.putExtra("gender", gender);
             }

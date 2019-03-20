@@ -1,5 +1,6 @@
 package com.example.aomek.missingpersonsfinder.result;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -7,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.aomek.missingpersonsfinder.R;
 
@@ -31,6 +33,11 @@ public class ScrollingActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Intent intent = getIntent();;
+        String stringLost = intent.getStringExtra("stringLost");
+        TextView content = findViewById(R.id.string_lost);
+        content.setText(stringLost);
 
 
     }

@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,19 +44,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         setContentView(R.layout.activity_selecter);
 
         etcEdittext = findViewById(R.id.editText_etc);
-//        rg = (RadioGroup) findViewById(R.id.RG);
-//
-//
-//        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//
-//
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                final String value = ((RadioButton)findViewById(rg.getCheckedRadioButtonId()))
-//                        .getText().toString();
-//                Toast.makeText(SelecterActivity.this, value, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
         initRecyclerView();
         setSpinnerHeight();
 
@@ -78,9 +67,9 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             public void onClick(View view) {
                 String detail_etc = etcEdittext.getText().toString();
                 selectableItem.setFname(detail_etc);
-
-                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
-                        + " : "+ selectableItem.getUpperwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
+//
+//                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
+//                        + " : "+ selectableItem.getUpperwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
                 startActivity(i);
             }
@@ -102,6 +91,58 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             }
         });
 
+        // hair color
+        ImageView haircolor0 = findViewById(R.id.haircolor1);
+        haircolor0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setHaircolor("#0000000");
+            }
+        });
+
+        // skin tone
+        ImageView st1 = findViewById(R.id.skintone1);
+        st1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setSkintone("T1");
+            }
+        });
+        ImageView st2 = findViewById(R.id.skintone2);
+        st2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setSkintone("T2");
+            }
+        });
+        ImageView st3 = findViewById(R.id.skintone3);
+        st3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setSkintone("T3");
+            }
+        });
+        ImageView st4 = findViewById(R.id.skintone4);
+        st4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setSkintone("T4");
+            }
+        });
+        ImageView st5 = findViewById(R.id.skintone5);
+        st5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setSkintone("T5");
+            }
+        });
+        ImageView st6 = findViewById(R.id.skintone6);
+        st6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setSkintone("T6");
+            }
+        });
 
     }
 

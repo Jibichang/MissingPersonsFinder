@@ -43,6 +43,11 @@ public interface RetrofitAPI {
     @POST("/plost/api/persons/searchSub.php")
     Call<LostModel> searchSubDistrict(@Body Lost body);
 
+
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/persons/read_get.php")
+    Call<LostModel> searchNormal(@Body Lost body);
+
     //            @Field("fname") String fname,
 //            @Field("lname") String lname,
 //            @Field("gender") String gender,

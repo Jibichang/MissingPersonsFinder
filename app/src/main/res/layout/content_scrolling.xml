@@ -9,10 +9,12 @@
     tools:showIn="@layout/activity_scrolling">
 
     <TextView
-        android:id="@+id/list_lost_found"
+        android:id="@+id/string_lost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:text="@string/large_text"
+        android:textColor="@color/black_de"
+        android:textSize="18sp" />
 
 </androidx.core.widget.NestedScrollView>
