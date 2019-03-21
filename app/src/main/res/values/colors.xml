@@ -8,6 +8,9 @@
     <color name="blue">#003368</color>
     <color name="yorange">#ffc900</color>
     <color name="white">#fefefd</color>
+    <color name="red">#AB0B0B</color>
+    <color name="gray">#D7D7D7</color>
+
 
     <color name="primaryColor">#006064</color>
     <color name="primaryLightColor">#428e92</color>

@@ -3,10 +3,13 @@ package com.example.aomek.missingpersonsfinder.result;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,11 +17,17 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
@@ -50,7 +59,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     private View mAddView;
     private View mProgressView;
     private LostListAdapter adapterLost;
-    private ListView lv;
+    private SwipeMenuListView lv;
 //    private String strPOST;
 
 
@@ -91,6 +100,48 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
         };
         countDownTimer.start();
         searchLostData();
+
+//        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(
+//                    final int position,
+//                    SwipeMenu menu,
+//                    int index) {
+//                final Dialog dialog = new Dialog(getApplicationContext());
+//                dialog.getWindow();
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                dialog.getWindow().setBackgroundDrawable(
+//                        new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//                dialog.setContentView(R.layout.dialog_del);
+//                TextView dialog_title = (TextView)dialog.findViewById(R.id.dialog_title);
+////                dialog_title.setText(String.valueOf("Delete List"));
+//
+////                TextView dialog_description = (TextView)dialog.findViewById(R.id.dialog_description);
+////                dialog_description.setText(String.valueOf("You want delete this"+fname.get(position)+"?"));
+//                Button buttonCancel = (Button)dialog.findViewById(R.id.button_cancle_del);
+//                buttonCancel.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                Button buttonOK = (Button)dialog.findViewById(R.id.button_del);
+//                buttonOK.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        //remove data in list
+////                        name.remove(position);
+////                        photo.remove(position);
+//                        adapterLost.notifyDataSetChanged();  //updata listview
+//
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                dialog.show();
+//
+//                return false;
+//            }
+//        });
 
 //        SwipeDismissListViewTouchListener touchListener =
 //                new SwipeDismissListViewTouchListener(
@@ -352,12 +403,14 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     }
 
     private void setupListView() {
+        lv = findViewById(R.id.list_result);
         adapterLost = new LostListAdapter(
                 ResultLostActivity.this,
                 R.layout.list_lost,
                 mLostItemList
         );
-        lv = findViewById(R.id.list_result);
+
+        setSwipeListView();
         lv.setAdapter(adapterLost);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -382,6 +435,42 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //
             }
         });
+
+        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                Toast.makeText(getApplicationContext(),"ลบแล้ว",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+    }
+    private void setSwipeListView() {
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
+                // set item background
+                deleteItem.setBackground(
+                        new ColorDrawable(getResources().getColor(R.color.gray)));
+                // set item width
+                deleteItem.setWidth(300);
+                // set a icon
+                deleteItem.setIcon(R.drawable.icons8bin);
+                // set item title
+                deleteItem.setTitle("ไม่แสดงอีก");
+                // set item title fontsize
+                deleteItem.setTitleSize(14);
+                // set item title font color
+                deleteItem.setTitleColor(getResources().getColor(R.color.red));
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        // set creator
+        lv.setMenuCreator(creator);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)

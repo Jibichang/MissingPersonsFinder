@@ -1,8 +1,5 @@
 package com.example.aomek.missingpersonsfinder.model;
 
-//import com.google.gson.annotations.Expose;
-//import com.google.gson.annotations.SerializedName;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +17,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://e61074fd.ngrok.io";
+    private static String BASE_URL = "https://cf13b914.ngrok.io";
 
     @SerializedName("id")
     @Expose
