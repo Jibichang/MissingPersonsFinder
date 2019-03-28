@@ -91,7 +91,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/button_next"
+        android:id="@+id/button_next_find"
         style="@android:style/Widget.Holo.Light.Button"
         android:layout_width="127dp"
         android:layout_height="54dp"

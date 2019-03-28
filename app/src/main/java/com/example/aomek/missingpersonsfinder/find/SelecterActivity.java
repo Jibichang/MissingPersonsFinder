@@ -66,7 +66,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 String detail_etc = etcEdittext.getText().toString();
-                selectableItem.setFname(detail_etc);
+                selectableItem.setDetailEtc(detail_etc);
 //
 //                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
 //                        + " : "+ selectableItem.getUpperwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();

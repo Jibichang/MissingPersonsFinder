@@ -151,7 +151,7 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
             }
         });
 
-        Button nextButtonFound = findViewById(R.id.button_next);
+        Button nextButtonFound = findViewById(R.id.button_next_find);
         nextButtonFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

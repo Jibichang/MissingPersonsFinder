@@ -17,7 +17,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://cf13b914.ngrok.io";
+    private static String BASE_URL = "https://23be3f64.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -97,6 +97,9 @@ public class Lost {
     @SerializedName("reg_date")
     @Expose
     private String regDate;
+    @SerializedName("mode")
+    @Expose
+    private int mode;
 
     public Lost() {
         this.fname = "";
@@ -131,7 +134,7 @@ public class Lost {
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
-                String type_id, String status, String detail_etc, String special) {
+                String type_id, String status, String detail_etc, String special, Integer mode) {
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;
@@ -153,6 +156,7 @@ public class Lost {
         this.special = special;
         this.typeId = type_id;
         this.status = status;
+        this.mode = mode;
     }
 
     public Lost(String fname, String lname, String gender, String age,
@@ -489,6 +493,14 @@ public class Lost {
         return regDate;
     }
 
+    public void setMode(Integer mode) {
+        this.mode = mode;
+    }
+
+    public Integer getMode() {
+        return mode;
+    }
+
     public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
@@ -530,6 +542,7 @@ public class Lost {
 
     public static void setListAge() {
         listage.clear();
+        listage.add("-");
         listage.add("0-10");
         listage.add("11-15");
         listage.add("16-18");

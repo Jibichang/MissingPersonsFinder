@@ -76,11 +76,10 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 selectableItem.clearData();
+//                mLostItemList.clear();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
-
-
 
 //        Toast.makeText(getApplicationContext(),fname,Toast.LENGTH_LONG).show();
 
@@ -291,8 +290,12 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 selectableItem.getTypeId(),
                 "0",
                 selectableItem.getDetailEtc(),
-                selectableItem.getSpecial()
+                selectableItem.getSpecial(),
+                selectableItem.getMode()
         );
+
+        obLost.setMode(0);
+
 
         Lost obLost3 = new Lost("","",
                 "M","","",
@@ -300,7 +303,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 "","","",
                 "","","",
                 "","",""," ",
-                "0","","");
+                "0","","",0);
 //        Lost obLost2 = new Lost();
         Call<LostModel> call = retrofit.searchLost(obLost);
         call.enqueue(new Callback<LostModel>() {
@@ -310,6 +313,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                     LostModel lostmodel = response.body();
                     List<Lost> lost = lostmodel.getBody();
                     mLostItemList = new ArrayList<>();
+                    mLostItemList.clear();
                     for (int i = 0; i < lost.size(); i++) {
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
@@ -409,9 +413,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 R.layout.list_lost,
                 mLostItemList
         );
-
-        setSwipeListView();
         lv.setAdapter(adapterLost);
+        setSwipeListView();
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -444,6 +448,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             }
         });
     }
+
     private void setSwipeListView() {
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
