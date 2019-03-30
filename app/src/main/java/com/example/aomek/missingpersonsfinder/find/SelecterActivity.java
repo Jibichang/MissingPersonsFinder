@@ -1,5 +1,7 @@
 package com.example.aomek.missingpersonsfinder.find;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.DetailListAdapter;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
+import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Details;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
@@ -65,13 +68,51 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String detail_etc = etcEdittext.getText().toString();
-                selectableItem.setDetailEtc(detail_etc);
-//
-//                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
-//                        + " : "+ selectableItem.getUpperwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
-                startActivity(i);
+                String[] items = new String[]{
+                        "ข้อมูลส่วนตัว",
+                        "สถานที่",
+                        "ลักษณะทางกายภาพ",
+                        "ไม่เลือก"
+                };
+
+                new AlertDialog.Builder(SelecterActivity.this)
+                        .setTitle("เลือกความสำคัญของข้อมูล")
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String detail_etc = etcEdittext.getText().toString();
+                                selectableItem.setDetailEtc(detail_etc);
+                                switch (i) {
+                                    case 0: // name
+                                        selectableItem.setMode(0);
+                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                        break;
+                                    case 1: // city
+                                        selectableItem.setMode(1);
+                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                        break;
+                                    case 2: // detail
+                                        selectableItem.setMode(2);
+                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                        break;
+                                    case 3: // no
+                                        selectableItem.setMode(3);
+                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
+
+//                return true;
+
+//                String detail_etc = etcEdittext.getText().toString();
+//                selectableItem.setDetailEtc(detail_etc);
+////
+////                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
+////                        + " : "+ selectableItem.getUpperwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
+//                startActivity(i);
             }
         });
 

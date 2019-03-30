@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public class Lost {
@@ -15,9 +16,11 @@ public class Lost {
     private static ArrayList<String> listplace = new ArrayList<String>();
     private static ArrayList<String> listheight = new ArrayList<String>();
 
+    private static List<Lost> loadDataMain;
+
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://23be3f64.ngrok.io";
+    private static String BASE_URL = "https://e94d6f3a.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -681,5 +684,14 @@ public class Lost {
         this.special = "";
         this.status = "0";
         this.typeId = "";
+    }
+
+    public static List<Lost> getLoadDataMain() {
+        return loadDataMain;
+    }
+
+    public static void setLoadDataMain(List<Lost> loadDataMain) {
+        Lost.loadDataMain  = new ArrayList<>();
+        Lost.loadDataMain = loadDataMain;
     }
 }

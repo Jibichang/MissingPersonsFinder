@@ -81,7 +81,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             }
         });
 
-//        Toast.makeText(getApplicationContext(),fname,Toast.LENGTH_LONG).show();
 
 //        final Lost lostItem = mLostItemList.get(0);
         mDataLostView = findViewById(R.id.list_result);
@@ -294,9 +293,8 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 selectableItem.getMode()
         );
 
-        obLost.setMode(0);
-
-
+        Toast.makeText(getApplicationContext(), " ok"+ selectableItem.getDetailEtc(), Toast.LENGTH_LONG).show();
+//        obLost.setMode(0);
         Lost obLost3 = new Lost("","",
                 "M","","",
                 "","","",
