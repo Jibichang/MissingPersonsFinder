@@ -20,7 +20,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://e94d6f3a.ngrok.io";
+    private static String BASE_URL = " https://586b921b.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -110,25 +110,25 @@ public class Lost {
         this.gender = "M";
         this.age = "";
 
-        this.place = "-";
-        this.city = "-";
-        this.district = "-";
-        this.subdistrict = "-";
+        this.place = "";
+        this.city = "";
+        this.district = "";
+        this.subdistrict = "";
 
         this.height = "";
-        this.shape = "S0";
-        this.haircolor = "-";
-        this.hairtype = "HT0";
-        this.skintone = "T0";
+        this.shape = "";
+        this.haircolor = "";
+        this.hairtype = "";
+        this.skintone = "";
 
-        this.upperwaist = "U00";
+        this.upperwaist = "";
         this.uppercolor = "";
-        this.lowerwaist = "L00";
+        this.lowerwaist = "";
         this.lowercolor = "";
 
         this.detailEtc = "";
         this.special = "";
-        this.status = "0";
+        this.status = "";
         this.typeId = "";
 
     }
@@ -162,7 +162,7 @@ public class Lost {
         this.mode = mode;
     }
 
-    public Lost(String fname, String lname, String gender, String age,
+    public Lost(String pname, String fname, String lname, String gender, String age,
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
@@ -247,9 +247,51 @@ public class Lost {
         return msg;
     }
 
-    public String strGender(){
-        if(this.gender.equals("M")){ return "ชาย"; }
-        else {  return "หญิง"; }
+
+
+    public String strDetails(){
+        String msg = String.format(
+                Locale.getDefault(),
+                "ส่วนสูง : %s " +
+                        "รูปร่าง : %s\n" +
+                        "ผม : %s " +
+                        "ผมสี : %s\n" +
+                        "สีผิว : %s\n" +
+                        "เสื้อผ้า : %s " +
+                        "%s " +
+                        "%s " +
+                        "%s\n" +
+                        "ลักษณะทางกายภาพ : %s " +
+                        "%s\n" +
+                        "ประเภทคนหาย : %s",
+//                        "%s\n" +
+                this.fname,
+                this.lname,
+                strGender(),
+                this.age,
+                this.city,
+                this.district,
+                this.subdistrict,
+                this.place,
+
+                this.height,
+                this.shape,
+
+                this.hairtype,
+                this.haircolor,
+                this.skintone,
+                this.upperwaist,
+                this.uppercolor,
+                this.lowerwaist,
+                this.lowercolor,
+
+                this.detailEtc,
+                this.special,
+                strType()
+//                this.status,
+
+        );
+        return msg;
     }
 
     public String strType() {
@@ -262,6 +304,11 @@ public class Lost {
         else if (this.typeId.equals("7")) {return "อาการทางสมอง";}
         else if (this.typeId.equals("8")) {return "อาการทางสมอง หลงลืม";}
         else {return "ไม่ระบุ";}
+    }
+
+    public String strGender(){
+        if(this.gender.equals("M")){ return "ชาย"; }
+        else {  return "หญิง"; }
     }
 
 //
@@ -664,25 +711,25 @@ public class Lost {
         this.gender = "M";
         this.age = "";
 
-        this.place = "-";
-        this.city = "-";
-        this.district = "-";
-        this.subdistrict = "-";
+        this.place = "";
+        this.city = "";
+        this.district = "";
+        this.subdistrict = "";
 
         this.height = "";
-        this.shape = "S0";
-        this.haircolor = "-";
-        this.hairtype = "HT0";
-        this.skintone = "T0";
+        this.shape = "";
+        this.haircolor = "";
+        this.hairtype = "";
+        this.skintone = "";
 
-        this.upperwaist = "U00";
+        this.upperwaist = "";
         this.uppercolor = "";
-        this.lowerwaist = "L00";
+        this.lowerwaist = "";
         this.lowercolor = "";
 
         this.detailEtc = "";
         this.special = "";
-        this.status = "0";
+        this.status = "";
         this.typeId = "";
     }
 

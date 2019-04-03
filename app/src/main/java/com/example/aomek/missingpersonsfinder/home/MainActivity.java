@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
-
+//        setupListView();
 //        loadData();
 
 //        getName();
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         LostListAdapter adapter = new LostListAdapter(
                 MainActivity.this,
                 R.layout.list_lost,
-                mLostItemList
+                Lost.getLoadDataMain()
         );
         ListView lv = findViewById(R.id.listview_lost);
         lv.setAdapter(adapter);
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Lost> lost = lostmodel.getBody();
                     mLostItemList = new ArrayList<>();
                     for (int i = 0; i < 15; i++) {
+                        String pname = lost.get(i).getPname();
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
                         String gender = lost.get(i).getGender();
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(fname, lname, gender, age,city, dis, sub, place, height,
+                        Lost item = new Lost(pname, fname, lname, gender, age,city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
                                 lowercolor, skintone, type_id, status, detail_etc, special,date);
                         mLostItemList.add(item);
@@ -212,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         loadPhoneData();
-        loadData();
-//        setupListView();
+//        loadData();
+        setupListView();
     }
     public void loadPhoneData(){
         getUserNameFormDB();

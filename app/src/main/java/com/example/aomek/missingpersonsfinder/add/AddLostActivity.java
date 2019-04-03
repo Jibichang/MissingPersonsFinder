@@ -173,7 +173,9 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
 //                    intentLost.putExtra("lname", lname);
 //                    intentLost.putExtra("place", place);
                     intentLost = new Intent(getApplicationContext(), SelecterActivity.class);
+                    intentLost.putExtra("isAddAct", true);
                     startActivity(intentLost);
+
 
 //                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+" : "+
 //                                    selectableItem.getLname()+ " : "+ selectableItem.getAge()+ " : "+

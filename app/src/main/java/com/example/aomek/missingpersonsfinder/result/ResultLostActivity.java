@@ -63,10 +63,12 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //    private String strPOST;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_lost);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_home);
@@ -97,6 +99,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             }
         };
         countDownTimer.start();
+
         searchLostData();
 
 //        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -223,42 +226,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 .build();
 
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
-//        try {
-//            JSONObject paramObject = new JSONObject();
-////            paramObject.put("fname", "ธนโชติ");
-//            paramObject.put("fname", "ธนโชติ");
-//            paramObject.put("lname", "บุญ");
-//            paramObject.put("gender", "M");
-//            paramObject.put("city", "นครสวรรค์");
-//            paramObject.put("height", "0");
-////            paramObject.put("weight", "0");
-//            paramObject.put("shape", "0");
-//            paramObject.put("hairtype", "0");
-//            paramObject.put("haircolor", "0");
-//            paramObject.put("skintone", "0");
-//            paramObject.put("type_id", "0");
-//            paramObject.put("status", "0");
-//            paramObject.put("detail_etc", " ");
-////            Toast.makeText(getApplicationContext(), selectableItem.getFname(),selectableItem.getLname(),
-//                selectableItem.getGender(),selectableItem.getAge(),selectableItem.getCity(),
-//                selectableItem.getDistrict(),selectableItem.getSubdistrict(),selectableItem.getPlace(),
-//                selectableItem.getHeight(),selectableItem.getShape(),selectableItem.getHairtype(),
-//                selectableItem.getHaircolor(),selectableItem.getUpperrwaist(),selectableItem.getUppercolor(),
-//                selectableItem.getLowerwaist(),selectableItem.getLowercolor(),
-//                selectableItem.getSkintone(),selectableItem.getTypeId(),
-//                "0",selectableItem.getDetailEtc(),selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
-//            strPOST = paramObject.toString();
-//            TextView text = findViewById(R.id.textJSON);
-//            text.setText(strPOST);
-//            obLost = new Lost("ธนโชติ","บุญ","M","นครสวรรค์"
-//                    ,"0","0","0","0","0",
-//                    "0","0","0"," ");
-////
-//           //new Gson().toJson(obLost)
-//        }catch (JSONException e){
-//            e.printStackTrace();
-//        }
-//
 //                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+selectableItem.getLname()+
 //                selectableItem.getGender()+selectableItem.getAge()+selectableItem.getCity()+
 //                selectableItem.getDistrict()+selectableItem.getSubdistrict()+selectableItem.getPlace()+
@@ -313,6 +280,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                     mLostItemList = new ArrayList<>();
                     mLostItemList.clear();
                     for (int i = 0; i < lost.size(); i++) {
+                        String pname = lost.get(i).getPname();
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
                         String gender = lost.get(i).getGender();
@@ -341,7 +309,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(fname, lname, gender, age,city, dis, sub, place, height,
+                        Lost item = new Lost(pname, fname, lname, gender, age,city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
                                 lowercolor, skintone, type_id, status, detail_etc, special,date);
                         mLostItemList.add(item);
@@ -411,9 +379,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 R.layout.list_lost,
                 mLostItemList
         );
-        lv.setAdapter(adapterLost);
-        setSwipeListView();
 
+        setSwipeListView();
+        lv.setAdapter(adapterLost);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {

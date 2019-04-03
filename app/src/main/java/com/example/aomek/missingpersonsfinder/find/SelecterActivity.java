@@ -27,6 +27,7 @@ import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Details;
 import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.result.AddConfirmActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
     private ArrayList<String> mImageUrls = new ArrayList<String>();
     private final boolean isUpper = true;
     public Lost itemSelect = new Lost();
+    private Boolean isAddAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,55 +66,24 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             }
         });
 
+        Intent intent = new Intent();
+//        isAddAct = intent.getBooleanExtra("isAddAct", false);
+
+        isAddAct = getIntent().getBooleanExtra("isAddAct", false);
+
+
         Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] items = new String[]{
-                        "ข้อมูลส่วนตัว",
-                        "สถานที่",
-                        "ลักษณะทางกายภาพ",
-                        "ไม่เลือก"
-                };
+                Toast.makeText(SelecterActivity.this, "ff"+ isAddAct,Toast.LENGTH_LONG).show();
+                if (isAddAct){
+                    startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
 
-                new AlertDialog.Builder(SelecterActivity.this)
-                        .setTitle("เลือกความสำคัญของข้อมูล")
-                        .setItems(items, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String detail_etc = etcEdittext.getText().toString();
-                                selectableItem.setDetailEtc(detail_etc);
-                                switch (i) {
-                                    case 0: // name
-                                        selectableItem.setMode(0);
-                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
-                                        break;
-                                    case 1: // city
-                                        selectableItem.setMode(1);
-                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
-                                        break;
-                                    case 2: // detail
-                                        selectableItem.setMode(2);
-                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
-                                        break;
-                                    case 3: // no
-                                        selectableItem.setMode(3);
-                                        startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
-                                        break;
-                                }
-                            }
-                        })
-                        .show();
+                }else {
+                    showFilter();
+                }
 
-//                return true;
-
-//                String detail_etc = etcEdittext.getText().toString();
-//                selectableItem.setDetailEtc(detail_etc);
-////
-////                Toast.makeText(SelecterActivity.this, selectableItem.getHairtype()+ " : "+ selectableItem.getShape()
-////                        + " : "+ selectableItem.getUpperwaist() + " : "+ selectableItem.getLowerwaist(), Toast.LENGTH_SHORT).show();
-//                Intent i = new Intent(SelecterActivity.this, ResultLostActivity.class);
-//                startActivity(i);
             }
         });
 
@@ -185,6 +156,44 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             }
         });
 
+    }
+
+    private void showFilter(){
+        String[] items = new String[]{
+                "ข้อมูลส่วนตัว",
+                "สถานที่",
+                "ลักษณะทางกายภาพ",
+                "ไม่เลือก"
+        };
+
+        new AlertDialog.Builder(SelecterActivity.this)
+                .setTitle("เลือกความสำคัญของข้อมูล")
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String detail_etc = etcEdittext.getText().toString();
+                        selectableItem.setDetailEtc(detail_etc);
+                        switch (i) {
+                            case 0: // name
+                                selectableItem.setMode(0);
+                                startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                break;
+                            case 1: // city
+                                selectableItem.setMode(1);
+                                startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                break;
+                            case 2: // detail
+                                selectableItem.setMode(2);
+                                startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                break;
+                            case 3: // no
+                                selectableItem.setMode(3);
+                                startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
+                                break;
+                        }
+                    }
+                })
+                .show();
     }
 
     public void setSpinnerHeight(){
