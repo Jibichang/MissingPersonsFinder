@@ -86,6 +86,8 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
                 break;
         }
 
+
+
 //        titleTextView.setText(title);
 //        numberTextView.setText(number);
 

@@ -62,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
                     List<Lost> lost = lostmodel.getBody();
                     mLostItemList = new ArrayList<>();
                     for (int i = 0; i < 15; i++) {
+                        String id = lost.get(i).getId();
                         String pname = lost.get(i).getPname();
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
@@ -91,7 +92,7 @@ public class SplashActivity extends AppCompatActivity {
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(pname, fname, lname, gender, age,city, dis, sub, place, height,
+                        Lost item = new Lost(id, pname, fname, lname, gender, age,city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
                                 lowercolor, skintone, type_id, status, detail_etc, special,date);
                         mLostItemList.add(item);

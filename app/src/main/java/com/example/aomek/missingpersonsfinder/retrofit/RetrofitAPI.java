@@ -1,4 +1,5 @@
 package com.example.aomek.missingpersonsfinder.retrofit;
+import com.example.aomek.missingpersonsfinder.model.Feedback;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.model.UserGH;
@@ -42,6 +43,11 @@ public interface RetrofitAPI {
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/searchSub.php")
     Call<LostModel> searchSubDistrict(@Body Lost body);
+
+    // Feedback
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/feedback/create.php")
+    Call<Feedback> addFeedback(@Body Feedback body);
 
 
     @Headers("Content-Type: application/json")

@@ -1,11 +1,15 @@
 package com.example.aomek.missingpersonsfinder.result;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -18,6 +22,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.Window;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,6 +39,7 @@ import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.adapter.SwipeDismissListViewTouchListener;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
+import com.example.aomek.missingpersonsfinder.model.Feedback;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
@@ -45,6 +51,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,14 +62,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ResultLostActivity extends AppCompatActivity implements ItemClickListener {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
-    private List<Lost> mLostItemList;
+    private List<Lost> mLostResultItemList;
     private View mDataLostView;
     private View mAddView;
     private View mProgressView;
-    private LostListAdapter adapterLost;
-    private SwipeMenuListView lv;
+//    private LostListAdapter adapterLost;
+//    private SwipeMenuListView lv;
 //    private String strPOST;
-
 
 
     @Override
@@ -94,13 +101,19 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             public void onTick(long millisUntilFinished) {
                 mAddView.setVisibility(View.GONE);
             }
+
             public void onFinish() {
                 mAddView.setVisibility(View.VISIBLE);
             }
         };
         countDownTimer.start();
 
-        searchLostData();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
 
 //        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 //            @Override
@@ -218,7 +231,33 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //        String date = intent.getStringExtra("date");
     }
 
-    private void searchLostData(){
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+//                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        searchLostData();
+
+    }
+
+    private void searchLostData() {
         showProgress(true);
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
@@ -260,16 +299,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 selectableItem.getMode()
         );
 
-        Toast.makeText(getApplicationContext(), " ok"+ selectableItem.getDetailEtc(), Toast.LENGTH_LONG).show();
-//        obLost.setMode(0);
-        Lost obLost3 = new Lost("","",
-                "M","","",
-                "","","",
-                "","","",
-                "","","",
-                "","",""," ",
-                "0","","",0);
-//        Lost obLost2 = new Lost();
         Call<LostModel> call = retrofit.searchLost(obLost);
         call.enqueue(new Callback<LostModel>() {
             @Override
@@ -277,9 +306,10 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 if (response.body() != null) {
                     LostModel lostmodel = response.body();
                     List<Lost> lost = lostmodel.getBody();
-                    mLostItemList = new ArrayList<>();
-                    mLostItemList.clear();
+                    mLostResultItemList = new ArrayList<>();
+//                    mLostItemList.clear();
                     for (int i = 0; i < lost.size(); i++) {
+                        String id = lost.get(i).getId();
                         String pname = lost.get(i).getPname();
                         String fname = lost.get(i).getFname();
                         String lname = lost.get(i).getLname();
@@ -309,15 +339,15 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(pname, fname, lname, gender, age,city, dis, sub, place, height,
+                        Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special,date);
-                        mLostItemList.add(item);
+                                lowercolor, skintone, type_id, status, detail_etc, special, date);
+                        mLostResultItemList.add(item);
                     }
 //                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
-                    showProgress(false);
                     setupListView();
-                }else {
+                    showProgress(false);
+                } else {
                     showProgress(false);
 //                    Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
                 }
@@ -344,78 +374,46 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //                ob.getDetailEtc() + " ผอม"
 //                );
 
-//        call.enqueue(new Callback<LostModel>() {
-//            @Override
-//            public void onResponse(Call<LostModel> call, Response<LostModel> response) {
-//                if (response.body() != null) {
-//                    LostModel lostmodel = response.body();
-//                    List<Lost> lost = lostmodel.getBody();
-//                    mLostItemList = new ArrayList<>();
-//                    for (int i = 0; i < lost.size(); i++) {
-//                        String fname = lost.get(i).getFname();
-//                        String lname = lost.get(i).getLname();
-//                        String detail = lost.get(i).getDetailEtc();
-//                        String date = lost.get(i).getRegDate();
-//
-//                        Toast.makeText(getApplicationContext(), lost.get(i).getDetailEtc(),Toast.LENGTH_LONG).show();
-//
-//                        Lost item = new Lost(fname, lname, detail, date);
-//                        mLostItemList.add(item);
-//                    }
-////                    setupListView();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
     private void setupListView() {
-        lv = findViewById(R.id.list_result);
-        adapterLost = new LostListAdapter(
+        final LostListAdapter adapterLost = new LostListAdapter(
                 ResultLostActivity.this,
                 R.layout.list_lost,
-                mLostItemList
+                mLostResultItemList
         );
-
-        setSwipeListView();
+        final SwipeMenuListView lv = findViewById(R.id.list_result);
+        setSwipeListView(lv);
         lv.setAdapter(adapterLost);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Lost item = mLostItemList.get(position);
+                Lost item = mLostResultItemList.get(position);
 
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
                 intent.putExtra("stringLost", item.toString());
                 startActivity(intent);
-//                PhoneItem item = mPhoneItemList.get(position);
-//
-//                final PhoneItem phoneItem = mPhoneItemList.get(position);
-//
-//                switch (i) {
-//                    case 0: // Edit
-//                        Intent intent = new Intent(MainActivity.this, EditPhoneItemActivity.class);
-//                        intent.putExtra("title", phoneItem.title);
-//                        intent.putExtra("number", phoneItem.number);
-//                        intent.putExtra("id", phoneItem._id);
-//                        startActivity(intent);
-//                        break;}
 //
             }
         });
-
         lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                Toast.makeText(getApplicationContext(),"ลบแล้ว",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
+                String id =  mLostResultItemList.get(position).getId();
+                //TODO guest id after login
+                String gid = "1";
+                addFeedback(gid, id);
+                mLostResultItemList.remove(position);
+                adapterLost.notifyDataSetChanged();
+                lv.invalidateViews();
+                lv.setAdapter(adapterLost);
                 return false;
             }
         });
     }
 
-    private void setSwipeListView() {
+    private void setSwipeListView(SwipeMenuListView lv) {
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -476,6 +474,32 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             mDataLostView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+
+    private void addFeedback(String gID, String ID) {
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+
+        Feedback obFB = new Feedback(gID, ID);
+
+        Call<Feedback> call = retrofit.addFeedback(obFB);
+        call.enqueue(new Callback<Feedback>() {
+            @Override
+            public void onResponse(Call<Feedback> call, Response<Feedback> response) {
+                if (response.code() == 201) {
+                    Feedback feedback = response.body();
+//                    Toast.makeText(getApplicationContext(), " yes" + response.code(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {  }
+        });
+    }
+
 
 
 }

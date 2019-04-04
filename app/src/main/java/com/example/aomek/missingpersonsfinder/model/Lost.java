@@ -20,7 +20,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = " https://586b921b.ngrok.io";
+    private static String BASE_URL = "https://a384e326.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -162,11 +162,13 @@ public class Lost {
         this.mode = mode;
     }
 
-    public Lost(String pname, String fname, String lname, String gender, String age,
+    public Lost(String id, String pname, String fname, String lname, String gender, String age,
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
                 String type_id, String status, String detail_etc, String special, String regDate) {
+        this.id = id;
+        this.pname = pname;
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;
@@ -346,6 +348,14 @@ public class Lost {
 //        this.regDate = regDate;
 //    }
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getPname() {
         return pname;
