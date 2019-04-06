@@ -20,7 +20,7 @@ public class Lost {
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://a384e326.ngrok.io";
+    private static String BASE_URL = "https://bd68c870.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -162,6 +162,39 @@ public class Lost {
         this.mode = mode;
     }
 
+    /// Search
+    public Lost(String fname, String lname, String gender, String age,
+                String city, String district, String subdistrict, String place, String height,
+                String shape, String hairtype, String haircolor,
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
+                String type_id, String status, String detail_etc, String special, Integer mode, String guestId) {
+        this.fname = fname;
+        this.lname = lname;
+        this.gender = gender;
+        this.age = age;
+        this.place = place;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.city = city;
+        this.height = height;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.upperwaist = upperwaist;
+        this.uppercolor = uppercolor;
+        this.lowerwaist = lowerwaist;
+        this.lowercolor = lowercolor;
+        this.detailEtc = detail_etc;
+        this.special = special;
+        this.typeId = type_id;
+        this.status = status;
+        this.mode = mode;
+        this.guestId = guestId;
+    }
+
+
+    /// Get data peoplelost
     public Lost(String id, String pname, String fname, String lname, String gender, String age,
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,

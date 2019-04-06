@@ -296,8 +296,11 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 "0",
                 selectableItem.getDetailEtc(),
                 selectableItem.getSpecial(),
-                selectableItem.getMode()
+                selectableItem.getMode(),
+                "1"
+
         );
+        //TODO selectableItem.getGuestId(),
 
         Call<LostModel> call = retrofit.searchLost(obLost);
         call.enqueue(new Callback<LostModel>() {
@@ -345,8 +348,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         mLostResultItemList.add(item);
                     }
 //                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
-                    setupListView();
                     showProgress(false);
+                    setupListView();
+
                 } else {
                     showProgress(false);
 //                    Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
@@ -358,21 +362,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
             }
         });
-
-//        Call<LostModel> call = retrofit.searchLost(
-//                ob.getFname()+ "",
-//                ob.getLname() + " ",
-//                ob.getGender() + "",
-//                ob.getCity() + "",
-//                ob.getHeight() + "",
-//                ob.getShape() + "",
-//                ob.getHairtype() + "",
-//                ob.getHaircolor() + "",
-//                ob.getSkintone() + "",
-//                ob.getTypeId() + "",
-//                ob.getStatus() + "",
-//                ob.getDetailEtc() + " ผอม"
-//                );
 
     }
 
@@ -401,7 +390,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
                 String id =  mLostResultItemList.get(position).getId();
-                //TODO guest id after login
+                //TODO set guest_id after login / selectableItem.setGuestId()
                 String gid = "1";
                 addFeedback(gid, id);
                 mLostResultItemList.remove(position);
