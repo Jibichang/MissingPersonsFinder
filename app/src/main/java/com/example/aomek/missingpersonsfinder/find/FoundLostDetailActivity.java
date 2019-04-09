@@ -1,5 +1,8 @@
 package com.example.aomek.missingpersonsfinder.find;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
@@ -10,6 +13,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -288,6 +293,7 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
         typeSpinner.setAdapter(adapterType);
     }
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -312,4 +318,6 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
                     return false;
                 }
             };
+
+
 }

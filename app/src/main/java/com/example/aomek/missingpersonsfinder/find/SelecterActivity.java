@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +23,9 @@ import android.widget.Toast;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.DetailListAdapter;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
-import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Details;
 import com.example.aomek.missingpersonsfinder.model.Lost;
-import com.example.aomek.missingpersonsfinder.result.AddConfirmActivity;
+import com.example.aomek.missingpersonsfinder.add.AddConfirmActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 
 import java.util.ArrayList;

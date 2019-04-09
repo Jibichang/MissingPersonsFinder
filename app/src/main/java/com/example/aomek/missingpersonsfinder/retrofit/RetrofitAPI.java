@@ -1,23 +1,18 @@
 package com.example.aomek.missingpersonsfinder.retrofit;
 import com.example.aomek.missingpersonsfinder.model.Feedback;
+import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.model.UserGH;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RetrofitAPI {
-//    @GET("member/getMember.php?id=197")
-    //member/getMember.php?id=197
 
     @GET("/users/{username}")
     Call<UserGH> getUser(@Path("username") String username);
@@ -48,6 +43,11 @@ public interface RetrofitAPI {
     @Headers("Content-Type: application/json")
     @POST("/plost/api/feedback/create.php")
     Call<Feedback> addFeedback(@Body Feedback body);
+
+    // Guest Lost
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/persons/read_guest.php")
+    Call<LostModel> searchGuest(@Body Guest body);
 
 
     @Headers("Content-Type: application/json")

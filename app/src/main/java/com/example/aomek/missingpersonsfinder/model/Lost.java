@@ -17,10 +17,11 @@ public class Lost {
     private static ArrayList<String> listheight = new ArrayList<String>();
 
     private static List<Lost> loadDataMain;
+    private static List<Lost> loadDataMyLost;
 
     public static boolean onStatusLogin = true;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://bd68c870.ngrok.io";
+    private static String BASE_URL = "https://def87171.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -278,13 +279,12 @@ public class Lost {
 //                this.status,
                 this.regDate
 
-                );
+        );
         return msg;
     }
 
 
-
-    public String strDetails(){
+    public String strDetails() {
         String msg = String.format(
                 Locale.getDefault(),
                 "ส่วนสูง : %s " +
@@ -297,18 +297,8 @@ public class Lost {
                         "%s " +
                         "%s\n" +
                         "ลักษณะทางกายภาพ : %s " +
-                        "%s\n" +
-                        "ประเภทคนหาย : %s",
+                        "%s\n",
 //                        "%s\n" +
-                this.fname,
-                this.lname,
-                strGender(),
-                this.age,
-                this.city,
-                this.district,
-                this.subdistrict,
-                this.place,
-
                 this.height,
                 this.shape,
 
@@ -321,8 +311,7 @@ public class Lost {
                 this.lowercolor,
 
                 this.detailEtc,
-                this.special,
-                strType()
+                this.special
 //                this.status,
 
         );
@@ -330,20 +319,33 @@ public class Lost {
     }
 
     public String strType() {
-        if (this.typeId.equals("1")) {return "ลักพาตัว";}
-        else if (this.typeId.equals("2")) {return "เด็กพลัดหลง";}
-        else if (this.typeId.equals("3")) {return "จิตเวท";}
-        else if (this.typeId.equals("4")) {return "พัฒนาการทางสมองช้า";}
-        else if (this.typeId.equals("5")) {return "แย้งความปกครองบุตร";}
-        else if (this.typeId.equals("6")) {return "สุขภาพจิต";}
-        else if (this.typeId.equals("7")) {return "อาการทางสมอง";}
-        else if (this.typeId.equals("8")) {return "อาการทางสมอง หลงลืม";}
-        else {return "ไม่ระบุ";}
+        if (this.typeId.equals("1")) {
+            return "ลักพาตัว";
+        } else if (this.typeId.equals("2")) {
+            return "เด็กพลัดหลง";
+        } else if (this.typeId.equals("3")) {
+            return "จิตเวท";
+        } else if (this.typeId.equals("4")) {
+            return "พัฒนาการทางสมองช้า";
+        } else if (this.typeId.equals("5")) {
+            return "แย้งความปกครองบุตร";
+        } else if (this.typeId.equals("6")) {
+            return "สุขภาพจิต";
+        } else if (this.typeId.equals("7")) {
+            return "อาการทางสมอง";
+        } else if (this.typeId.equals("8")) {
+            return "อาการทางสมอง หลงลืม";
+        } else {
+            return "ไม่ระบุ";
+        }
     }
 
-    public String strGender(){
-        if(this.gender.equals("M")){ return "ชาย"; }
-        else {  return "หญิง"; }
+    public String strGender() {
+        if (this.gender.equals("M")) {
+            return "ชาย";
+        } else {
+            return "หญิง";
+        }
     }
 
 //
@@ -781,7 +783,14 @@ public class Lost {
     }
 
     public static void setLoadDataMain(List<Lost> loadDataMain) {
-        Lost.loadDataMain  = new ArrayList<>();
+        Lost.loadDataMain = new ArrayList<>();
         Lost.loadDataMain = loadDataMain;
+    }
+
+    public static List<Lost> getLoadDataMyLost() {  return loadDataMyLost; }
+
+    public static void setLoadDataMyLost(List<Lost> loadDataMyLost) {
+        Lost.loadDataMyLost = new ArrayList<>();
+        Lost.loadDataMyLost = loadDataMyLost;
     }
 }

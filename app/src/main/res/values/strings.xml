@@ -46,6 +46,7 @@
     <string name="detail_lower">เครื่องแต่งกายส่วนล่าง</string>
     <string name="detail_etc">ลักษณะชี้เฉพาะ</string>
     <string name="detail_skintone">สีผิว</string>
+    <string name="type">ประเภท</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
