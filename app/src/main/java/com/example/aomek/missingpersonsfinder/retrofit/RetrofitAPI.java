@@ -49,6 +49,11 @@ public interface RetrofitAPI {
     @POST("/plost/api/persons/read_guest.php")
     Call<LostModel> searchGuest(@Body Guest body);
 
+    // Login
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/member/guest_login.php")
+    Call<Guest> Login(@Body Guest body);
+
 
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_get.php")

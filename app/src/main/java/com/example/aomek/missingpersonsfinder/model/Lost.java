@@ -19,9 +19,9 @@ public class Lost {
     private static List<Lost> loadDataMain;
     private static List<Lost> loadDataMyLost;
 
-    public static boolean onStatusLogin = true;
+    public static boolean onStatusLogin = false;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://def87171.ngrok.io";
+    private static String BASE_URL = "https://98cf5983.ngrok.io";
 
     @SerializedName("id")
     @Expose

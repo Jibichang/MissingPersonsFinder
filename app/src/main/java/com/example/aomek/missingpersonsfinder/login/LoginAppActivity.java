@@ -6,8 +6,18 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
+
+import com.example.aomek.missingpersonsfinder.model.Guest;
+import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -29,10 +39,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,7 +178,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (password != "" && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -189,8 +203,10 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+//            mAuthTask = new UserLoginTask(email, password);
+//            mAuthTask.execute((Void) null);
+            Toast.makeText(getApplicationContext(), " ok" + email + " : " +password, Toast.LENGTH_LONG).show();
+            loginGuest(email, password);
         }
     }
 
@@ -298,6 +314,54 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+    private void loginGuest(String email, String password) {
+        showProgress(true);
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+
+        email = email.trim();
+        password = password.trim();
+
+        Guest obGuest = new Guest(email, password);
+        Call<Guest> call = retrofit.Login(obGuest);
+        call.enqueue(new Callback<Guest>() {
+            @Override
+            public void onResponse(Call<Guest> call, Response<Guest> response) {
+                if (response.body() != null) {
+                    Guest guest = response.body();
+                    String id = guest.getGuestId();
+                    String name = guest.getName();
+                    String email = guest.getEmail();
+                    String place = guest.getPlace();
+                    String phone = guest.getPhone();
+//                    Toast.makeText(getApplicationContext(), " ok" + id, Toast.LENGTH_LONG).show();
+
+                }
+
+//                Button loginButton = findViewById(R.id.email_sign_in_button);
+//                loginButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent i = new Intent(LoginAppActivity.this, MainActivity.class);
+//                        startActivity(i);
+//                    }
+//                });
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Failure" + t, Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+        });
+
+    }
+
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -347,7 +411,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
                     @Override
                     public void onClick(View view) {
                         Intent i = new Intent(LoginAppActivity.this, MainActivity.class);
-                        startActivity(i);
+//                        startActivity(i);
                     }
                 });
 //                finish();
@@ -363,5 +427,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(false);
         }
     }
+
+
 }
 

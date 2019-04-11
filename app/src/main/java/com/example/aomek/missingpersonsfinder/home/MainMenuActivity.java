@@ -7,6 +7,8 @@ import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
 import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
 import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
+import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
+import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,8 +54,11 @@ public class MainMenuActivity extends AppCompatActivity {
         goAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddLostActivity.class);
-                startActivity(i);
+                if(Lost.onStatusLogin){
+                    startActivity(new Intent(getApplicationContext(), AddLostActivity.class));
+                } else {
+                    startActivity(new Intent(getApplicationContext(), LoginAppActivity.class));
+                }
             }
         });
 
