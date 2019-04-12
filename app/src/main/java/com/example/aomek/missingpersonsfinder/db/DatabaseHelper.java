@@ -7,19 +7,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "member.db";
+    private static final String DATABASE_NAME = "guest.db";
     private static final int DATABASE_VERSION = 1;
 
-    public static final String TABLE_NAME = "member";
+    public static final String TABLE_NAME = "guest";
     public static final String COL_ID = "_id";
+    public static final String COL_GUEST = "guest";
     public static final String COL_NAME = "name";
     public static final String COL_EMAIL = "email";
     public static final String COL_PLACE = "place";
     public static final String COL_PHONE = "phone";
 
-    private static final String SQL_CREATE_TABLE_MEMBER
+    private static final String SQL_CREATE_TABLE_GUEST
             = "CREATE TABLE " + TABLE_NAME + "("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COL_GUEST + " TEXT,"
             + COL_NAME + " TEXT,"
             + COL_EMAIL + " TEXT,"
             + COL_PLACE + " TEXT,"
@@ -32,13 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_TABLE_MEMBER);
+        db.execSQL(SQL_CREATE_TABLE_GUEST);
 
-        ContentValues cv = new ContentValues();
-        cv.put(COL_NAME, "WARUNEE");
-        cv.put(COL_EMAIL, "aomekkla@gmail.com");
-        cv.put(COL_PHONE, "0828543654");
-        db.insert(TABLE_NAME, null, cv);
+//        ContentValues cv = new ContentValues();
+//        cv.put(COL_NAME, "WARUNEE");
+//        cv.put(COL_EMAIL, "aomekkla@gmail.com");
+//        cv.put(COL_PHONE, "0828543654");
+//        db.insert(TABLE_NAME, null, cv);
     }
 
     @Override

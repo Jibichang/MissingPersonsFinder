@@ -1,9 +1,12 @@
 package com.example.aomek.missingpersonsfinder.home;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
+import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
 import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
 import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
@@ -19,15 +22,27 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
+
 public class MainMenuActivity extends AppCompatActivity {
+    private DatabaseHelper mHelper;
+    private SQLiteDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        // Set Database
+        mHelper = new DatabaseHelper(MainMenuActivity.this);
+        mDb = mHelper.getWritableDatabase();
+
+        doCheckLogin();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -71,6 +86,20 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void doCheckLogin(){
+//        mDb.delete(TABLE_NAME, null, null);
+        Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
+        if (c.getCount() == 0) {
+            Lost.onStatusLogin = false;
+            Toast.makeText(getApplicationContext(), "Database empty" +c.getCount(), Toast.LENGTH_LONG).show();
+            c.close();
+        }else {
+            Lost.onStatusLogin = true;
+            Toast.makeText(getApplicationContext(), "Database not empty" +c.getCount(), Toast.LENGTH_LONG).show();
+            c.close();
+        }
     }
 
 

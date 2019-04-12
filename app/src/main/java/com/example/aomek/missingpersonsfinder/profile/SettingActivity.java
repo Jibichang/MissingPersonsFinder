@@ -99,19 +99,20 @@ public class SettingActivity extends AppCompatActivity {
     }
     public void getUserNameFormDB(){
         Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
-        String name = "User";
+//        String name = "User";
         if (c.moveToFirst()) {
             long id = c.getLong(c.getColumnIndex(COL_ID));
-            name = c.getString(c.getColumnIndex(COL_NAME));
+            String name = c.getString(c.getColumnIndex(COL_NAME));
             String phone = c.getString(c.getColumnIndex(COL_PHONE));
             String place = c.getString(c.getColumnIndex(COL_PLACE));
             String email = c.getString(c.getColumnIndex(COL_EMAIL));
             // send to instance viable
             Member item = new Member(id, name, email, place, phone);
+            TextView userTextView = findViewById(R.id.textview_user);
+            userTextView.setText(name);
         }
         c.close();
-        TextView userTextView = findViewById(R.id.textview_user);
-        userTextView.setText(name);
+
     }
 
     private void loadData(){

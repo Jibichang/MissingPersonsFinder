@@ -3,12 +3,15 @@ package com.example.aomek.missingpersonsfinder.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 
+import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -43,12 +47,17 @@ import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_GUEST;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_NAME;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_EMAIL;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_PLACE;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_PHONE;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
+
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -56,6 +65,9 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginAppActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    private DatabaseHelper mHelper;
+    private SQLiteDatabase mDb;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -84,6 +96,10 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_app);
+
+        // Set Database
+        mHelper = new DatabaseHelper(LoginAppActivity.this);
+        mDb = mHelper.getWritableDatabase();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -205,8 +221,8 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(true);
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
-            Toast.makeText(getApplicationContext(), " ok" + email + " : " +password, Toast.LENGTH_LONG).show();
-            loginGuest(email, password);
+//            Toast.makeText(getApplicationContext(), " ok" + email + " : " +password, Toast.LENGTH_LONG).show();
+              loginGuest(email, password);
         }
     }
 
@@ -333,29 +349,21 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
             public void onResponse(Call<Guest> call, Response<Guest> response) {
                 if (response.body() != null) {
                     Guest guest = response.body();
-                    String id = guest.getGuestId();
+                    String gid = guest.getGuestId();
                     String name = guest.getName();
                     String email = guest.getEmail();
                     String place = guest.getPlace();
                     String phone = guest.getPhone();
-//                    Toast.makeText(getApplicationContext(), " ok" + id, Toast.LENGTH_LONG).show();
 
+                    doInsertItem(gid, name, email, place, phone);
                 }
 
-//                Button loginButton = findViewById(R.id.email_sign_in_button);
-//                loginButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent i = new Intent(LoginAppActivity.this, MainActivity.class);
-//                        startActivity(i);
-//                    }
-//                });
                 showProgress(false);
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Failure" + t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Failure Login" + t, Toast.LENGTH_LONG).show();
                 showProgress(false);
             }
         });
@@ -426,6 +434,25 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+
+    private void doInsertItem(String gid, String name, String email, String place, String phone) {
+//        mDb.delete(TABLE_NAME, null, null);
+
+        ContentValues cv = new ContentValues();
+        cv.put(COL_GUEST, gid);
+        cv.put(COL_NAME, name);
+        cv.put(COL_EMAIL, email);
+        cv.put(COL_PLACE, place);
+        cv.put(COL_PHONE, phone);
+        mDb.insert(TABLE_NAME, null, cv);
+
+        Lost.onStatusLogin = true;
+//        finish();
+        startActivity( new Intent(LoginAppActivity.this, MainActivity.class));
+//        Toast.makeText(getApplicationContext(), "ok " + cv.toString(), Toast.LENGTH_LONG).show();
+//        finish();
     }
 
 

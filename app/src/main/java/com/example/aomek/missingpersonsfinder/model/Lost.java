@@ -21,7 +21,7 @@ public class Lost {
 
     public static boolean onStatusLogin = false;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://98cf5983.ngrok.io";
+    private static String BASE_URL = "https://9195e2b4.ngrok.io";
 
     @SerializedName("id")
     @Expose
