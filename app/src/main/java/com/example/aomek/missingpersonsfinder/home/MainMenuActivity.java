@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.add.AddLostActivity;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
@@ -26,9 +27,10 @@ import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_GUEST;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements ItemClickListener {
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
 
@@ -60,8 +62,11 @@ public class MainMenuActivity extends AppCompatActivity {
         goFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), FoundLostActivity.class);
-                startActivity(i);
+                if(Lost.onStatusLogin){
+                    startActivity(new Intent(getApplicationContext(), FoundLostActivity.class));
+                } else {
+                    startActivity(new Intent(getApplicationContext(), LoginAppActivity.class));
+                }
             }
         });
 
@@ -84,8 +89,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), FindMoreActivity.class));
             }
         });
-
-
     }
 
     public void doCheckLogin(){
@@ -93,11 +96,15 @@ public class MainMenuActivity extends AppCompatActivity {
         Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
         if (c.getCount() == 0) {
             Lost.onStatusLogin = false;
-            Toast.makeText(getApplicationContext(), "Database empty" +c.getCount(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Database empty" +c.getCount(), Toast.LENGTH_LONG).show();
             c.close();
         }else {
+            if (c.moveToFirst()){
+                String id = c.getString(c.getColumnIndex(COL_GUEST));
+                selectableItem.setGuestId(id);
+            }
             Lost.onStatusLogin = true;
-            Toast.makeText(getApplicationContext(), "Database not empty" +c.getCount(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Database not empty" +c.getCount(), Toast.LENGTH_LONG).show();
             c.close();
         }
     }

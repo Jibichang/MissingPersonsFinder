@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
@@ -47,7 +48,7 @@ import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_PHONE
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_PLACE;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = MainActivity.class.getName();
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
@@ -74,9 +75,7 @@ public class SettingActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
-
-
+                startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
             }
         });
 
@@ -112,7 +111,6 @@ public class SettingActivity extends AppCompatActivity {
             userTextView.setText(name);
         }
         c.close();
-
     }
 
     private void loadData(){
@@ -125,8 +123,7 @@ public class SettingActivity extends AppCompatActivity {
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
 
         Guest obGuest = new Guest();
-        obGuest.setGuestId("1");
-        //TODO guest_id must be initialized
+        obGuest.setGuestId(selectableItem.getGuestId());
         Call<LostModel> call = retrofit.searchGuest(obGuest);
         call.enqueue(new Callback<LostModel>() {
             @Override

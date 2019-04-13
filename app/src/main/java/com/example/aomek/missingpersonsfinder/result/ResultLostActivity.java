@@ -114,7 +114,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
-
 //        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 //            @Override
 //            public boolean onMenuItemClick(
@@ -297,10 +296,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 selectableItem.getDetailEtc(),
                 selectableItem.getSpecial(),
                 selectableItem.getMode(),
-                "1"
+                selectableItem.getGuestId()
 
         );
-        //TODO selectableItem.getGuestId(),
 
         Call<LostModel> call = retrofit.searchLost(obLost);
         call.enqueue(new Callback<LostModel>() {
@@ -390,9 +388,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
                 String id =  mLostResultItemList.get(position).getId();
-                //TODO set guest_id after login / selectableItem.setGuestId()
-                String gid = "1";
+                String gid = selectableItem.getGuestId();
                 addFeedback(gid, id);
+
                 mLostResultItemList.remove(position);
                 adapterLost.notifyDataSetChanged();
                 lv.invalidateViews();
