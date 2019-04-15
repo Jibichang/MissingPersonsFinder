@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
+import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
@@ -24,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +78,14 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
+            }
+        });
+
+        Button memberButton = findViewById(R.id.button_member);
+        memberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, LoginAppActivity.class));
             }
         });
 
@@ -170,6 +180,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                     }
                     Lost.setLoadDataMyLost(mLostItemList);
                     setupListView();
+                    showNoResult(false);
 
                 }else {
                     showNoResult(true);
@@ -178,7 +189,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             @Override
             public void onFailure(Call call, Throwable t) {
                 showNoResult(true);
-                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
 
             }
         });

@@ -74,7 +74,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SelecterActivity.this, "ff"+ isAddAct,Toast.LENGTH_LONG).show();
+//                Toast.makeText(SelecterActivity.this, "ff"+ isAddAct,Toast.LENGTH_LONG).show();
                 if (isAddAct){
                     startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
 

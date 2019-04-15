@@ -47,9 +47,11 @@ import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_GUEST;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_NAME;
@@ -89,8 +91,19 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private EditText mNameView;
+    private EditText mPlaceView;
+    private EditText mPhoneView;
+
+
     private View mProgressView;
     private View mLoginFormView;
+
+    private View placeInput;
+    private View phoneInput;
+    private View nameInput;
+    private View textRegist;
+    private View buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +115,10 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
         mDb = mHelper.getWritableDatabase();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mNameView = findViewById(R.id.user);
+        mPlaceView = findViewById(R.id.place);
+        mPhoneView = findViewById(R.id.phone);
+
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -120,7 +137,31 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                setLoginView();
                 attemptLogin();
+            }
+        });
+
+        placeInput = findViewById(R.id.layout_regist_place);
+        phoneInput = findViewById(R.id.layout_regist_phone);
+        nameInput = findViewById(R.id.layout_regist_name);
+
+        textRegist = findViewById(R.id.textView_regist);
+        buttonLogin = findViewById(R.id.email_sign_in_button);
+
+
+        Button registerButtom = findViewById(R.id.email_sign_up_button);
+        registerButtom.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                placeInput.setVisibility(View.VISIBLE);
+                phoneInput.setVisibility(View.VISIBLE);
+                nameInput.setVisibility(View.VISIBLE);
+
+                textRegist.setVisibility(View.GONE);
+                buttonLogin.setVisibility(View.GONE);
+
+                attemptRegister();
             }
         });
 
@@ -134,6 +175,15 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
         }
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    private void setLoginView(){
+        placeInput.setVisibility(View.GONE);
+        phoneInput.setVisibility(View.GONE);
+        nameInput.setVisibility(View.GONE);
+
+        textRegist.setVisibility(View.VISIBLE);
+        buttonLogin.setVisibility(View.VISIBLE);
     }
 
     private boolean mayRequestContacts() {
@@ -223,6 +273,58 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
 //            mAuthTask.execute((Void) null);
 //            Toast.makeText(getApplicationContext(), " ok" + email + " : " +password, Toast.LENGTH_LONG).show();
               loginGuest(email, password);
+        }
+    }
+
+    private void attemptRegister() {
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        String name = mNameView.getText().toString();
+        String place = mPlaceView.getText().toString();
+        String phone = mPhoneView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (password != "" && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Set name = email when name empty
+        if (name == "" || name.isEmpty()){
+            name = email;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            registGuest(name, email, password, place, phone);
         }
     }
 
@@ -355,7 +457,10 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
                     String place = guest.getPlace();
                     String phone = guest.getPhone();
 
+                    Toast.makeText(getApplicationContext(), "เข้าสู่ระบบแล้ว", Toast.LENGTH_LONG).show();
                     doInsertItem(gid, name, email, place, phone);
+                }else {
+                    Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
 
                 showProgress(false);
@@ -363,11 +468,75 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Failure Login" + t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "เเข้าสู่ระบบล้มเหลว" + t, Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+        });
+    }
+
+    private void registGuest(String name, String email, String password, String place, String phone) {
+        showProgress(true);
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+
+        name = name.trim();
+        email = email.trim();
+        password = password.trim();
+        place = place.trim();
+        phone = phone.trim();
+
+        Guest obGuestRegister = new Guest(name, email, password, place, phone);
+        Call<Guest> callRegister = retrofit.Register(obGuestRegister);
+        callRegister.enqueue(new Callback<Guest>() {
+            @Override
+            public void onResponse(Call<Guest> call, Response<Guest> response) {
+                if (response.body() != null) {
+                    Toast.makeText(getApplicationContext(), "สมัครสมาชิกแล้ว", Toast.LENGTH_LONG).show();
+                    setLoginView();
+                    mPasswordView.setText("");
+                }
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "สมัครสมาชิกล้มเหลว" + t, Toast.LENGTH_LONG).show();
                 showProgress(false);
             }
         });
 
+//        showProgress(true);
+//
+//        Guest obGuestLogin = new Guest(email, password);
+//        Call<Guest> callLogin = retrofit.Register(obGuestLogin);
+//        callLogin.enqueue(new Callback<Guest>() {
+//            @Override
+//            public void onResponse(Call<Guest> call, Response<Guest> response) {
+//                if (response.body() != null) {
+//                    Guest guest = response.body();
+//                    String gid = guest.getGuestId();
+//                    String name = guest.getName();
+//                    String email = guest.getEmail();
+//                    String place = guest.getPlace();
+//                    String phone = guest.getPhone();
+//
+//                    Toast.makeText(getApplicationContext(), "เข้าสู่ระบบแล้ว", Toast.LENGTH_LONG).show();
+////                    setLoginView();
+//                    doInsertItem(gid, name, email, place, phone);
+//                }
+//                showProgress(false);
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "เข้าสู่ระบบล้มเหลว" + t, Toast.LENGTH_LONG).show();
+//                showProgress(false);
+//            }
+//        });
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -438,7 +607,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
 
 
     private void doInsertItem(String gid, String name, String email, String place, String phone) {
-//        mDb.delete(TABLE_NAME, null, null);
+        mDb.delete(TABLE_NAME, null, null);
 
         ContentValues cv = new ContentValues();
         cv.put(COL_GUEST, gid);

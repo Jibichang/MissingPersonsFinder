@@ -54,6 +54,11 @@ public interface RetrofitAPI {
     @POST("/plost/api/member/guest_login.php")
     Call<Guest> Login(@Body Guest body);
 
+    // Register
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/member/create.php")
+    Call<Guest> Register(@Body Guest body);
+
 
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_get.php")
