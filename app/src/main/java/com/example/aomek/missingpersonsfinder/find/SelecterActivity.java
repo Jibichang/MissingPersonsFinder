@@ -26,6 +26,7 @@ import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.model.Details;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.add.AddConfirmActivity;
+import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 
 import java.util.ArrayList;
@@ -63,12 +64,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
             }
         });
-
-        Intent intent = new Intent();
 //        isAddAct = intent.getBooleanExtra("isAddAct", false);
-
         isAddAct = getIntent().getBooleanExtra("isAddAct", false);
-
 
         Button submitButton = findViewById(R.id.button_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +155,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
     private void showFilter(){
         String[] items = new String[]{
-                "ข้อมูลส่วนตัว",
+                "ออกจากระบบ",
                 "สถานที่",
                 "ลักษณะทางกายภาพ",
                 "ไม่เลือก"
@@ -169,8 +166,6 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String detail_etc = etcEdittext.getText().toString();
-                        selectableItem.setDetailEtc(detail_etc);
                         switch (i) {
                             case 0: // name
                                 selectableItem.setMode(0);
@@ -196,15 +191,14 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
     public void setSpinnerHeight(){
         heightSpinner = findViewById(R.id.spinner_height);
-        Lost.setListHeight();
+        Details.setHeight_list();
         ArrayAdapter<String> adapterHeigth = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, Lost.getListHeight());
+                android.R.layout.simple_spinner_item, Details.getHairtype_list());
         heightSpinner.setAdapter(adapterHeigth);
     }
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview");
-
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 //        RecyclerView recyclerView = findViewById(R.id.ReView_hairtype);
 //        recyclerView.setLayoutManager(layoutManager);

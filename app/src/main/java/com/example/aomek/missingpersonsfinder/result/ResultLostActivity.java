@@ -114,70 +114,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
-//        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(
-//                    final int position,
-//                    SwipeMenu menu,
-//                    int index) {
-//                final Dialog dialog = new Dialog(getApplicationContext());
-//                dialog.getWindow();
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.getWindow().setBackgroundDrawable(
-//                        new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//                dialog.setContentView(R.layout.dialog_del);
-//                TextView dialog_title = (TextView)dialog.findViewById(R.id.dialog_title);
-////                dialog_title.setText(String.valueOf("Delete List"));
-//
-////                TextView dialog_description = (TextView)dialog.findViewById(R.id.dialog_description);
-////                dialog_description.setText(String.valueOf("You want delete this"+fname.get(position)+"?"));
-//                Button buttonCancel = (Button)dialog.findViewById(R.id.button_cancle_del);
-//                buttonCancel.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//                Button buttonOK = (Button)dialog.findViewById(R.id.button_del);
-//                buttonOK.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        //remove data in list
-////                        name.remove(position);
-////                        photo.remove(position);
-//                        adapterLost.notifyDataSetChanged();  //updata listview
-//
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//                dialog.show();
-//
-//                return false;
-//            }
-//        });
-
-//        SwipeDismissListViewTouchListener touchListener =
-//                new SwipeDismissListViewTouchListener(
-//                        mDataLostView,
-//                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
-//                            @Override
-//                            public boolean canDismiss(int position) {
-//                                return true;
-//                            }
-//
-//                            @Override
-//                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-//                                for (int position : reverseSortedPositions) {
-//
-//                                    mLostItemList.remove(position);
-////                                    lv.notifyDataSetChanged();
-//
-//                                }
-//
-//                            }
-//                        });
-//        mDataLostView.setOnTouchListener(touchListener);
-
 //        Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
 //
 //        intent.putExtra("fname", lostItem.getFname());
@@ -253,7 +189,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
         super.onResume();
 
         searchLostData();
-
     }
 
     private void searchLostData() {
@@ -380,7 +315,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
                 intent.putExtra("stringLost", item.toString());
                 startActivity(intent);
-//
             }
         });
         lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -389,6 +323,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
                 String id =  mLostResultItemList.get(position).getId();
                 String gid = selectableItem.getGuestId();
+
                 addFeedback(gid, id);
 
                 mLostResultItemList.remove(position);

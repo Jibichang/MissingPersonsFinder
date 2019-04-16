@@ -3,19 +3,25 @@ package com.example.aomek.missingpersonsfinder.profile;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import androidx.annotation.NonNull;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
+import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
 import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
+import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,12 +57,13 @@ import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_PLACE
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
 
 public class SettingActivity extends AppCompatActivity implements ItemClickListener {
-    private static final String TAG = MainActivity.class.getName();
+    private static final String TAG = SettingActivity.class.getName();
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
     private List<Lost> mLostItemList;
     private TextView mNoResult;
     private View mDataLostView;
+    private Button memberButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +88,22 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             }
         });
 
-        Button memberButton = findViewById(R.id.button_member);
+        memberButton = findViewById(R.id.button_member);
+        setTextMember();
         memberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingActivity.this, LoginAppActivity.class));
+                if (Lost.onStatusLogin) {
+                    showDialog();
+//                    memberButton.setText("ออกจากระบบ");
+                } else {
+                    startActivity(new Intent(SettingActivity.this, LoginAppActivity.class));
+                }
             }
         });
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -103,10 +117,42 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
         loadData();
 //        setupListView();
     }
-    public void loadPhoneData(){
+
+    public void loadPhoneData() {
         getUserNameFormDB();
     }
-    public void getUserNameFormDB(){
+
+    private void setTextMember() {
+        if (Lost.onStatusLogin) {
+            memberButton.setText("ออกจากระบบ");
+        } else {
+            memberButton.setText("เข้าสู่ระบบ");
+        }
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(SettingActivity.this)
+                .setTitle("ต้องการออกจากระบบใช่หรือไม่")
+                .setMessage("เมื่ออกจากระบบผู้ใช้จะไม่สามารถประกาศตามหาบุคคลสูญหาย หรือแจ้งข้อมูลได้")
+                .setPositiveButton("ออกจากระบบ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(SettingActivity.this, selectableItem.getGuestId(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(SettingActivity.this, "cancle "+selectableItem.getGuestId(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+
+                .show();
+    }
+
+    public void getUserNameFormDB() {
         Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
 //        String name = "User";
         if (c.moveToFirst()) {
@@ -116,14 +162,14 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             String place = c.getString(c.getColumnIndex(COL_PLACE));
             String email = c.getString(c.getColumnIndex(COL_EMAIL));
             // send to instance viable
-            Member item = new Member(id, name, email, place, phone);
+//            Member item = new Member(id, name, email, place, phone);
             TextView userTextView = findViewById(R.id.textview_user);
             userTextView.setText(name);
         }
         c.close();
     }
 
-    private void loadData(){
+    private void loadData() {
         showNoResult(false);
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
@@ -173,19 +219,20 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
 
-                        Lost item = new Lost(id, pname, fname, lname, gender, age,city, dis, sub, place, height,
+                        Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special,date);
+                                lowercolor, skintone, type_id, status, detail_etc, special, date);
                         mLostItemList.add(item);
                     }
                     Lost.setLoadDataMyLost(mLostItemList);
                     setupListView();
                     showNoResult(false);
 
-                }else {
+                } else {
                     showNoResult(true);
                 }
             }
+
             @Override
             public void onFailure(Call call, Throwable t) {
                 showNoResult(true);

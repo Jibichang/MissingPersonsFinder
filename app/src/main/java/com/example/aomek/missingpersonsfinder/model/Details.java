@@ -116,7 +116,17 @@ public class Details {
 
 
     public static void setHeight_list() {
+        height_list.clear();
+        height_list.add("-");
+        height_list.add("ต่ำกว่า120");
+        height_list.add("120-139");
+        height_list.add("140-159");
+        height_list.add("160-179");
+        height_list.add("180ขึ้นไป");
+    }
 
+    public static ArrayList<String> getHeight_list() {
+        return height_list;
     }
 
     public static void setUpperwaist_list() {

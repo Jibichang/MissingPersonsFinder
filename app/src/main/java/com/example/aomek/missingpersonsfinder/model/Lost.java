@@ -14,14 +14,13 @@ public class Lost {
     private static ArrayList<String> listgender = new ArrayList<String>();
     private static ArrayList<String> listage = new ArrayList<String>();
     private static ArrayList<String> listplace = new ArrayList<String>();
-    private static ArrayList<String> listheight = new ArrayList<String>();
 
     private static List<Lost> loadDataMain;
     private static List<Lost> loadDataMyLost;
 
     public static boolean onStatusLogin = false;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://80ffad19.ngrok.io";
+    private static String BASE_URL = "https://d74998b9.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -735,15 +734,6 @@ public class Lost {
 
     public static ArrayList<String> getListplace() {
         return listplace;
-    }
-
-    public static void setListHeight() {
-        listheight.clear();
-        listheight.add("-");
-    }
-
-    public static ArrayList<String> getListHeight() {
-        return listheight;
     }
 
     public static String getBASE_URL() {

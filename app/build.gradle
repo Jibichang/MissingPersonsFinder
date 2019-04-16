@@ -63,5 +63,9 @@ dependencies {
 //    implementation 'com.baoyz.swipemenulistview:library:1.3.0'
 //    implementation 'com.android.support:support-v4:27.1.0'
     implementation 'com.baoyz.swipemenulistview:library:1.3.0'
+
+    //open camera
+//    implementation 'com.github.jkwiecien:EasyImage:2.1.0'
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 apply plugin: 'com.google.gms.google-services'
