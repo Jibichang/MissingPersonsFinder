@@ -38,6 +38,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText placeEditText;
     private EditText phoneEditText;
     private EditText emailEditText;
+    private EditText passEditText;
+
+    private String GUEST_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +69,22 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = nameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
+                String pass = passEditText.getText().toString();
                 String place = placeEditText.getText().toString();
                 String phone = phoneEditText.getText().toString();
+
+                if (pass == "" || pass.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "กรุณากรอกรหัสผ่าน", Toast.LENGTH_LONG).show();
+                } else {
+//                    Toast.makeText(getApplicationContext(), "กรุณากรอกรหัสผ่าน"+name, Toast.LENGTH_LONG).show();
+                    updateUser(GUEST_ID, name, pass, place, phone);
+                }
+
             }
         });
     }
 
-    public void updateUser(String name, String email, String password, String place, String phone) {
+    public void updateUser(String guest_id, String name, String password, String place, String phone) {
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -81,17 +92,19 @@ public class EditProfileActivity extends AppCompatActivity {
 
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
 
-        email = email.trim();
-        password = password.trim();
+//        password = password.trim();
+        place = place.trim();
+        phone = phone.trim();
 
-        Guest obGuest = new Guest(email, password);
-        Call<Guest> call = retrofit.Login(obGuest);
+        Guest obGuest = new Guest(guest_id, name, password, place, phone);
+        Call<Guest> call = retrofit.updateUser(obGuest);
         call.enqueue(new Callback<Guest>() {
             @Override
             public void onResponse(Call<Guest> call, Response<Guest> response) {
                 if (response.body() != null) {
                     Toast.makeText(getApplicationContext(), "บันทึกการเปลี่ยนแปลงแล้ว", Toast.LENGTH_LONG).show();
-
+                    startActivity(new Intent(EditProfileActivity.this, SettingActivity.class));
+                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "กรุณากรอกรหัสให้ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
@@ -99,7 +112,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "เเข้าสู่ระบบล้มเหลว", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "แก้ไขข้อมูลล้มเหลว", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -107,7 +120,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public void defaultUser() {
         Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
         if (c.moveToFirst()) {
-            long id = c.getLong(c.getColumnIndex(COL_GUEST));
+            GUEST_ID = c.getString(c.getColumnIndex(COL_GUEST));
             String name = c.getString(c.getColumnIndex(COL_NAME));
             String phone = c.getString(c.getColumnIndex(COL_PHONE));
             String place = c.getString(c.getColumnIndex(COL_PLACE));
@@ -124,6 +137,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
             emailEditText = findViewById(R.id.edittext_edit_email);
             emailEditText.setText(email);
+
+            passEditText = findViewById(R.id.edittext_edit_password);
         }
         c.close();
     }

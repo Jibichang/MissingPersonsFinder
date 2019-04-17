@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
+import com.example.aomek.missingpersonsfinder.profile.EditProfileActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -62,6 +63,9 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
 
         setSpinner();
         setSpinnerDefaultCity();
+
+        //is login
+        checkLogin();
 
         fnameEdittext = findViewById(R.id.edittext_name);
         lnameEdittext = findViewById(R.id.edittext_lname);
@@ -189,6 +193,12 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
             }
         });
 
+    }
+
+    private void checkLogin(){
+        if (!Lost.onStatusLogin) {
+            startActivity(new Intent(getApplicationContext(), LoginAppActivity.class));
+        }
     }
 
     public void setSpinnerDefaultCity(){

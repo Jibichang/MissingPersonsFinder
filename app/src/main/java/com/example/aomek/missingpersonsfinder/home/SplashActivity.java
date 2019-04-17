@@ -8,13 +8,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
+import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
+import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
@@ -22,13 +28,25 @@ import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplashActivity extends AppCompatActivity {
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_GUEST;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_NAME;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
+
+public class SplashActivity extends AppCompatActivity implements ItemClickListener {
     private List<Lost> mLostItemList;
+    private DatabaseHelper mHelper;
+    private SQLiteDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        // Set Database
+        mHelper = new DatabaseHelper(SplashActivity.this);
+        mDb = mHelper.getWritableDatabase();
+
+        getUserFormDB();
         loadData();
 
 //        CountDownTimer countDownTimer = new CountDownTimer(3 * 1000, 1000) {
@@ -91,10 +109,11 @@ public class SplashActivity extends AppCompatActivity {
 
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
+                        String guest = lost.get(i).getGuestId();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age,city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special,date);
+                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date);
                         mLostItemList.add(item);
 
                     }
@@ -109,5 +128,18 @@ public class SplashActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void getUserFormDB() {
+        Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
+        if (c.getCount() > 0){
+            if (c.moveToFirst()) {
+                String gid = c.getString(c.getColumnIndex(COL_GUEST));
+                selectableItem.setGuestId(gid);
+            }
+        }else {
+            Lost.onStatusLogin = false;
+        }
+        c.close();
     }
 }

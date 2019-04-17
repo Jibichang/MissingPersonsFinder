@@ -5,6 +5,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
+import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
+import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ public class FoundLostActivity extends AppCompatActivity implements ItemClickLis
         fname = findViewById(R.id.edittext_name);
         lname = findViewById(R.id.edittext_lname);
 
+        checkLogin();
+
         Button cttoDetail = findViewById(R.id.button_next);
         cttoDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,12 @@ public class FoundLostActivity extends AppCompatActivity implements ItemClickLis
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_found);
+    }
+
+    private void checkLogin(){
+        if (!Lost.onStatusLogin) {
+            startActivity(new Intent(getApplicationContext(), LoginAppActivity.class));
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =

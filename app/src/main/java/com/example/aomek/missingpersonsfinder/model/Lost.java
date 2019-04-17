@@ -20,7 +20,7 @@ public class Lost {
 
     public static boolean onStatusLogin = false;
     public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://d74998b9.ngrok.io";
+    private static String BASE_URL = "https://eb8c75e8.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -199,7 +199,7 @@ public class Lost {
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
-                String type_id, String status, String detail_etc, String special, String regDate) {
+                String type_id, String status, String detail_etc, String special,String guestId, String regDate) {
         this.id = id;
         this.pname = pname;
         this.fname = fname;
@@ -222,6 +222,38 @@ public class Lost {
         this.detailEtc = detail_etc;
         this.special = special;
         this.typeId = type_id;
+        this.guestId = guestId;
+        this.status = status;
+        this.regDate = regDate;
+    }
+
+    public Lost(String pname, String fname, String lname, String gender, String age,
+                String city, String district, String subdistrict, String place, String height,
+                String shape, String hairtype, String haircolor,
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
+                String type_id, String status, String detail_etc, String special,String guest_id, String regDate) {
+        this.pname = pname;
+        this.fname = fname;
+        this.lname = lname;
+        this.gender = gender;
+        this.age = age;
+        this.place = place;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.city = city;
+        this.height = height;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.upperwaist = upperwaist;
+        this.uppercolor = uppercolor;
+        this.lowerwaist = lowerwaist;
+        this.lowercolor = lowercolor;
+        this.detailEtc = detail_etc;
+        this.special = special;
+        this.typeId = type_id;
+        this.guestId = guest_id;
         this.status = status;
         this.regDate = regDate;
     }

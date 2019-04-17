@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
@@ -66,7 +67,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginAppActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginAppActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, ItemClickListener {
 
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
@@ -324,7 +325,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            registGuest(name, email, password, place, phone);
+            registGuest("", name, email, password, place, phone);
         }
     }
 
@@ -458,7 +459,9 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
                     String phone = guest.getPhone();
 
                     Toast.makeText(getApplicationContext(), "เข้าสู่ระบบแล้ว", Toast.LENGTH_LONG).show();
+                    selectableItem.setGuestId(gid);
                     doInsertItem(gid, name, email, place, phone);
+
                 }else {
                     Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
@@ -468,13 +471,13 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "เเข้าสู่ระบบล้มเหลว" + t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "เข้าสู่ระบบล้มเหลว", Toast.LENGTH_LONG).show();
                 showProgress(false);
             }
         });
     }
 
-    private void registGuest(String name, String email, String password, String place, String phone) {
+    private void registGuest(String id, String name, String email, String password, String place, String phone) {
         showProgress(true);
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
@@ -489,7 +492,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
         place = place.trim();
         phone = phone.trim();
 
-        Guest obGuestRegister = new Guest(name, email, password, place, phone);
+        Guest obGuestRegister = new Guest(id, name, email, password, place, phone);
         Call<Guest> callRegister = retrofit.Register(obGuestRegister);
         callRegister.enqueue(new Callback<Guest>() {
             @Override
@@ -504,7 +507,7 @@ public class LoginAppActivity extends AppCompatActivity implements LoaderCallbac
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "สมัครสมาชิกล้มเหลว" + t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "สมัครสมาชิกล้มเหลว", Toast.LENGTH_LONG).show();
                 showProgress(false);
             }
         });

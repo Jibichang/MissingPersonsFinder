@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -50,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_EMAIL;
+import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_GUEST;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_ID;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_NAME;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_PHONE;
@@ -84,7 +86,12 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
+                if (Lost.onStatusLogin) {
+                    startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
+                } else {
+                    startActivity(new Intent(SettingActivity.this, LoginAppActivity.class));
+                }
+
             }
         });
 
@@ -137,15 +144,13 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                 .setPositiveButton("ออกจากระบบ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(SettingActivity.this, selectableItem.getGuestId(),
-                                Toast.LENGTH_SHORT).show();
+                        LogOut();
                     }
                 })
                 .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(SettingActivity.this, "cancle "+selectableItem.getGuestId(),
-                                Toast.LENGTH_SHORT).show();
+
                     }
                 })
 
@@ -154,19 +159,27 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
 
     public void getUserNameFormDB() {
         Cursor c = mDb.query(TABLE_NAME, null, null, null, null, null, null);
-//        String name = "User";
+        String name = "User";
         if (c.moveToFirst()) {
-            long id = c.getLong(c.getColumnIndex(COL_ID));
-            String name = c.getString(c.getColumnIndex(COL_NAME));
-            String phone = c.getString(c.getColumnIndex(COL_PHONE));
-            String place = c.getString(c.getColumnIndex(COL_PLACE));
-            String email = c.getString(c.getColumnIndex(COL_EMAIL));
-            // send to instance viable
-//            Member item = new Member(id, name, email, place, phone);
-            TextView userTextView = findViewById(R.id.textview_user);
-            userTextView.setText(name);
+            String gid = c.getString(c.getColumnIndex(COL_GUEST));
+            name = c.getString(c.getColumnIndex(COL_NAME));
+//            String phone = c.getString(c.getColumnIndex(COL_PHONE));
+//            String place = c.getString(c.getColumnIndex(COL_PLACE));
+//            String email = c.getString(c.getColumnIndex(COL_EMAIL));
+//
+            selectableItem.setGuestId(gid);
         }
+
+        TextView userTextView = findViewById(R.id.textview_user);
+        userTextView.setText(name);
         c.close();
+    }
+
+    private void LogOut() {
+        mDb.delete(TABLE_NAME, null, null);
+        Lost.onStatusLogin = false;
+        selectableItem.setGuestId("");
+        finish();
     }
 
     private void loadData() {
@@ -218,10 +231,11 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
 
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getRegDate();
+                        String guest = lost.get(i).getGuestId();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special, date);
+                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date);
                         mLostItemList.add(item);
                     }
                     Lost.setLoadDataMyLost(mLostItemList);

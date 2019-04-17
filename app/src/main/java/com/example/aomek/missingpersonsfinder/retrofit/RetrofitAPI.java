@@ -23,6 +23,7 @@ public interface RetrofitAPI {
     @GET("/plost/api/persons/read_one.php")
     Call<LostModel> getLostModel();
 
+    //Search
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/search.php")
     Call<LostModel> searchLost(@Body Lost body);
@@ -38,6 +39,11 @@ public interface RetrofitAPI {
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/searchSub.php")
     Call<LostModel> searchSubDistrict(@Body Lost body);
+
+    // create lost
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/persons/create.php")
+    Call<LostModel> createLost(@Body Lost body);
 
     // Feedback
     @Headers("Content-Type: application/json")
@@ -59,6 +65,10 @@ public interface RetrofitAPI {
     @POST("/plost/api/member/create.php")
     Call<Guest> Register(@Body Guest body);
 
+    // Update User
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/member/update_user.php")
+    Call<Guest> updateUser(@Body Guest body);
 
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_get.php")
