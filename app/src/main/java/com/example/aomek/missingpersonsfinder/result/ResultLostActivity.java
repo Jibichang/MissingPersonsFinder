@@ -37,6 +37,7 @@ import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.adapter.SwipeDismissListViewTouchListener;
+import com.example.aomek.missingpersonsfinder.add.AddConfirmActivity;
 import com.example.aomek.missingpersonsfinder.db.DatabaseHelper;
 import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Feedback;
@@ -76,8 +77,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_lost);
 
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_home);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +84,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 selectableItem.clearData();
-//                mLostItemList.clear();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
@@ -97,7 +95,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 
         mProgressView = findViewById(R.id.lost_progress);
 
-        CountDownTimer countDownTimer = new CountDownTimer(20 * 1000, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(5 * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 mAddView.setVisibility(View.GONE);
             }
@@ -114,6 +112,20 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+
+        Button addAfterFind = findViewById(R.id.button_add_after_find);
+        addAfterFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Lost.onStatusFound){
+                    selectableItem.setStatus("1");
+                    startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
+                }else {
+                    selectableItem.setStatus("0");
+                    startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
+                }
+            }
+        });
 //        Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
 //
 //        intent.putExtra("fname", lostItem.getFname());
@@ -207,31 +219,34 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 //                selectableItem.getLowerwaist()+selectableItem.getLowercolor()+
 //                selectableItem.getSkintone()+selectableItem.getTypeId()+
 //                "0"+selectableItem.getDetailEtc()+selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
+        if (!Lost.onStatusLogin){
+            selectableItem.setGuestId("");
+        }
 
         Lost obLost = new Lost(
-                selectableItem.getFname(),
-                selectableItem.getLname(),
-                selectableItem.getGender(),
-                selectableItem.getAge(),
-                selectableItem.getCity(),
-                selectableItem.getDistrict(),
-                selectableItem.getSubdistrict(),
-                selectableItem.getPlace(),
-                selectableItem.getHeight(),
-                selectableItem.getShape(),
-                selectableItem.getHairtype(),
-                selectableItem.getHaircolor(),
-                selectableItem.getUpperwaist(),
-                selectableItem.getUppercolor(),
-                selectableItem.getLowerwaist(),
-                selectableItem.getLowercolor(),
-                selectableItem.getSkintone(),
-                selectableItem.getTypeId(),
+                ""+selectableItem.getFname(),
+                ""+selectableItem.getLname(),
+                ""+selectableItem.getGender(),
+                ""+selectableItem.getAge(),
+                ""+selectableItem.getCity(),
+                ""+selectableItem.getDistrict(),
+                ""+selectableItem.getSubdistrict(),
+                ""+selectableItem.getPlace(),
+                ""+selectableItem.getHeight(),
+                ""+selectableItem.getShape(),
+                ""+selectableItem.getHairtype(),
+                ""+selectableItem.getHaircolor(),
+                ""+selectableItem.getUpperwaist(),
+                ""+selectableItem.getUppercolor(),
+                ""+selectableItem.getLowerwaist(),
+                ""+selectableItem.getLowercolor(),
+                ""+selectableItem.getSkintone(),
+                ""+selectableItem.getTypeId(),
                 "0",
-                selectableItem.getDetailEtc(),
-                selectableItem.getSpecial(),
+                ""+selectableItem.getDetailEtc(),
+                ""+selectableItem.getSpecial(),
                 selectableItem.getMode(),
-                selectableItem.getGuestId()
+                ""+selectableItem.getGuestId()
 
         );
 
@@ -273,7 +288,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         String special = lost.get(i).getSpecial();
 
                         String date = lost.get(i).getRegDate();
-                        String status = lost.get(i).getRegDate();
+                        String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
@@ -293,7 +308,8 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 
             @Override
             public void onFailure(Call call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -321,17 +337,24 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
         lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
-                String id =  mLostResultItemList.get(position).getId();
-                String gid = selectableItem.getGuestId();
+                if (Lost.onStatusLogin){
+                    //                Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
+                    String id =  mLostResultItemList.get(position).getId();
+                    String gid = selectableItem.getGuestId();
 
-                addFeedback(gid, id);
+                    addFeedback(gid, id);
+                    Toast.makeText(getApplicationContext(), "ลบแล้ว", Toast.LENGTH_SHORT).show();
 
-                mLostResultItemList.remove(position);
-                adapterLost.notifyDataSetChanged();
-                lv.invalidateViews();
-                lv.setAdapter(adapterLost);
-                return false;
+                    mLostResultItemList.remove(position);
+                    adapterLost.notifyDataSetChanged();
+                    lv.invalidateViews();
+                    lv.setAdapter(adapterLost);
+                    return false;
+                }else {
+                    Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
             }
         });
     }
@@ -419,7 +442,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {  }
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "เก็บข้อมูลล้มเหลว", Toast.LENGTH_LONG).show();
+            }
         });
     }
 

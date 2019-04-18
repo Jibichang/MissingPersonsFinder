@@ -57,7 +57,7 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_home);
+//        navigation.setSelectedItemId(R.id.navigation_home);
 
         setSpinner();
         setSpinnerDefaultCity();
@@ -66,11 +66,11 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
         lnameEdittext = findViewById(R.id.edittext_lname);
         placeEdittext = findViewById(R.id.edittext_place_detail);
 
-        genderSpinner   .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String gender = genderSpinner.getSelectedItem().toString();
-                switch (gender){
+                switch (gender) {
                     case "หญิง":
                         gender = "F";
                         break;
@@ -86,7 +86,7 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        ageSpinner      .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String age = ageSpinner.getSelectedItem().toString();
@@ -95,9 +95,10 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
-        placeSpinner    .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setSpinnerDefaultCity();
@@ -109,9 +110,10 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
-        disSpinner      .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        disSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 subSpinner.setEnabled(false);
@@ -123,9 +125,10 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
-        subSpinner      .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        subSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String subdistrict = subSpinner.getSelectedItem().toString();
@@ -134,9 +137,10 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
-        typeSpinner     .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int typeID = typeSpinner.getSelectedItemPosition();
@@ -155,25 +159,27 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
         nextButtonFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Lost.onStatusLogin){
-                    String fname = fnameEdittext.getText().toString();
-                    String lname = lnameEdittext.getText().toString();
-                    String place = placeEdittext.getText().toString();
+                String fname = fnameEdittext.getText().toString();
+                String lname = lnameEdittext.getText().toString();
+                String place = placeEdittext.getText().toString();
 
-                    selectableItem.setFname(fname);
-                    selectableItem.setLname(lname);
-                    selectableItem.setPlace(place);
+                selectableItem.setFname(fname);
+                selectableItem.setLname(lname);
+                selectableItem.setPlace(place);
 
-                    Intent intentLost = new Intent(getApplicationContext(), SelecterActivity.class);
-                    startActivity(intentLost);
-                } else {
-                    startActivity(new Intent(getApplicationContext(), LoginAppActivity.class));
-                }
+                setOnFound();
+                Intent intentLost = new Intent(getApplicationContext(), SelecterActivity.class);
+                startActivity(intentLost);
 
             }
         });
     }
-    public void setSpinnerDefaultCity(){
+
+    private void setOnFound() {
+        Lost.onStatusFound = false;
+    }
+
+    public void setSpinnerDefaultCity() {
         mlistDistrict.add("-");
         mlistSubDistrict.add("-");
         setSpinnerDistrict();
@@ -182,7 +188,7 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
         subSpinner.setEnabled(false);
     }
 
-    public void loadDistrict(String input){
+    public void loadDistrict(String input) {
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -219,14 +225,14 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
         });
     }
 
-    public void setSpinnerDistrict(){
+    public void setSpinnerDistrict() {
         disSpinner = findViewById(R.id.spinner_place2);
         ArrayAdapter<String> adapterPlace2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, mlistDistrict);
         disSpinner.setAdapter(adapterPlace2);
     }
 
-    public void loadSubDistrict(String input){
+    public void loadSubDistrict(String input) {
         Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Lost.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -264,14 +270,14 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
         });
     }
 
-    public void setSpinnerSubDistrict(){
+    public void setSpinnerSubDistrict() {
         subSpinner = findViewById(R.id.spinner_place3);
         ArrayAdapter<String> adapterPlace3 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, mlistSubDistrict);
         subSpinner.setAdapter(adapterPlace3);
     }
 
-    public void setSpinner(){
+    public void setSpinner() {
         ageSpinner = findViewById(R.id.spinner_age);
         Lost.setListAge();
         ArrayAdapter<String> adapterAge = new ArrayAdapter<String>(this,
@@ -303,7 +309,7 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.navigation_home:
-//                            startActivity( new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity( new Intent(getApplicationContext(), MainActivity.class));
                             return true;
                         case R.id.navigation_found:
                             Intent i = new Intent(getApplicationContext(), FoundLostActivity.class);

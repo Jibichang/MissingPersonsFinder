@@ -61,6 +61,7 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_found);
+//        navigation.setFocusable();
 
         setSpinner();
         setSpinnerDefaultCity();
@@ -304,7 +305,7 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
                             return true;
                         case R.id.navigation_found:
 //                            Intent i = new Intent(getApplicationContext(), FoundLostActivity.class);
-//                            startActivity(i);
+//                            startActivity(new Intent(getApplicationContext(), FoundLostActivity.class));
                             return true;
                         case R.id.navigation_add:
                             Intent k = new Intent(getApplicationContext(), AddLostActivity.class);

@@ -47,6 +47,7 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
         ImageView genderImageView = view.findViewById(R.id.imgView_list_gender);
         ImageView ageImageView = view.findViewById(R.id.imgView_list_age);
         TextView cityTextView = view.findViewById(R.id.edittext_list_city);
+        ImageView statusImageView = view.findViewById(R.id.imgView_list_status);
 
         Lost lostItem = mLostItemList.get(position);
         String Fname = lostItem.getFname();
@@ -56,6 +57,8 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
         String Gender = lostItem.getGender();
         String Age = lostItem.getAge();
         String City = lostItem.getCity();
+        String Status = lostItem.getStatus();
+
 
         String name = Fname + "  " + Lname;
         nameTextView.setText(name);
@@ -84,6 +87,10 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
             default:
                 ageImageView.setImageResource(R.drawable.icons8adult);
                 break;
+        }
+
+        if (Status.equals("1")){
+            statusImageView.setImageResource(R.drawable.icons8find);
         }
 
 

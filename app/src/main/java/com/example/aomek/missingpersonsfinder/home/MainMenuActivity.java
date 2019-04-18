@@ -13,19 +13,30 @@ import com.example.aomek.missingpersonsfinder.find.FoundLostActivity;
 import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
 import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
+import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.COL_GUEST;
 import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAME;
@@ -82,13 +93,14 @@ public class MainMenuActivity extends AppCompatActivity implements ItemClickList
             }
         });
 
-        ImageButton find = findViewById(R.id.main_button_find);
-        find.setOnClickListener(new View.OnClickListener() {
+        Button mainfind = findViewById(R.id.main_button_find);
+        mainfind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), FindMoreActivity.class));
             }
         });
+
     }
 
     public void doCheckLogin(){
@@ -108,7 +120,5 @@ public class MainMenuActivity extends AppCompatActivity implements ItemClickList
             c.close();
         }
     }
-
-
 
 }

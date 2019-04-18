@@ -24,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.loginActivity" />
-        <activity android:name=".login.registerActivity" />
         <activity android:name=".home.MainActivity" />
         <activity android:name=".add.AddLostActivity" />
         <activity android:name=".find.FindMoreActivity" />
@@ -41,9 +39,6 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".result.ListLostActivity" />
-        <activity
-            android:name=".home.HomeActivity"
-            android:label="@string/title_activity_home" />
         <activity android:name=".find.FindAndSelectActivity" />
         <!-- <activity android:name=".AddPersonsActivity" /> -->
         <activity android:name=".find.SelecterActivity" />

@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         String special = lost.get(i).getSpecial();
 
                         String date = lost.get(i).getRegDate();
-                        String status = lost.get(i).getRegDate();
+                        String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age,city, dis, sub, place, height,

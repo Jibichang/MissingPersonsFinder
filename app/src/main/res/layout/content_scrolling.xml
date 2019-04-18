@@ -8,13 +8,260 @@
     tools:context=".result.ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
 
-    <TextView
-        android:id="@+id/string_lost"
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="asdasd"/>-->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="8dp">
+
+        <TableRow
+        android:id="@+id/fname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="left">
+
+        <TextView
+        android:id="@+id/textView35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text"
-        android:textColor="@color/black_de"
+        android:layout_weight="1"
+        android:text="@string/fname"
+        android:textColor="@color/bback"
         android:textSize="18sp" />
 
+        <TextView
+        android:id="@+id/text_result_fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/lname"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:id="@+id/textView38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/lname"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/gender"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/age"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/age"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/place"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/location"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_district"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_subdistrict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="รายละเอียด"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/type"
+        android:textColor="@color/bback"
+        android:textSize="18sp" />
+
+        <TextView
+        android:id="@+id/text_result_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="TextView"
+        android:textColor="@color/browser_actions_title_color"
+        android:textSize="16sp" />
+        </TableRow>
+
+    </TableLayout>
 </androidx.core.widget.NestedScrollView>

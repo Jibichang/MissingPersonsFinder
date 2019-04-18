@@ -25,7 +25,7 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.tel);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,10 +34,10 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();;
+        Intent intent = getIntent();
         String stringLost = intent.getStringExtra("stringLost");
-        TextView content = findViewById(R.id.string_lost);
-        content.setText(stringLost);
+//        TextView content = findViewById(R.id.string_lost);
+//        content.setText(stringLost);
 
 
     }

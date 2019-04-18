@@ -36,10 +36,6 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
     Spinner heightSpinner;
     EditText etcEdittext;
 
-    private ArrayList<String> mNames = new ArrayList<String>();
-    private ArrayList<String> mImageUrls = new ArrayList<String>();
-    private final boolean isUpper = true;
-    public Lost itemSelect = new Lost();
     private Boolean isAddAct;
 
     @Override
@@ -74,7 +70,6 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 //                Toast.makeText(SelecterActivity.this, "ff"+ isAddAct,Toast.LENGTH_LONG).show();
                 if (isAddAct){
                     startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
-
                 }else {
                     showFilter();
                 }
@@ -99,13 +94,54 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         });
 
         // hair color
-        ImageView haircolor0 = findViewById(R.id.haircolor1);
+        ImageView haircolor0 = findViewById(R.id.haircolor6);
         haircolor0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setHaircolor("#0000000");
+                selectableItem.setHaircolor("#D3D3D3");
             }
         });
+        ImageView haircolor1 = findViewById(R.id.haircolor1);
+        haircolor1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setHaircolor("#D3D3D3");
+            }
+        });
+        ImageView haircolor2 = findViewById(R.id.haircolor2);
+        haircolor2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setHaircolor("#D3D3D3");
+            }
+        });
+        ImageView haircolor3 = findViewById(R.id.haircolor3);
+        haircolor3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setHaircolor("#D3D3D3");
+            }
+        });
+        ImageView haircolor4 = findViewById(R.id.haircolor4);
+        haircolor4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setHaircolor("#D3D3D3");
+            }
+        });
+        ImageView haircolor5 = findViewById(R.id.haircolor5);
+        haircolor5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectableItem.setHaircolor("#D3D3D3");
+            }
+        });
+
+//            <color name="hair1">#d2c799</color>
+//    <color name="hair2">#dab358</color>
+//    <color name="hair3">#885f4d</color>
+//    <color name="hair4">#5c3f3b</color>
+//    <color name="hair5">#0b090a</color>
 
         // skin tone
         ImageView st1 = findViewById(R.id.skintone1);
@@ -155,7 +191,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
     private void showFilter(){
         String[] items = new String[]{
-                "ออกจากระบบ",
+                "ชื่อ นามสกุล",
                 "สถานที่",
                 "ลักษณะทางกายภาพ",
                 "ไม่เลือก"
@@ -193,7 +229,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         heightSpinner = findViewById(R.id.spinner_height);
         Details.setHeight_list();
         ArrayAdapter<String> adapterHeigth = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, Details.getHairtype_list());
+                android.R.layout.simple_spinner_item, Details.getHeight_list());
         heightSpinner.setAdapter(adapterHeigth);
     }
 
@@ -276,14 +312,14 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                             codeColor = "-";
                         }
                         selectableItem.setUppercolor(codeColor);
-                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel(){
                         codeColor = "-";
                         selectableItem.setUppercolor(codeColor);
-                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
                     }
 
                 })
@@ -307,14 +343,14 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                             codeColor = "-";
                         }
                         selectableItem.setLowercolor(codeColor);
-                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel(){
                         codeColor = "-";
                         selectableItem.setLowercolor(codeColor);
-                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SelecterActivity.this, codeColor, Toast.LENGTH_SHORT).show();
                     }
 
                 })

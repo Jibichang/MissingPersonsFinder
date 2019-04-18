@@ -29,8 +29,6 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     private ArrayList<Integer> mImageUrls;
     private ArrayList<String> mCodes;
     private Context mContext;
-    private int selectedPosition = -1;
-    private ItemClickListener onItemClickListener;
 
     public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls,ArrayList<String> code) {
         mNames = names;
@@ -70,9 +68,11 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 //                CardView cardView = view.findViewById(R.id.CV1);
 //                int color = R.color.colorPrimary;
 //                view.setForeground(new ColorDrawable(ContextCompat.getColor(mContext, color)));
+                String Code = mCodes.get(position);
+                String Name = mNames.get(position);
                 Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
 //                Toast.makeText(mContext, mCodes.get(position), Toast.LENGTH_SHORT).show();
-                getTypeData(mCodes.get(position));
+                getTypeData(Code, Name);
                 Snackbar.make(view, mNames.get(position), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
@@ -99,25 +99,25 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
         }
     }
 
-    public void setItemClickListener(ItemClickListener clickListener) {
-        onItemClickListener = clickListener;
-    }
-
-    public void getTypeData(String code){
+    public void getTypeData(String code, String name){
         String substring = code.substring(0, 1);
 //        Lost obLost = new Lost();
         switch (substring){
             case "H":
                 selectableItem.setHairtype(code);
+                selectableItemDetail.setHairtype(name);
                 break;
             case "S":
                 selectableItem.setShape(code);
+                selectableItemDetail.setShape(name);
                 break;
             case "U":
                 selectableItem.setUpperwaist(code);
+                selectableItemDetail.setUpperwaist(name);
                 break;
             case "L":
                 selectableItem.setLowerwaist(code);
+                selectableItemDetail.setLowerwaist(name);
                 break;
         }
     }

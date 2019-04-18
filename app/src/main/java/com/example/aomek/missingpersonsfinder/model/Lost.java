@@ -19,8 +19,8 @@ public class Lost {
     private static List<Lost> loadDataMyLost;
 
     public static boolean onStatusLogin = false;
-    public static boolean onStatusSearch = true;
-    private static String BASE_URL = "https://eb8c75e8.ngrok.io";
+    public static boolean onStatusFound = true;
+    private static String BASE_URL = "https://a9995644.ngrok.io";
 
     @SerializedName("id")
     @Expose
@@ -103,6 +103,9 @@ public class Lost {
     @SerializedName("mode")
     @Expose
     private int mode;
+    @SerializedName("query")
+    @Expose
+    private String query;
 
     public Lost() {
         this.fname = "";
@@ -627,9 +630,13 @@ public class Lost {
         return mode;
     }
 
+    public void setQuery(String query) { this.query = query; }
+
     public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
+
+    public String getQuery() { return query; }
 
     public Lost(String fname, String lname, String detail, String date) {
         this.fname = fname;
@@ -775,7 +782,7 @@ public class Lost {
     public void clearData() {
         this.fname = "";
         this.lname = "";
-        this.gender = "M";
+        this.gender = "F";
         this.age = "";
 
         this.place = "";

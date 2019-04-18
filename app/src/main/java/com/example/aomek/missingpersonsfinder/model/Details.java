@@ -49,9 +49,9 @@ public class Details {
     }
 
     public static void setShape_list() {
-        shape_list_img.add(R.drawable.icons8no);
-        shape_list.add("ไม่ระบุ");
-        shape_list_code.add("S0");
+//        shape_list_img.add(R.drawable.icons8no);
+//        shape_list.add("ไม่ระบุ");
+//        shape_list_code.add("S0");
 
         shape_list_img.add(R.drawable.icon8shape1);
         shape_list.add("รูปร่างผอม");
@@ -81,9 +81,9 @@ public class Details {
 
     public static void setHairtype_list() {
 
-        hairtype_list_img.add(R.drawable.icons8no);
-        hairtype_list.add("ไม่ระบุ");
-        hairtype_list_code.add("HR0");
+//        hairtype_list_img.add(R.drawable.icons8no);
+//        hairtype_list.add("ไม่ระบุ");
+//        hairtype_list_code.add("HR0");
 
         hairtype_list_img.add(R.drawable.icon8hair1);
         hairtype_list.add("ผมเกรียนสั้น");
@@ -131,9 +131,9 @@ public class Details {
 
     public static void setUpperwaist_list() {
 
-        upperwaist_list_img.add(R.drawable.icons8no);
-        upperwaist_list.add("ไม่ระบุ");
-        upperwaist_list_code.add("UW0");
+//        upperwaist_list_img.add(R.drawable.icons8no);
+//        upperwaist_list.add("ไม่ระบุ");
+//        upperwaist_list_code.add("UW0");
 
         upperwaist_list_img.add(R.drawable.icon8upper1);
         upperwaist_list.add("เสื้อเชิ้ต");
@@ -171,9 +171,9 @@ public class Details {
 
     public static void setLowerwaist_list() {
 
-        lowerwaist_list_img.add(R.drawable.icons8no);
-        lowerwaist_list.add("ไม่ระบุ");
-        lowerwaist_list_code.add("LW0");
+//        lowerwaist_list_img.add(R.drawable.icons8no);
+//        lowerwaist_list.add("ไม่ระบุ");
+//        lowerwaist_list_code.add("LW0");
 
         lowerwaist_list_img.add(R.drawable.icon8lower1);
         lowerwaist_list.add("กางเกงขาสั้น");

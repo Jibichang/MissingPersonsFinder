@@ -42,6 +42,8 @@ public class FoundLostActivity extends AppCompatActivity implements ItemClickLis
                 selectableItem.setFname(fname.getText().toString());
                 selectableItem.setLname(lname.getText().toString());
 
+                setOnFound();
+
 //                Toast.makeText(getApplicationContext(), " "+selectableItem.getFname()+selectableItem.getLname(), Toast.LENGTH_LONG).show();
 
                 Intent i = new Intent(FoundLostActivity.this, FoundLostDetailActivity.class);
@@ -52,6 +54,10 @@ public class FoundLostActivity extends AppCompatActivity implements ItemClickLis
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_found);
+    }
+
+    private void setOnFound(){
+        Lost.onStatusFound = true;
     }
 
     private void checkLogin(){
