@@ -20,6 +20,7 @@ import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
+import com.example.aomek.missingpersonsfinder.result.ScrollingActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,6 +36,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -264,6 +266,44 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
         );
         ListView lv = findViewById(R.id.list_my_lost);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Lost item = Lost.getLoadDataMyLost().get(position);
+
+                lostContent.setFname(item.getFname());
+                lostContent.setLname(item.getLname());
+                lostContent.setAge(item.getAge());
+                lostContent.setGender(item.getGender());
+
+                lostContent.setCity(item.getCity());
+                lostContent.setDistrict(item.getDistrict());
+                lostContent.setSubdistrict(item.getSubdistrict());
+                lostContent.setPlace(item.getPlace());
+
+                lostContent.setShape(item.getShape());
+                lostContent.setHairtype(item.getHairtype());
+                lostContent.setHaircolor(item.getHaircolor());
+                lostContent.setSkintone(item.getSkintone());
+
+                lostContent.setUpperwaist(item.getUpperwaist());
+                lostContent.setUppercolor(item.getUppercolor());
+                lostContent.setLowerwaist(item.getLowerwaist());
+                lostContent.setLowercolor(item.getLowercolor());
+
+                lostContent.setDetailEtc(item.getDetailEtc());
+                lostContent.setSpecial(item.getSpecial());
+                lostContent.setTypeId(item.getTypeId());
+                lostContent.setGuestId(item.getGuestId());
+
+                lostContent.setStatus(item.getStatus());
+                lostContent.setRegDate(item.getRegDate());
+
+                Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+//                intent.putExtra("stringLost", item.toString());
+                startActivity(intent);
+            }
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)

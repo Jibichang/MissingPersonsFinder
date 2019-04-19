@@ -2,6 +2,7 @@ package com.example.aomek.missingpersonsfinder.result;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
@@ -34,6 +35,8 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
     private ImageView hairImg;
     private ImageView upperImg;
     private ImageView lowerImg;
+    //TODO get image lost from database
+    private String tel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,31 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
         setTextView();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.tel);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.tel);
+        tel = "";
+        //TODO call me maybe 
+//        if (tel.isEmpty()){
+//            fab.setEnabled(false);
+////            fab.setBackgroundColor(getResources().getColor(R.color.gray2));
+//        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO call me maybe
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+                String regexStr = "^[0-9]*$";
+
+                if(tel.matches(regexStr) && !tel.isEmpty()){
+                    Intent intent = new Intent(
+                            Intent.ACTION_DIAL,
+                            Uri.parse("tel:" + tel)
+                    );
+                    startActivity(intent);
+                }
+                else{
+
+                     Snackbar.make(view, "ไม่มีข้อมูลการติดต่อทางโทรศัพท์", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                }
             }
         });
 
@@ -155,6 +176,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
     }
 
     private String setStrDetails(){
+        //TODO get text value not code from database
         String msg = "รูปร่าง : " + lostContent.getShape() + "\n"
                 + "ผม : " + lostContent.getHairtype() + "\n"
                 + "เสื้อผ้า : " + lostContent.getUpperwaist()
