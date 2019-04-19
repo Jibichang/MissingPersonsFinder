@@ -70,6 +70,11 @@ public interface RetrofitAPI {
     @POST("/plost/api/member/update_user.php")
     Call<Guest> updateUser(@Body Guest body);
 
+    // contact User
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/member/get_contact.php")
+    Call<Guest> contactUser(@Body Guest body);
+
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_get.php")
     Call<LostModel> searchNormal(@Body Lost body);

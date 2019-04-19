@@ -6,15 +6,29 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
+import com.example.aomek.missingpersonsfinder.model.Guest;
+import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.model.LostModel;
+import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScrollingActivity extends AppCompatActivity implements ItemClickListener {
     private TextView fnameTextView;
@@ -37,6 +51,8 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
     private ImageView lowerImg;
     //TODO get image lost from database
     private String tel;
+    private Guest obContact = new Guest();
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +62,50 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
         toolbar.setTitle("ข้อมูลบุคคลสูญหาย");
         setSupportActionBar(toolbar);
 
+        getContact();
         setTextView();
 
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.tel);
-        tel = "";
-        //TODO call me maybe 
+
+    }
+    private void getContact() {
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+        Guest obGuest = new Guest();
+        obGuest.setGuestId(lostContent.getGuestId());
+
+        Call<Guest> call = retrofit.contactUser(obGuest);
+        call.enqueue(new Callback<Guest>() {
+            @Override
+            public void onResponse(Call<Guest> call, Response<Guest> response) {
+                if (response.body() != null) {
+                    obContact = response.body();
+
+                    tel = obContact.getPhone();
+//                    Toast.makeText(getApplicationContext(), " ok" + obContact.getPhone(), Toast.LENGTH_LONG).show();
+                }else {
+                    tel = "";
+                }
+                telUser();
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                tel = "";
+                telUser();
+//                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void telUser(){
+        fab = (FloatingActionButton) findViewById(R.id.tel);
+        tel = obContact.getPhone();
+        //TODO call me maybe
 //        if (tel.isEmpty()){
 //            fab.setEnabled(false);
 ////            fab.setBackgroundColor(getResources().getColor(R.color.gray2));
@@ -58,25 +113,24 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String regexStr = "^[0-9]*$";
-
+                Toast.makeText(getApplicationContext(), " ok" + tel, Toast.LENGTH_LONG).show();
+                
                 if(tel.matches(regexStr) && !tel.isEmpty()){
                     Intent intent = new Intent(
                             Intent.ACTION_DIAL,
                             Uri.parse("tel:" + tel)
                     );
                     startActivity(intent);
+//                    Snackbar.make(view, "ไม่มีข้อมูลการติดต่อทางโทรศัพท์", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
                 }
                 else{
-
-                     Snackbar.make(view, "ไม่มีข้อมูลการติดต่อทางโทรศัพท์", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    Snackbar.make(view, "ไม่มีข้อมูลการติดต่อทางโทรศัพท์" + tel, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
         });
-
-
     }
 
     private void setTextView(){
