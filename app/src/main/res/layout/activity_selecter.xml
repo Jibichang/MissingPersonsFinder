@@ -180,42 +180,42 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/skintone1" />
+                    android:background="@color/T1" />
 
                 <ImageView
                     android:id="@+id/skintone2"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/skintone2" />
+                    android:background="@color/T2" />
 
                 <ImageView
                     android:id="@+id/skintone3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/skintone3" />
+                    android:background="@color/T3" />
 
                 <ImageView
                     android:id="@+id/skintone4"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/skintone4" />
+                    android:background="@color/T4" />
 
                 <ImageView
                     android:id="@+id/skintone5"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/skintone5" />
+                    android:background="@color/T5" />
 
                 <ImageView
                     android:id="@+id/skintone6"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/skintone6" />
+                    android:background="@color/T6" />
 
             </LinearLayout>
 

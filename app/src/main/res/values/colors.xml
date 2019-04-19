@@ -18,13 +18,14 @@
     <color name="primaryTextColor">#ffffff</color>
 
 
-    <color name="skintone1">#f4d0b1</color>
-    <color name="skintone2">#e7b48f</color>
-    <color name="skintone3">#d29e7c</color>
-    <color name="skintone4">#ba7750</color>
-    <color name="skintone5">#a55d2b</color>
-    <color name="skintone6">#3c201d</color>
+    <color name="T1">#f4d0b1</color>
+    <color name="T2">#e7b48f</color>
+    <color name="T3">#d29e7c</color>
+    <color name="T4">#ba7750</color>
+    <color name="T5">#a55d2b</color>
+    <color name="T6">#3c201d</color>
 
+    <color name="hair6">#d3d3d3</color>
     <color name="hair1">#d2c799</color>
     <color name="hair2">#dab358</color>
     <color name="hair3">#885f4d</color>

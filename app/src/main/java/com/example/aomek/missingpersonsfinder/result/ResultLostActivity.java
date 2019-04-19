@@ -329,8 +329,36 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Lost item = mLostResultItemList.get(position);
 
+                lostContent.setFname(item.getFname());
+                lostContent.setLname(item.getLname());
+                lostContent.setAge(item.getAge());
+                lostContent.setGender(item.getGender());
+
+                lostContent.setCity(item.getCity());
+                lostContent.setDistrict(item.getDistrict());
+                lostContent.setSubdistrict(item.getSubdistrict());
+                lostContent.setPlace(item.getPlace());
+
+                lostContent.setShape(item.getShape());
+                lostContent.setHairtype(item.getHairtype());
+                lostContent.setHaircolor(item.getHaircolor());
+                lostContent.setSkintone(item.getSkintone());
+
+                lostContent.setUpperwaist(item.getUpperwaist());
+                lostContent.setUppercolor(item.getUppercolor());
+                lostContent.setLowerwaist(item.getLowerwaist());
+                lostContent.setLowercolor(item.getLowercolor());
+
+                lostContent.setDetailEtc(item.getDetailEtc());
+                lostContent.setSpecial(item.getSpecial());
+                lostContent.setTypeId(item.getTypeId());
+                lostContent.setGuestId(item.getGuestId());
+
+                lostContent.setStatus(item.getStatus());
+                lostContent.setRegDate(item.getRegDate());
+
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
-                intent.putExtra("stringLost", item.toString());
+//                intent.putExtra("stringLost", item.toString());
                 startActivity(intent);
             }
         });

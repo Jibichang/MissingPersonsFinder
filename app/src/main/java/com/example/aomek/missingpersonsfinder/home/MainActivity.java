@@ -11,8 +11,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import androidx.annotation.NonNull;
 
+import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.find.FindMoreActivity;
 import com.example.aomek.missingpersonsfinder.find.FoundLostDetailActivity;
+import com.example.aomek.missingpersonsfinder.result.ScrollingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,7 +54,7 @@ import static com.example.aomek.missingpersonsfinder.db.DatabaseHelper.TABLE_NAM
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = MainActivity.class.getName();
     private DatabaseHelper mHelper;
     private SQLiteDatabase mDb;
@@ -103,6 +106,44 @@ public class MainActivity extends AppCompatActivity {
         );
         ListView lv = findViewById(R.id.listview_lost);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Lost item = Lost.getLoadDataMain().get(position);
+
+                lostContent.setFname(item.getFname());
+                lostContent.setLname(item.getLname());
+                lostContent.setAge(item.getAge());
+                lostContent.setGender(item.getGender());
+
+                lostContent.setCity(item.getCity());
+                lostContent.setDistrict(item.getDistrict());
+                lostContent.setSubdistrict(item.getSubdistrict());
+                lostContent.setPlace(item.getPlace());
+
+                lostContent.setShape(item.getShape());
+                lostContent.setHairtype(item.getHairtype());
+                lostContent.setHaircolor(item.getHaircolor());
+                lostContent.setSkintone(item.getSkintone());
+
+                lostContent.setUpperwaist(item.getUpperwaist());
+                lostContent.setUppercolor(item.getUppercolor());
+                lostContent.setLowerwaist(item.getLowerwaist());
+                lostContent.setLowercolor(item.getLowercolor());
+
+                lostContent.setDetailEtc(item.getDetailEtc());
+                lostContent.setSpecial(item.getSpecial());
+                lostContent.setTypeId(item.getTypeId());
+                lostContent.setGuestId(item.getGuestId());
+
+                lostContent.setStatus(item.getStatus());
+                lostContent.setRegDate(item.getRegDate());
+
+                Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+//                intent.putExtra("stringLost", item.toString());
+                startActivity(intent);
+            }
+        });
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
