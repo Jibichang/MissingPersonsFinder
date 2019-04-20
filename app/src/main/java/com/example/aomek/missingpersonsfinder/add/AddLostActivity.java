@@ -9,6 +9,8 @@ import com.example.aomek.missingpersonsfinder.profile.EditProfileActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,13 +18,21 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +44,9 @@ import com.example.aomek.missingpersonsfinder.home.MainActivity;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +56,13 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
     EditText lnameEdittext;
     EditText placeEdittext;
 
-    Spinner ageSpinner;
-    Spinner genderSpinner;
-    Spinner placeSpinner;
-    Spinner typeSpinner;
-    Spinner disSpinner;
-    Spinner subSpinner;
+    Spinner ageSpinner, genderSpinner, placeSpinner, typeSpinner,  disSpinner, subSpinner;
 
-//    Lost selectableItem = new Lost();
+    ImageButton uploadImage;
+    ImageView pickImage;
     Intent intentLost;
+    private static final int IMG_REQUEST = 777;
+    private Bitmap bitmap;
 
     ArrayList<String> mlistDistrict = new ArrayList<>();
     ArrayList<String> mlistSubDistrict = new ArrayList<>();
@@ -63,6 +74,8 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
 
         setSpinner();
         setSpinnerDefaultCity();
+        //default image
+        selectableItem.setImage("-");
 
         //is login
         checkLogin();
@@ -70,6 +83,8 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
         fnameEdittext = findViewById(R.id.edittext_name);
         lnameEdittext = findViewById(R.id.edittext_lname);
         placeEdittext = findViewById(R.id.edittext_place_detail);
+        uploadImage = findViewById(R.id.imageButton_upload_img);
+        pickImage = findViewById(R.id.imageView_upload_result);
 
         genderSpinner   .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -179,8 +194,6 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
                     intentLost = new Intent(getApplicationContext(), SelecterActivity.class);
                     intentLost.putExtra("isAddAct", true);
                     startActivity(intentLost);
-
-
 //                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+" : "+
 //                                    selectableItem.getLname()+ " : "+ selectableItem.getAge()+ " : "+
 //                                    selectableItem.getGender()+" : "+selectableItem.getCity()+" "+
@@ -193,6 +206,45 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
             }
         });
 
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imageIntent = new Intent();
+                imageIntent.setType("image/*");
+                imageIntent.setAction(imageIntent.ACTION_GET_CONTENT);
+                startActivityForResult(imageIntent, IMG_REQUEST);
+
+//                Toast.makeText(getApplicationContext(), "img " + IMG_REQUEST,
+//                                    Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == IMG_REQUEST && resultCode == RESULT_OK && data != null){
+            Uri path = data.getData();
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
+                pickImage.setImageBitmap(bitmap);
+                pickImage.setVisibility(View.VISIBLE);
+                imagetoString();
+//                Toast.makeText(getApplicationContext(), "ok"+selectableItem.getImage(), Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void imagetoString(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imgByte = byteArrayOutputStream.toByteArray();
+        selectableItem.setImage(Base64.encodeToString(imgByte, Base64.DEFAULT));
     }
 
     private void checkLogin(){

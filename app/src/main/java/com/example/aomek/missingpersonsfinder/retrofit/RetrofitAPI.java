@@ -7,6 +7,7 @@ import com.example.aomek.missingpersonsfinder.model.UserGH;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -43,7 +44,7 @@ public interface RetrofitAPI {
     // create lost
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/create.php")
-    Call<LostModel> createLost(@Body Lost body);
+    Call<Lost> createLost(@Body Lost body);
 
     // Feedback
     @Headers("Content-Type: application/json")
@@ -78,6 +79,13 @@ public interface RetrofitAPI {
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_get.php")
     Call<LostModel> searchNormal(@Body Lost body);
+
+    @POST("/plost/api/persons/upload.php")
+    Call<Lost> uploadImage2(@Field("image") String image, @Field("plost_id") String id);
+
+    //upload image
+    @POST("/plost/api/imgupload/upload.php")
+    Call<Lost> uploadImage(@Body Lost body);
 
     //            @Field("fname") String fname,
 //            @Field("lname") String lname,

@@ -105,7 +105,6 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
     private void telUser(){
         fab = (FloatingActionButton) findViewById(R.id.tel);
         tel = obContact.getPhone();
-        //TODO call me maybe
 //        if (tel.isEmpty()){
 //            fab.setEnabled(false);
 ////            fab.setBackgroundColor(getResources().getColor(R.color.gray2));
@@ -115,7 +114,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
             public void onClick(View view) {
                 String regexStr = "^[0-9]*$";
                 Toast.makeText(getApplicationContext(), " ok" + tel, Toast.LENGTH_LONG).show();
-                
+
                 if(tel.matches(regexStr) && !tel.isEmpty()){
                     Intent intent = new Intent(
                             Intent.ACTION_DIAL,

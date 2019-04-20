@@ -20,9 +20,9 @@ public class Lost {
 
     public static boolean onStatusLogin = false;
     public static boolean onStatusFound = true;
-    private static String BASE_URL = "https://05ed3bc1.ngrok.io";
+    private static String BASE_URL = "https://115e8de7.ngrok.io";
 
-    @SerializedName("id")
+    @SerializedName("plost_id")
     @Expose
     private String id;
     @SerializedName("pname")
@@ -106,6 +106,12 @@ public class Lost {
     @SerializedName("query")
     @Expose
     private String query;
+    @SerializedName("image")
+    @Expose
+    private String image;
+    @SerializedName("path_img")
+    @Expose
+    private String pathImg;
 
     public Lost() {
         this.fname = "";
@@ -133,6 +139,7 @@ public class Lost {
         this.special = "";
         this.status = "";
         this.typeId = "";
+        this.image = "";
 
     }
 
@@ -202,7 +209,7 @@ public class Lost {
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
-                String type_id, String status, String detail_etc, String special,String guestId, String regDate) {
+                String type_id, String status, String detail_etc, String special,String guestId, String regDate, String image) {
         this.id = id;
         this.pname = pname;
         this.fname = fname;
@@ -228,8 +235,10 @@ public class Lost {
         this.guestId = guestId;
         this.status = status;
         this.regDate = regDate;
+        this.image = image;
     }
 
+//    create
     public Lost(String pname, String fname, String lname, String gender, String age,
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
@@ -259,6 +268,28 @@ public class Lost {
         this.guestId = guest_id;
         this.status = status;
         this.regDate = regDate;
+    }
+    public Lost(String id, String image, String pathImg) {
+        super();
+        this.id = id;
+        this.image = image;
+        this.pathImg = pathImg;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getPathImg() {
+        return pathImg;
+    }
+
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
     }
 
     @Override

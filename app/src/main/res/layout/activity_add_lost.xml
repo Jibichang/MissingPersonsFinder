@@ -246,7 +246,7 @@
     <Spinner
         android:id="@+id/spinner_type"
         android:layout_width="197dp"
-        android:layout_height="43dp"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:gravity="center"
@@ -264,5 +264,30 @@
         android:textColor="@color/bback"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <ImageButton
+        android:id="@+id/imageButton_upload_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_type"
+        app:layout_constraintStart_toEndOf="@+id/spinner_type"
+        app:layout_constraintTop_toTopOf="@+id/spinner_type"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <ImageView
+        android:id="@+id/imageView_upload_result"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_upload_img"
+        app:layout_constraintStart_toEndOf="@+id/imageButton_upload_img"
+        app:layout_constraintTop_toTopOf="@+id/imageButton_upload_img"
+        app:srcCompat="@drawable/bg_button_normal"
+        tools:srcCompat="@drawable/bg_button_pressed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

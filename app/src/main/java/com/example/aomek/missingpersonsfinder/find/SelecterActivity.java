@@ -48,6 +48,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         initRecyclerView();
         setSpinnerHeight();
 
+//        Toast.makeText(getApplicationContext(), "ok"+selectableItem.getImage(), Toast.LENGTH_LONG).show();
+
         heightSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

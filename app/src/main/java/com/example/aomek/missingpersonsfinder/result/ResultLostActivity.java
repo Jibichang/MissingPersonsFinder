@@ -290,10 +290,11 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
+                        String image = lost.get(i).getImage();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date);
+                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date, image);
                         mLostResultItemList.add(item);
                     }
 //                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();

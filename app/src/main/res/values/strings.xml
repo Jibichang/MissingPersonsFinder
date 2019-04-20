@@ -148,4 +148,7 @@
     <string name="title_itemlost_detail">ItemLost Detail</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
 
+
+     <string name="del_upload"><u>ลบรูปภาพ</u></string>
+
 </resources>
