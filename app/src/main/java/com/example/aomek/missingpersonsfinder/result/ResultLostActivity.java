@@ -61,16 +61,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ResultLostActivity extends AppCompatActivity implements ItemClickListener {
-    private DatabaseHelper mHelper;
-    private SQLiteDatabase mDb;
     private List<Lost> mLostResultItemList;
     private View mDataLostView;
     private View mAddView;
     private View mProgressView;
-//    private LostListAdapter adapterLost;
-//    private SwipeMenuListView lv;
-//    private String strPOST;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,56 +120,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 }
             }
         });
-//        Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
-//
-//        intent.putExtra("fname", lostItem.getFname());
-//        intent.putExtra("lname", lostItem.getLname());
-//
-//        intent.putExtra("age", lostItem.getAge());
-//        intent.putExtra("gender", lostItem.getGender());
-//
-//        intent.putExtra("city", lostItem.getCity());
-//        intent.putExtra("district", lostItem.getDistrict());
-//        intent.putExtra("subdistrict", lostItem.getSubdistrict());
-//        intent.putExtra("place", lostItem.getPlace());
-//
-//        intent.putExtra("hairtype", lostItem.getHairtype());
-//        intent.putExtra("haircolor", lostItem.getHaircolor());
-//
-//        intent.putExtra("upperwaist", lostItem.getUpperwaist());
-//        intent.putExtra("uppercolor", lostItem.getUppercolor());
-//        intent.putExtra("lowerwaist", lostItem.getLowerwaist());
-//        intent.putExtra("lowercolor", lostItem.getLowercolor());
-//
-//        intent.putExtra("detail_etc", lostItem.getDetailEtc());
-//        intent.putExtra("special", lostItem.getSpecial());
-//        intent.putExtra("type_id", lostItem.getTypeId());
-//        intent.putExtra("date", lostItem.getRegDate());
-//
-//
-//        String fname = intent.getStringExtra("fname");
-//        String lname = intent.getStringExtra("lname");
-//
-//        String age = intent.getStringExtra("age");
-//        String gender = intent.getStringExtra("gender");
-//
-//        String city = intent.getStringExtra("city");
-//        String district = intent.getStringExtra("district");
-//        String subdistrict = intent.getStringExtra("subdistrict");
-//        String place = intent.getStringExtra("place");
-//
-//        String hairtype = intent.getStringExtra("hairtype");
-//        String haircolor = intent.getStringExtra("haircolor");
-//
-//        String upperwaist = intent.getStringExtra("upperwaist");
-//        String uppercolor = intent.getStringExtra("uppercolor");
-//        String lowerwaist = intent.getStringExtra("lowerwaist");
-//        String lowercolor = intent.getStringExtra("lowercolor");
-//
-//        String detail_etc = intent.getStringExtra("detail_etc");
-//        String special = intent.getStringExtra("special");
-//        String type_id = intent.getStringExtra("type_id");
-//        String date = intent.getStringExtra("date");
     }
 
     @Override
@@ -211,14 +155,6 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 .build();
 
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
-//                    Toast.makeText(getApplicationContext(), selectableItem.getFname()+selectableItem.getLname()+
-//                selectableItem.getGender()+selectableItem.getAge()+selectableItem.getCity()+
-//                selectableItem.getDistrict()+selectableItem.getSubdistrict()+selectableItem.getPlace()+
-//                selectableItem.getHeight()+selectableItem.getShape()+selectableItem.getHairtype()+
-//                selectableItem.getHaircolor()+selectableItem.getUpperwaist()+selectableItem.getUppercolor()+
-//                selectableItem.getLowerwaist()+selectableItem.getLowercolor()+
-//                selectableItem.getSkintone()+selectableItem.getTypeId()+
-//                "0"+selectableItem.getDetailEtc()+selectableItem.getSpecial(),Toast.LENGTH_LONG).show();
         if (!Lost.onStatusLogin){
             selectableItem.setGuestId("");
         }
@@ -259,7 +195,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                     List<Lost> lost = lostmodel.getBody();
                     mLostResultItemList = new ArrayList<>();
 //                    mLostItemList.clear();
-                    for (int i = 0; i < lost.size(); i++) {
+                    int size = lost.size();
+                    if (size > 10) { size = 10; }
+                    for (int i = 0; i < size; i++) {
                         String id = lost.get(i).getId();
                         String pname = lost.get(i).getPname();
                         String fname = lost.get(i).getFname();
@@ -290,7 +228,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
-                        String image = lost.get(i).getImage();
+                        String image = lost.get(i).getPathImg();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
@@ -357,9 +295,9 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 
                 lostContent.setStatus(item.getStatus());
                 lostContent.setRegDate(item.getRegDate());
+                lostContent.setPathImg(item.getPathImg());
 
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
-//                intent.putExtra("stringLost", item.toString());
                 startActivity(intent);
             }
         });

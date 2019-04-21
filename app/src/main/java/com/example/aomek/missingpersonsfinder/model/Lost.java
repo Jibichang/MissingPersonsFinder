@@ -1,5 +1,7 @@
 package com.example.aomek.missingpersonsfinder.model;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +22,10 @@ public class Lost {
 
     public static boolean onStatusLogin = false;
     public static boolean onStatusFound = true;
-    private static String BASE_URL = "https://115e8de7.ngrok.io";
+    public static boolean onStatusCreate = false;
+
+    private static final String BASE_URL = "https://2cee4cbc.ngrok.io";
+    private static final String IMG_URL = "http://2cee4cbc.ngrok.io";
 
     @SerializedName("plost_id")
     @Expose
@@ -108,7 +113,7 @@ public class Lost {
     private String query;
     @SerializedName("image")
     @Expose
-    private String image;
+    private Bitmap image;
     @SerializedName("path_img")
     @Expose
     private String pathImg;
@@ -116,7 +121,7 @@ public class Lost {
     public Lost() {
         this.fname = "";
         this.lname = "";
-        this.gender = "M";
+        this.gender = "F";
         this.age = "";
 
         this.place = "";
@@ -136,10 +141,10 @@ public class Lost {
         this.lowercolor = "";
 
         this.detailEtc = "";
-        this.special = "";
+        this.special = "-";
         this.status = "";
         this.typeId = "";
-        this.image = "";
+        this.pathImg = "";
 
     }
 
@@ -209,7 +214,7 @@ public class Lost {
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
-                String type_id, String status, String detail_etc, String special,String guestId, String regDate, String image) {
+                String type_id, String status, String detail_etc, String special,String guestId, String regDate, String pathImg) {
         this.id = id;
         this.pname = pname;
         this.fname = fname;
@@ -235,7 +240,7 @@ public class Lost {
         this.guestId = guestId;
         this.status = status;
         this.regDate = regDate;
-        this.image = image;
+        this.pathImg = pathImg;
     }
 
 //    create
@@ -269,18 +274,13 @@ public class Lost {
         this.status = status;
         this.regDate = regDate;
     }
-    public Lost(String id, String image, String pathImg) {
-        super();
-        this.id = id;
-        this.image = image;
-        this.pathImg = pathImg;
-    }
 
-    public String getImage() {
+
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 
@@ -688,6 +688,8 @@ public class Lost {
         listtype.add("สุขภาพจิต");
         listtype.add("อาการทางสมอง");
         listtype.add("อาการทางสมอง หลงลืม");
+        listtype.add("ภาวะซึมเศร้า");
+        listtype.add("สมาธิสั้น");
     }
 
     public static ArrayList<String> getListtype() {
@@ -853,4 +855,6 @@ public class Lost {
         Lost.loadDataMyLost = new ArrayList<>();
         Lost.loadDataMyLost = loadDataMyLost;
     }
+
+    public static String getImgUrl() { return IMG_URL; }
 }

@@ -75,7 +75,7 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
         setSpinner();
         setSpinnerDefaultCity();
         //default image
-        selectableItem.setImage("-");
+        selectableItem.setPathImg("-");
 
         //is login
         checkLogin();
@@ -104,6 +104,7 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                selectableItem.setGender("F");
             }
         });
         ageSpinner      .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -244,7 +245,7 @@ public class AddLostActivity extends AppCompatActivity implements ItemClickListe
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
         byte[] imgByte = byteArrayOutputStream.toByteArray();
-        selectableItem.setImage(Base64.encodeToString(imgByte, Base64.DEFAULT));
+        selectableItem.setPathImg(Base64.encodeToString(imgByte, Base64.DEFAULT));
     }
 
     private void checkLogin(){

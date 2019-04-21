@@ -33,7 +33,7 @@ public class FoundLostActivity extends AppCompatActivity implements ItemClickLis
         fname = findViewById(R.id.edittext_name);
         lname = findViewById(R.id.edittext_lname);
 
-        checkLogin();
+//        checkLogin();
 
         Button cttoDetail = findViewById(R.id.button_next);
         cttoDetail.setOnClickListener(new View.OnClickListener() {

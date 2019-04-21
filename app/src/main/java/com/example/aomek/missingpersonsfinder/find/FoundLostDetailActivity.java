@@ -86,6 +86,7 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                selectableItem.setGender("F");
             }
         });
         ageSpinner      .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -5,6 +5,7 @@ import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
 import com.example.aomek.missingpersonsfinder.model.UserGH;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -12,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public interface RetrofitAPI {
 
@@ -86,6 +88,10 @@ public interface RetrofitAPI {
     //upload image
     @POST("/plost/api/imgupload/upload.php")
     Call<Lost> uploadImage(@Body Lost body);
+
+    //image from url
+    @GET
+    Call<ResponseBody> fetchCaptcha(@Url String url);
 
     //            @Field("fname") String fname,
 //            @Field("lname") String lname,

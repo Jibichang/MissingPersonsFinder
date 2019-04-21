@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
-//        setupListView();
-//        loadData();
 
 //        getName();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -138,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
 
                 lostContent.setStatus(item.getStatus());
                 lostContent.setRegDate(item.getRegDate());
+                lostContent.setPathImg(item.getPathImg());
 
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
 //                intent.putExtra("stringLost", item.toString());
@@ -183,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     LostModel lostmodel = response.body();
                     List<Lost> lost = lostmodel.getBody();
                     mLostItemList = new ArrayList<>();
+
                     for (int i = 0; i < 15; i++) {
                         String id = lost.get(i).getId();
                         String pname = lost.get(i).getPname();
@@ -214,18 +214,18 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
-                        String image = lost.get(i).getImage();
+                        String image = lost.get(i).getPathImg();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age,city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
                                 lowercolor, skintone, type_id, status, detail_etc, special,guest, date, image);
                         mLostItemList.add(item);
+                        Lost.onStatusCreate = false;
                     }
+                    Lost.setLoadDataMain(mLostItemList);
                     setupListView();
 
                 }
-//                Fab search = findViewById(R.id.button_search_lost);
-//                search.setVisibility(View.VISIBLE);
                 showProgress(false);
             }
             @Override
@@ -256,11 +256,12 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
     protected void onResume() {
         super.onResume();
 
-        loadPhoneData();
+        loadUserData();
 //        loadData();
         setupListView();
+        if (Lost.onStatusCreate) { loadData(); }
     }
-    public void loadPhoneData(){
+    public void loadUserData(){
         getUserNameFormDB();
     }
 

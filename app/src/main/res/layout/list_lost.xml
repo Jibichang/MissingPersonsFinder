@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/image_list"
+        android:id="@+id/image_list_lost"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,7 @@
         android:textColor="@color/bback"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/edittext_list_detail"
-        app:layout_constraintStart_toEndOf="@+id/image_list" />
+        app:layout_constraintStart_toEndOf="@+id/image_list_lost" />
 
     <TextView
         android:id="@+id/edittext_list_detail"
@@ -41,11 +41,11 @@
         android:text="TextView"
         android:textColor="@color/browser_actions_title_color"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_list"
+        app:layout_constraintBottom_toBottomOf="@+id/image_list_lost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/image_list"
-        app:layout_constraintTop_toTopOf="@+id/image_list" />
+        app:layout_constraintStart_toEndOf="@+id/image_list_lost"
+        app:layout_constraintTop_toTopOf="@+id/image_list_lost" />
 
     <TextView
         android:id="@+id/edittext_list_date"

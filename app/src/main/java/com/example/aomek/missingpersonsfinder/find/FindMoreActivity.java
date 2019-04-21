@@ -84,6 +84,7 @@ public class FindMoreActivity extends AppCompatActivity implements ItemClickList
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                selectableItem.setGender("F");
             }
         });
         ageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

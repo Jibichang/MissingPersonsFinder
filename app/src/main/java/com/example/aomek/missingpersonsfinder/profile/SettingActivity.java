@@ -195,6 +195,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
 
         Guest obGuest = new Guest();
         obGuest.setGuestId(selectableItem.getGuestId());
+
         Call<LostModel> call = retrofit.searchGuest(obGuest);
         call.enqueue(new Callback<LostModel>() {
             @Override
@@ -232,9 +233,9 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                         String special = lost.get(i).getSpecial();
 
                         String date = lost.get(i).getRegDate();
-                        String status = lost.get(i).getRegDate();
+                        String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
-                        String image = lost.get(i).getImage();
+                        String image = lost.get(i).getPathImg();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
@@ -299,6 +300,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
 
                 lostContent.setStatus(item.getStatus());
                 lostContent.setRegDate(item.getRegDate());
+                lostContent.setPathImg(item.getPathImg());
 
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
 //                intent.putExtra("stringLost", item.toString());

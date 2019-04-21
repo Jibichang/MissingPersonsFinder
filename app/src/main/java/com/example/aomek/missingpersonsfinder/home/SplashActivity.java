@@ -110,7 +110,7 @@ public class SplashActivity extends AppCompatActivity implements ItemClickListen
                         String date = lost.get(i).getRegDate();
                         String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
-                        String image = lost.get(i).getImage();
+                        String image = lost.get(i).getPathImg();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age,city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,

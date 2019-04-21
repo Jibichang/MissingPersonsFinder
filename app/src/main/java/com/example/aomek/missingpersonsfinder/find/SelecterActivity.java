@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class SelecterActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "SelecterActivity";
     Spinner heightSpinner;
-    EditText etcEdittext;
+    EditText etcEdittext, speEdittext;
 
     private Boolean isAddAct;
 
@@ -44,6 +44,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         setContentView(R.layout.activity_selecter);
 
         etcEdittext = findViewById(R.id.editText_etc);
+        speEdittext = findViewById(R.id.editText_spe);
 
         initRecyclerView();
         setSpinnerHeight();
@@ -69,6 +70,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectableItem.setDetailEtc(etcEdittext.getText().toString());
+                selectableItem.setSpecial(speEdittext.getText().toString());
 //                Toast.makeText(SelecterActivity.this, "ff"+ isAddAct,Toast.LENGTH_LONG).show();
                 if (isAddAct){
                     startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
@@ -278,6 +281,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         DetailListAdapter Upper = new DetailListAdapter(this, Details.getUpperwaist_list(),
                 Details.getUpperwaist_list_img(), Details.getUpperwaist_list_code());
         recyclerView_Upper.setAdapter(Upper);
+
+
     }
 
     private ArrayList<String> arrayColor(){

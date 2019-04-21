@@ -4,7 +4,14 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +21,28 @@ import android.widget.TextView;
 
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.model.Lost;
+import com.example.aomek.missingpersonsfinder.retrofit.DownloadImageFromInternet;
+import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
+import com.google.android.gms.flags.impl.DataUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
-public class LostListAdapter extends ArrayAdapter<Lost> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class LostListAdapter extends ArrayAdapter<Lost>{
     private Context mContext;
     private int mResource;
     private List<Lost> mLostItemList;
+    ImageView pathImageView;
 
     public LostListAdapter(@NonNull Context context,
                            int resource,
@@ -48,6 +70,7 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
         ImageView ageImageView = view.findViewById(R.id.imgView_list_age);
         TextView cityTextView = view.findViewById(R.id.edittext_list_city);
         ImageView statusImageView = view.findViewById(R.id.imgView_list_status);
+        pathImageView = view.findViewById(R.id.image_list_lost);
 
         Lost lostItem = mLostItemList.get(position);
         String Fname = lostItem.getFname();
@@ -58,13 +81,20 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
         String Age = lostItem.getAge();
         String City = lostItem.getCity();
         String Status = lostItem.getStatus();
-
+        String Path = lostItem.getPathImg();
 
         String name = Fname + "  " + Lname;
         nameTextView.setText(name);
         detailTextView.setText(Detail);
         dateTextView.setText(Date);
         cityTextView.setText(City);
+
+        if (!Path.isEmpty() ){
+            String imgURL = Lost.getBASE_URL()+ "/plost/api/imgupload/" + Path;
+
+            new DownloadImageFromInternet(pathImageView).execute(imgURL);
+//            pathImageView.setImageBitmap(selectableItem.getImage());
+        }
 
         if (Gender.equals("M")) {
             genderImageView.setImageResource(R.drawable.icons8male);
@@ -93,26 +123,8 @@ public class LostListAdapter extends ArrayAdapter<Lost> {
             statusImageView.setImageResource(R.drawable.icons8find);
         }
 
-
-
-//        titleTextView.setText(title);
-//        numberTextView.setText(number);
-
-//        AssetManager am = mContext.getAssets();
-//        try {
-//            InputStream is = am.open(filename);
-//            Drawable drawable = Drawable.createFromStream(is, "");
-//            imageView.setImageDrawable(drawable);
-//        } catch (IOException e) {
-//            File privateDir = mContext.getFilesDir();
-//            File logoFile = new File(privateDir, filename);
-//
-//            Bitmap bitmap = BitmapFactory.decodeFile(logoFile.getAbsolutePath(), null);
-//            imageView.setImageBitmap(bitmap);
-//
-//            e.printStackTrace();
-//        }
-
         return view;
     }
+
+
 }

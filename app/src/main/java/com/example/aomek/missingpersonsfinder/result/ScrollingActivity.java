@@ -1,25 +1,32 @@
 package com.example.aomek.missingpersonsfinder.result;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
+import com.example.aomek.missingpersonsfinder.retrofit.DownloadImageFromInternet;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +34,9 @@ import android.widget.Toast;
 
 import com.example.aomek.missingpersonsfinder.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +58,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
     private ImageView skinImg;
     private ImageView hairImg;
     private ImageView upperImg;
-    private ImageView lowerImg;
+    private ImageView lowerImg, imageLost;
     //TODO get image lost from database
     private String tel;
     private Guest obContact = new Guest();
@@ -75,6 +85,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
         RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
         Guest obGuest = new Guest();
+
         obGuest.setGuestId(lostContent.getGuestId());
 
         Call<Guest> call = retrofit.contactUser(obGuest);
@@ -113,7 +124,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
             @Override
             public void onClick(View view) {
                 String regexStr = "^[0-9]*$";
-                Toast.makeText(getApplicationContext(), " ok" + tel, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), " ok" + tel, Toast.LENGTH_LONG).show();
 
                 if(tel.matches(regexStr) && !tel.isEmpty()){
                     Intent intent = new Intent(
@@ -151,6 +162,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
         hairImg = findViewById(R.id.img_hair_color);
         upperImg = findViewById(R.id.img_upper);
         lowerImg = findViewById(R.id.img_lower);
+        imageLost = findViewById(R.id.imageView_lost_table);
 
         fnameTextView.setText(lostContent.getFname());
         lnameTextView.setText(lostContent.getLname());
@@ -167,10 +179,15 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
         setSkintone();
         setULHcolor();
-
         if (lostContent.getStatus().equals("1")){
             statusTextView.setText("พบบุคคลสูญหายแล้ว");
         }
+
+        String Path = lostContent.getPathImg();
+        String imgURL = Lost.getBASE_URL()+ "/plost/api/imgupload/" + Path;
+
+        new DownloadImageFromInternet(imageLost).execute(imgURL);
+//        imageLost.setImageBitmap(lostContent.getImage());
 
     }
 
@@ -209,24 +226,34 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
     private void setULHcolor(){
         String upperColor = lostContent.getUppercolor();
-        if (isHEXcolor(upperColor)){
-            upperImg.setBackgroundColor(Color.parseColor(upperColor));
-        }
-
-        String lowerColor = lostContent.getLowercolor();
-        if (isHEXcolor(lowerColor)){
-            lowerImg.setBackgroundColor(Color.parseColor(lowerColor));
-        }
-
-        String hairColor = lostContent.getHaircolor();
-        if (isHEXcolor(hairColor)){
-            if (hairColor.equalsIgnoreCase("#D3D3D3")){
-                hairImg.setImageResource(R.drawable.haircolor_bandw);
-            } else {
-                hairImg.setBackgroundColor(Color.parseColor(hairColor));
+        if (!upperColor.isEmpty()){
+            if (isHEXcolor(upperColor)){
+                upperImg.setBackgroundColor(Color.parseColor(upperColor));
             }
         }
+
+
+        String lowerColor = lostContent.getLowercolor();
+        if (!lowerColor.isEmpty()){
+            if (isHEXcolor(lowerColor) && !lowerColor.isEmpty()){
+                lowerImg.setBackgroundColor(Color.parseColor(lowerColor));
+            }
+        }
+
+
+        String hairColor = lostContent.getHaircolor();
+        if (!hairColor.isEmpty()){
+            if (isHEXcolor(hairColor)){
+                if (hairColor.equals("#D3D3D3")){
+                    hairImg.setImageResource(R.drawable.haircolor_bandw);
+                } else {
+                    hairImg.setBackgroundColor(Color.parseColor(hairColor));
+                }
+            }
+        }
+
     }
+
 
     private String setStrDetails(){
         //TODO get text value not code from database

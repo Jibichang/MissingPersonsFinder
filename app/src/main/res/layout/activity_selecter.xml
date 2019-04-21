@@ -260,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/detail_etc"
+                android:text="@string/detail"
                 android:textColor="@color/bback"
                 android:textSize="18sp" />
 
@@ -271,9 +271,31 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:ems="10"
-                android:hint="(ตย. รอยสัก แขนขาด ขาขาด)"
-                android:inputType="textPersonName"
+                android:hint="(ข้อมูลลักษณะทางกายภาพเเพิ่มเติม)"
+                android:inputType="text"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/detail_etc"
+                android:textColor="@color/bback"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editText_spe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="(ตย. รอยสัก แขนขาด ขาขาด)"
+                android:inputType="text"
+                android:textSize="18sp" />
+
 
             <Button
                 android:id="@+id/button_submit"
