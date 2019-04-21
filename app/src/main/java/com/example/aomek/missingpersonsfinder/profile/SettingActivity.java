@@ -122,8 +122,9 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
     protected void onResume() {
         super.onResume();
 
-        loadPhoneData();
         loadData();
+        loadPhoneData();
+
 //        setupListView();
     }
 

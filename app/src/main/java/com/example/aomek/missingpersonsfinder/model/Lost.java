@@ -24,7 +24,7 @@ public class Lost {
     public static boolean onStatusFound = true;
     public static boolean onStatusCreate = false;
 
-    private static final String BASE_URL = "https://2cee4cbc.ngrok.io";
+    private static final String BASE_URL = "https://8d9e64c4.ngrok.io";
     private static final String IMG_URL = "http://2cee4cbc.ngrok.io";
 
     @SerializedName("plost_id")
