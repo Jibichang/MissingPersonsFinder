@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,14 +14,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,21 +44,24 @@ import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FoundLostDetailActivity extends AppCompatActivity implements ItemClickListener {
     EditText placeEdittext;
 
-    Spinner ageSpinner;
-    Spinner genderSpinner;
-    Spinner placeSpinner;
-    Spinner typeSpinner;
-    Spinner disSpinner;
-    Spinner subSpinner;
+    Spinner ageSpinner, genderSpinner, placeSpinner, typeSpinner,  disSpinner, subSpinner;
 
     ArrayList<String> mlistDistrict = new ArrayList<>();
     ArrayList<String> mlistSubDistrict = new ArrayList<>();
+
+    ImageButton uploadImage;
+    ImageView pickImage;
+    Intent intentLost;
+    private static final int IMG_REQUEST = 777;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +75,11 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
 
         setSpinner();
         setSpinnerDefaultCity();
+        selectableItem.setPathImg("-");
 
         placeEdittext = findViewById(R.id.edittext_place_detail);
+        uploadImage = findViewById(R.id.imageButton_upload_img);
+        pickImage = findViewById(R.id.imageView_upload_result);
 
         genderSpinner   .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -170,7 +183,47 @@ public class FoundLostDetailActivity extends AppCompatActivity implements ItemCl
 
             }
         });
+
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imageIntent = new Intent();
+                imageIntent.setType("image/*");
+                imageIntent.setAction(imageIntent.ACTION_GET_CONTENT);
+                startActivityForResult(imageIntent, IMG_REQUEST);
+
+//                Toast.makeText(getApplicationContext(), "img " + IMG_REQUEST,
+//                                    Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == IMG_REQUEST && resultCode == RESULT_OK && data != null){
+            Uri path = data.getData();
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
+                pickImage.setImageBitmap(bitmap);
+                pickImage.setVisibility(View.VISIBLE);
+                imagetoString();
+//                Toast.makeText(getApplicationContext(), "ok"+selectableItem.getImage(), Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void imagetoString(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imgByte = byteArrayOutputStream.toByteArray();
+        selectableItem.setPathImg(Base64.encodeToString(imgByte, Base64.DEFAULT));
+    }
+
     public void setSpinnerDefaultCity(){
         mlistDistrict.add("-");
         mlistSubDistrict.add("-");

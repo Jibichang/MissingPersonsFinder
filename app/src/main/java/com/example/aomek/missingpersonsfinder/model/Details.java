@@ -87,19 +87,19 @@ public class Details {
 
         hairtype_list_img.add(R.drawable.icon8hair1);
         hairtype_list.add("ผมเกรียนสั้น");
-        hairtype_list_code.add("HR1");
+        hairtype_list_code.add("HT1");
 
         hairtype_list_img.add(R.drawable.icon8hair2);
         hairtype_list.add("ผมสั้น");
-        hairtype_list_code.add("HR2");
+        hairtype_list_code.add("HT2");
 
         hairtype_list_img.add(R.drawable.icon8hair3);
         hairtype_list.add("ผมยาว");
-        hairtype_list_code.add("HR3");
+        hairtype_list_code.add("HT3");
 
         hairtype_list_img.add(R.drawable.icon8hair4);
         hairtype_list.add("ศีรษะล้าน");
-        hairtype_list_code.add("HR4");
+        hairtype_list_code.add("HT4");
     }
 
     public static ArrayList<String> getHairtype_list() {
@@ -137,24 +137,24 @@ public class Details {
 
         upperwaist_list_img.add(R.drawable.icon8upper1);
         upperwaist_list.add("เสื้อเชิ้ต");
-        upperwaist_list_code.add("UW1");
+        upperwaist_list_code.add("U01");
 
         upperwaist_list_img.add(R.drawable.icon8upper2);
         upperwaist_list.add("เสื้อยืด");
-        upperwaist_list_code.add("UW2");
+        upperwaist_list_code.add("U02");
 
 
         upperwaist_list_img.add(R.drawable.icon8upper3);
         upperwaist_list.add("เสื้อกล้าม");
-        upperwaist_list_code.add("UW3");
+        upperwaist_list_code.add("U03");
 
         upperwaist_list_img.add(R.drawable.icon8upper4);
         upperwaist_list.add("เสื้อแขนยาว");
-        upperwaist_list_code.add("UW4");
+        upperwaist_list_code.add("U04");
 
         upperwaist_list_img.add(R.drawable.icon8upper5);
         upperwaist_list.add("เดรส");
-        upperwaist_list_code.add("UW5");
+        upperwaist_list_code.add("U05");
     }
 
     public static ArrayList<String> getUpperwaist_list() {
@@ -177,19 +177,19 @@ public class Details {
 
         lowerwaist_list_img.add(R.drawable.icon8lower1);
         lowerwaist_list.add("กางเกงขาสั้น");
-        lowerwaist_list_code.add("LW1");
+        lowerwaist_list_code.add("L01");
 
         lowerwaist_list_img.add(R.drawable.icon8lower2);
         lowerwaist_list.add("กางเกงขายาว");
-        lowerwaist_list_code.add("LW2");
+        lowerwaist_list_code.add("L02");
 
         lowerwaist_list_img.add(R.drawable.icon8lower3);
         lowerwaist_list.add("กระโปรงสั้น");
-        lowerwaist_list_code.add("LW3");
+        lowerwaist_list_code.add("L03");
 
         lowerwaist_list_img.add(R.drawable.icon8lower4);
         lowerwaist_list.add("กระโปรงยาว");
-        lowerwaist_list_code.add("LW4");
+        lowerwaist_list_code.add("L04");
     }
 
     public static ArrayList<String> getLowerwaist_list() {

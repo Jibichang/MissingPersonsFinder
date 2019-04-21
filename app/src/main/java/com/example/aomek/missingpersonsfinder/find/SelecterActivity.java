@@ -28,6 +28,7 @@ import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.add.AddConfirmActivity;
 import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -104,49 +105,56 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#D3D3D3");
+                Snackbar.make(view,"ขาว-ดำ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView haircolor1 = findViewById(R.id.haircolor1);
         haircolor1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setHaircolor("#D3D3D3");
+                selectableItem.setHaircolor("#d2c799");
+                Snackbar.make(view,"เทา", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView haircolor2 = findViewById(R.id.haircolor2);
         haircolor2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setHaircolor("#D3D3D3");
+                selectableItem.setHaircolor("#dab358");
+                Snackbar.make(view,"ทอง", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView haircolor3 = findViewById(R.id.haircolor3);
         haircolor3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setHaircolor("#D3D3D3");
+                selectableItem.setHaircolor("#885f4d");
+                Snackbar.make(view,"น้ำตาลอ่อน", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView haircolor4 = findViewById(R.id.haircolor4);
         haircolor4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setHaircolor("#D3D3D3");
+                selectableItem.setHaircolor("#5c3f3b");
+                Snackbar.make(view,"น้ำตาลเข้ม", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView haircolor5 = findViewById(R.id.haircolor5);
         haircolor5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setHaircolor("#D3D3D3");
+                selectableItem.setHaircolor("#0b090a");
+                Snackbar.make(view,"ดำ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
-//            <color name="hair1">#d2c799</color>
-//    <color name="hair2">#dab358</color>
-//    <color name="hair3">#885f4d</color>
-//    <color name="hair4">#5c3f3b</color>
-//    <color name="hair5">#0b090a</color>
 
         // skin tone
         ImageView st1 = findViewById(R.id.skintone1);
@@ -154,6 +162,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T1");
+                Snackbar.make(view,"ผิวขาวซีด", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView st2 = findViewById(R.id.skintone2);
@@ -161,6 +171,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T2");
+                Snackbar.make(view,"ผิวขาว", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView st3 = findViewById(R.id.skintone3);
@@ -168,6 +180,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T3");
+                Snackbar.make(view,"ผิวขาวอมเหลือง", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView st4 = findViewById(R.id.skintone4);
@@ -175,6 +189,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T4");
+                Snackbar.make(view,"ผิวสองสี", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView st5 = findViewById(R.id.skintone5);
@@ -182,6 +198,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T5");
+                Snackbar.make(view,"ผิวน้ำตาลเข้ม", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         ImageView st6 = findViewById(R.id.skintone6);
@@ -189,6 +207,8 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T6");
+                Snackbar.make(view,"ผิวคล้ำ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
