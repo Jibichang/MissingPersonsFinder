@@ -89,16 +89,18 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
 
         mProgressView = findViewById(R.id.lost_progress);
 
-        CountDownTimer countDownTimer = new CountDownTimer(5 * 1000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                mAddView.setVisibility(View.GONE);
-            }
+//        CountDownTimer countDownTimer = new CountDownTimer(5 * 1000, 1000) {
+//            public void onTick(long millisUntilFinished) {
+//                mAddView.setVisibility(View.GONE);
+//            }
+//
+//            public void onFinish() {
+//                mAddView.setVisibility(View.VISIBLE);
+//            }
+//        };
+//        countDownTimer.start();
 
-            public void onFinish() {
-                mAddView.setVisibility(View.VISIBLE);
-            }
-        };
-        countDownTimer.start();
+        searchLostData();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -144,7 +146,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     protected void onResume() {
         super.onResume();
 
-        searchLostData();
+//        searchLostData();
     }
 
     private void searchLostData() {
@@ -229,19 +231,22 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                         String status = lost.get(i).getStatus();
                         String guest = lost.get(i).getGuestId();
                         String image = lost.get(i).getPathImg();
+                        String sim = lost.get(i).getSim();
 
                         Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
                                 shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date, image);
+                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date, image, sim);
                         mLostResultItemList.add(item);
+
                     }
+                    setupListView();
 //                    Toast.makeText(getApplicationContext(), " ok", Toast.LENGTH_LONG).show();
                     showProgress(false);
-                    setupListView();
+
 
                 } else {
                     showProgress(false);
-//                    Toast.makeText(getApplicationContext(), " no" + response.code(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No result" + response.code(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -257,7 +262,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
     private void setupListView() {
         final LostListAdapter adapterLost = new LostListAdapter(
                 ResultLostActivity.this,
-                R.layout.list_lost,
+                R.layout.list_lost_small,
                 mLostResultItemList
         );
         final SwipeMenuListView lv = findViewById(R.id.list_result);

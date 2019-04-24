@@ -16,6 +16,8 @@ import com.example.aomek.missingpersonsfinder.retrofit.DownloadImageFromInternet
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import okhttp3.OkHttpClient;
@@ -41,24 +43,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScrollingActivity extends AppCompatActivity implements ItemClickListener {
-    private TextView fnameTextView;
-    private TextView lnameTextView;
-    private TextView ageTextView;
-    private TextView genderTextView;
+    private TextView fnameTextView, lnameTextView, ageTextView, genderTextView, cityTextView,
+            disTextView, subDisTextView, placeTextView, detailTextView, typeTextView;
 
-    private TextView cityTextView;
-    private TextView disTextView;
-    private TextView subDisTextView;
-    private TextView placeTextView;
-
-    private TextView detailTextView;
-    private TextView typeTextView;
-    private TextView statusTextView;
-
-    private ImageView skinImg;
-    private ImageView hairImg;
-    private ImageView upperImg;
-    private ImageView lowerImg, imageLost;
+    private ImageView skinImg, hairImg, upperImg, lowerImg, imageLost;
     //TODO get image lost from database
     private String tel;
     private Guest obContact = new Guest();
@@ -156,7 +144,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
         detailTextView = findViewById(R.id.text_result_detail);
         typeTextView = findViewById(R.id.text_result_type);
-        statusTextView = findViewById(R.id.text_status);
+//        statusTextView = findViewById(R.id.text_status);
 
         skinImg = findViewById(R.id.img_skin);
         hairImg = findViewById(R.id.img_hair_color);
@@ -179,9 +167,9 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
         setSkintone();
         setULHcolor();
-        if (lostContent.getStatus().equals("1")){
-            statusTextView.setText("พบบุคคลสูญหายแล้ว");
-        }
+//        if (lostContent.getStatus().equals("1")){
+//            statusTextView.setText("พบบุคคลสูญหายแล้ว");
+//        }
 
         String Path = lostContent.getPathImg();
         String imgURL = Lost.getBASE_URL()+ "/plost/api/imgupload/" + Path;
@@ -191,7 +179,7 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
     }
 
-    private boolean isHEXcolor(String str){
+    private boolean isHEXcolor(@NonNull String str){
         String hex = str.substring(0, 1);
         return (hex.equals("#"));
     }

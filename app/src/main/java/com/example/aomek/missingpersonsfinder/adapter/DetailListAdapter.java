@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     private ArrayList<Integer> mImageUrls;
     private ArrayList<String> mCodes;
     private Context mContext;
+    private int selected = -1;
 
     public DetailListAdapter(Context context, ArrayList<String> names, ArrayList<Integer> imageUrls,ArrayList<String> code) {
         mNames = names;
@@ -36,11 +38,17 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_details, parent, false);
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                notifyDataSetChanged();
+//            }
+//        });
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
         Glide.with(mContext)
@@ -49,13 +57,41 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
                 .into(holder.image);
 
         holder.name.setText(mNames.get(position));
+        if (selected != position) {
+            holder.name.setTextColor(Color.parseColor("#000000"));
+        }else {
+            holder.name.setTextColor(holder.name.getResources().getColor(R.color.blue));
+        }
+
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                holder.name.setTextColor(view.getResources().getColor(R.color.blue));
+                if (selected == -1){
+                    selected = position;
+                }else{
+                    if (selected != position){
+                        notifyItemChanged(selected);
+                        selected = position;
+                        notifyItemChanged(selected);
+
+                    }
+                    else {
+                        selected = position;
+                        notifyItemChanged(selected);
+//                        holder.name.setTextColor(view.getResources().getColor(R.color.black_de));
+                    }
+                }
+//                notifyItemChanged(position);
+
+//                notifyDataSetChanged();
                 String Code = mCodes.get(position);
                 String Name = mNames.get(position);
+
+
                 Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
                 getTypeData(Code, Name);
+
                 Snackbar.make(view, mNames.get(position), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
@@ -102,5 +138,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
         }
     }
 
-
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
 }

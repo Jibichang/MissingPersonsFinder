@@ -11,26 +11,26 @@ public class Details {
     private static ArrayList<String> type = new ArrayList<String>();
 
 
-    private static ArrayList<String> shape_list = new ArrayList<String>();
-    private static ArrayList<Integer> shape_list_img = new ArrayList<Integer>();
-    private static ArrayList<String> shape_list_code = new ArrayList<String>();
+    private static ArrayList<String> shape_list;
+    private static ArrayList<Integer> shape_list_img;
+    private static ArrayList<String> shape_list_code;
 
-    private static ArrayList<String> hairtype_list = new ArrayList<String>();
-    private static ArrayList<Integer> hairtype_list_img = new ArrayList<Integer>();
-    private static ArrayList<String> hairtype_list_code = new ArrayList<String>();
+    private static ArrayList<String> hairtype_list;
+    private static ArrayList<Integer> hairtype_list_img;
+    private static ArrayList<String> hairtype_list_code;
 
     //    private static ArrayList<String> haircolor_list = new ArrayList<String>();
-    private static ArrayList<String> height_list = new ArrayList<String>();
+    private static ArrayList<String> height_list;
     private static ArrayList<String> weight_list = new ArrayList<String>();
 
     //    private static ArrayList<String> skintone_list = new ArrayList<String>();
-    private static ArrayList<String> upperwaist_list = new ArrayList<String>();
-    private static ArrayList<Integer> upperwaist_list_img = new ArrayList<Integer>();
-    private static ArrayList<String> upperwaist_list_code = new ArrayList<String>();
+    private static ArrayList<String> upperwaist_list;
+    private static ArrayList<Integer> upperwaist_list_img;
+    private static ArrayList<String> upperwaist_list_code;
 
-    private static ArrayList<String> lowerwaist_list = new ArrayList<String>();
-    private static ArrayList<Integer> lowerwaist_list_img = new ArrayList<Integer>();
-    private static ArrayList<String> lowerwaist_list_code = new ArrayList<String>();
+    private static ArrayList<String> lowerwaist_list;
+    private static ArrayList<Integer> lowerwaist_list_img;
+    private static ArrayList<String> lowerwaist_list_code;
 
 //    private static ArrayList<String> detail_etc_list = new ArrayList<String>();
 
@@ -52,6 +52,9 @@ public class Details {
 //        shape_list_img.add(R.drawable.icons8no);
 //        shape_list.add("ไม่ระบุ");
 //        shape_list_code.add("S0");
+        shape_list_img = new ArrayList<>();
+        shape_list  = new ArrayList<>();
+        shape_list_code = new ArrayList<>();
 
         shape_list_img.add(R.drawable.icon8shape1);
         shape_list.add("รูปร่างผอม");
@@ -84,6 +87,9 @@ public class Details {
 //        hairtype_list_img.add(R.drawable.icons8no);
 //        hairtype_list.add("ไม่ระบุ");
 //        hairtype_list_code.add("HR0");
+        hairtype_list_img = new ArrayList<>();
+        hairtype_list = new ArrayList<>();
+        hairtype_list_code = new ArrayList<>();
 
         hairtype_list_img.add(R.drawable.icon8hair1);
         hairtype_list.add("ผมเกรียนสั้น");
@@ -116,7 +122,7 @@ public class Details {
 
 
     public static void setHeight_list() {
-        height_list.clear();
+        height_list = new ArrayList<>();
         height_list.add("-");
         height_list.add("ต่ำกว่า120");
         height_list.add("120-139");
@@ -134,6 +140,10 @@ public class Details {
 //        upperwaist_list_img.add(R.drawable.icons8no);
 //        upperwaist_list.add("ไม่ระบุ");
 //        upperwaist_list_code.add("UW0");
+
+        upperwaist_list_img = new ArrayList<>();
+        upperwaist_list = new ArrayList<>();
+        upperwaist_list_code = new ArrayList<>();
 
         upperwaist_list_img.add(R.drawable.icon8upper1);
         upperwaist_list.add("เสื้อเชิ้ต");
@@ -174,6 +184,10 @@ public class Details {
 //        lowerwaist_list_img.add(R.drawable.icons8no);
 //        lowerwaist_list.add("ไม่ระบุ");
 //        lowerwaist_list_code.add("LW0");
+
+        lowerwaist_list_img = new ArrayList<>();
+        lowerwaist_list = new ArrayList<>();
+        lowerwaist_list_code = new ArrayList<>();
 
         lowerwaist_list_img.add(R.drawable.icon8lower1);
         lowerwaist_list.add("กางเกงขาสั้น");

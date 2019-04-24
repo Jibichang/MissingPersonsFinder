@@ -68,42 +68,48 @@
                     android:id="@+id/haircolor6"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    app:srcCompat="@drawable/haircolor_bandw" />
+                    app:srcCompat="@drawable/haircolor_bandw"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/haircolor1"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/hair1" />
+                    android:src="@color/hair1"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/haircolor2"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/hair2" />
+                    android:src="@color/hair2"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/haircolor3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/hair3" />
+                    android:src="@color/hair3"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/haircolor4"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/hair4" />
+                    android:src="@color/hair4"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/haircolor5"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/hair5" />
+                    android:src="@color/hair5"
+                    android:background="@color/color2" />
 
             </LinearLayout>
 
@@ -180,42 +186,49 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/T1" />
+                    android:src="@color/T1"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/skintone2"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/T2" />
+                    android:src="@color/T2"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/skintone3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/T3" />
+                    android:src="@color/T3"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/skintone4"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/T4" />
+                    android:src="@color/T4"
+                    android:background="@color/color2"
+                    />
 
                 <ImageView
                     android:id="@+id/skintone5"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/T5" />
+                    android:src="@color/T5"
+                    android:background="@color/color2"/>
 
                 <ImageView
                     android:id="@+id/skintone6"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="1dp"
-                    android:background="@color/T6" />
+                    android:src="@color/T6"
+                    android:background="@color/color2"/>
 
             </LinearLayout>
 
@@ -271,7 +284,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:ems="10"
-                android:hint="(ข้อมูลลักษณะทางกายภาพเเพิ่มเติม)"
+                android:hint="(ข้อมูลลักษณะทางกายภาพเพิ่มเติม)"
                 android:inputType="text"
                 android:textSize="18sp" />
 

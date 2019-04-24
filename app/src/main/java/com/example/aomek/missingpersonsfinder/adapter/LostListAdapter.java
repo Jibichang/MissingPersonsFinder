@@ -25,6 +25,8 @@ import com.example.aomek.missingpersonsfinder.retrofit.DownloadImageFromInternet
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.gms.flags.impl.DataUtils;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -71,6 +73,7 @@ public class LostListAdapter extends ArrayAdapter<Lost>{
         TextView cityTextView = view.findViewById(R.id.edittext_list_city);
         ImageView statusImageView = view.findViewById(R.id.imgView_list_status);
         pathImageView = view.findViewById(R.id.image_list_lost);
+        TextView simText = view.findViewById(R.id.text_sim);
 
         Lost lostItem = mLostItemList.get(position);
         String Fname = lostItem.getFname();
@@ -82,12 +85,14 @@ public class LostListAdapter extends ArrayAdapter<Lost>{
         String City = lostItem.getCity();
         String Status = lostItem.getStatus();
         String Path = lostItem.getPathImg();
+        String Sim = lostItem.getSim();
 
         String name = Fname + "  " + Lname;
         nameTextView.setText(name);
         detailTextView.setText(Detail);
         dateTextView.setText(Date);
         cityTextView.setText(City);
+        simText.setText(Sim);
 
         if (!Path.isEmpty() ){
             String imgURL = Lost.getBASE_URL()+ "/plost/api/imgupload/" + Path;

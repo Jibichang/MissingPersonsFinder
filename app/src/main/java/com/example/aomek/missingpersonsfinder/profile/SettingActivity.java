@@ -12,9 +12,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
+import com.example.aomek.missingpersonsfinder.home.SplashActivity;
 import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
@@ -31,6 +36,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -156,7 +162,6 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
 
                     }
                 })
-
                 .show();
     }
 
@@ -182,7 +187,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
         mDb.delete(TABLE_NAME, null, null);
         Lost.onStatusLogin = false;
         selectableItem.setGuestId("");
-        finish();
+        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
     }
 
     private void loadData() {
@@ -262,12 +267,13 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
     }
 
     private void setupListView() {
-        LostListAdapter adapter = new LostListAdapter(
+        final LostListAdapter adapter = new LostListAdapter(
                 SettingActivity.this,
                 R.layout.list_lost_small,
                 Lost.getLoadDataMyLost()
         );
-        ListView lv = findViewById(R.id.list_my_lost);
+        SwipeMenuListView  lv = findViewById(R.id.list_my_lost);
+        setSwipeListView(lv);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -308,6 +314,71 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                 startActivity(intent);
             }
         });
+        
+        lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index){
+                    case 0:
+                        Toast.makeText(getApplicationContext(), "ลบแล้ว 0", Toast.LENGTH_SHORT).show();
+                        return false;
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "ลบแล้ว 1", Toast.LENGTH_SHORT).show();
+                        return false;
+                        default:
+                            return false;
+                }
+
+//                if (Lost.onStatusLogin){
+//                    //                Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
+//                    String id =  mLostResultItemList.get(position).getId();
+//                    String gid = selectableItem.getGuestId();
+//
+//                    addFeedback(gid, id);
+//                    Toast.makeText(getApplicationContext(), "ลบแล้ว", Toast.LENGTH_SHORT).show();
+//
+//                    mLostResultItemList.remove(position);
+//                    adapterLost.notifyDataSetChanged();
+//                    lv.invalidateViews();
+//                    lv.setAdapter(adapterLost);
+//                    return false;
+//                }else {
+//                    Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_SHORT).show();
+//                    return false;
+//                }
+
+            }
+        });
+    }
+
+    private void setSwipeListView(SwipeMenuListView lv) {
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
+                deleteItem.setBackground(
+                        new ColorDrawable(getResources().getColor(R.color.gray)));
+                deleteItem.setWidth(220);
+                deleteItem.setIcon(R.drawable.icons8bin3);
+                deleteItem.setTitle("ลบ");
+                deleteItem.setTitleSize(12);
+                deleteItem.setTitleColor(getResources().getColor(R.color.red));
+                menu.addMenuItem(deleteItem);
+
+                SwipeMenuItem editItem = new SwipeMenuItem(getApplicationContext());
+                editItem.setBackground(
+                        new ColorDrawable(getResources().getColor(R.color.color2)));
+                editItem.setWidth(220);
+                editItem.setIcon(R.drawable.icons8edit3);
+                editItem.setTitle("แก้ไข");
+                editItem.setTitleSize(12);
+                editItem.setTitleColor(getResources().getColor(R.color.bback));
+                menu.addMenuItem(editItem);
+            }
+        };
+
+        // set creator
+        lv.setMenuCreator(creator);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)

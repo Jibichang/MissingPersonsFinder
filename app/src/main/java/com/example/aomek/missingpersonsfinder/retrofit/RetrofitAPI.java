@@ -17,8 +17,8 @@ import retrofit2.http.Url;
 
 public interface RetrofitAPI {
 
-    @GET("/users/{username}")
-    Call<UserGH> getUser(@Path("username") String username);
+//    @GET("/users/{username}")
+//    Call<UserGH> getUser(@Path("username") String username);
 
     @GET("/plost/api/persons/read_one.php")
     Call<Lost> getLost();

@@ -38,17 +38,27 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
     EditText etcEdittext, speEdittext;
 
     private Boolean isAddAct;
+    private int pd;
+
+
+    ImageView st1, st2, st3, st4, st5, st6;
+    ImageView haircolor1, haircolor2, haircolor3, haircolor4, haircolor5, haircolor6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selecter);
 
+        final int padding = getResources().getDimensionPixelOffset(R.dimen.fui_button_inset_bottom);
+        pd = padding;
+
         etcEdittext = findViewById(R.id.editText_etc);
         speEdittext = findViewById(R.id.editText_spe);
 
         initRecyclerView();
         setSpinnerHeight();
+        initHairColor();
+        initSkinTone();
 
 //        Toast.makeText(getApplicationContext(), "ok"+selectableItem.getImage(), Toast.LENGTH_LONG).show();
 
@@ -99,119 +109,208 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
             }
         });
 
+
+
+    }
+
+    private void initHairColor(){
         // hair color
-        ImageView haircolor0 = findViewById(R.id.haircolor6);
-        haircolor0.setOnClickListener(new View.OnClickListener() {
+        haircolor1 = findViewById(R.id.haircolor1);
+        haircolor2 = findViewById(R.id.haircolor2);
+        haircolor3 = findViewById(R.id.haircolor3);
+        haircolor4 = findViewById(R.id.haircolor4);
+        haircolor5 = findViewById(R.id.haircolor5);
+        haircolor6 = findViewById(R.id.haircolor6);
+        haircolor6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#D3D3D3");
+//                haircolor6.setCropToPadding(true);
+
+                haircolor6.setPadding(pd, pd, pd, pd);
+                haircolor1.setPadding(0, 0, 0, 0);
+                haircolor2.setPadding(0, 0, 0, 0);
+                haircolor3.setPadding(0, 0, 0, 0);
+                haircolor4.setPadding(0, 0, 0, 0);
+                haircolor5.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ขาว-ดำ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView haircolor1 = findViewById(R.id.haircolor1);
+
         haircolor1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#d2c799");
-                Snackbar.make(view,"เทา", Snackbar.LENGTH_LONG)
+                haircolor1.setPadding(pd, pd, pd, pd);
+                haircolor6.setPadding(0, 0, 0, 0);
+                haircolor2.setPadding(0, 0, 0, 0);
+                haircolor3.setPadding(0, 0, 0, 0);
+                haircolor4.setPadding(0, 0, 0, 0);
+                haircolor5.setPadding(0, 0, 0, 0);
+                Snackbar.make(view,"ขาว", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView haircolor2 = findViewById(R.id.haircolor2);
+
         haircolor2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#dab358");
+                haircolor2.setPadding(pd, pd, pd, pd);
+                haircolor1.setPadding(0, 0, 0, 0);
+                haircolor6.setPadding(0, 0, 0, 0);
+                haircolor3.setPadding(0, 0, 0, 0);
+                haircolor4.setPadding(0, 0, 0, 0);
+                haircolor5.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ทอง", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView haircolor3 = findViewById(R.id.haircolor3);
+
         haircolor3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#885f4d");
+                haircolor3.setPadding(pd, pd, pd, pd);
+                haircolor1.setPadding(0, 0, 0, 0);
+                haircolor2.setPadding(0, 0, 0, 0);
+                haircolor6.setPadding(0, 0, 0, 0);
+                haircolor4.setPadding(0, 0, 0, 0);
+                haircolor5.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"น้ำตาลอ่อน", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView haircolor4 = findViewById(R.id.haircolor4);
+
         haircolor4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#5c3f3b");
+                haircolor4.setPadding(pd, pd, pd, pd);
+                haircolor1.setPadding(0, 0, 0, 0);
+                haircolor2.setPadding(0, 0, 0, 0);
+                haircolor3.setPadding(0, 0, 0, 0);
+                haircolor6.setPadding(0, 0, 0, 0);
+                haircolor5.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"น้ำตาลเข้ม", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView haircolor5 = findViewById(R.id.haircolor5);
+
         haircolor5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setHaircolor("#0b090a");
+                haircolor5.setPadding(pd, pd, pd, pd);
+                haircolor1.setPadding(0, 0, 0, 0);
+                haircolor2.setPadding(0, 0, 0, 0);
+                haircolor3.setPadding(0, 0, 0, 0);
+                haircolor4.setPadding(0, 0, 0, 0);
+                haircolor6.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ดำ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
-
+    }
+    private void initSkinTone(){
         // skin tone
-        ImageView st1 = findViewById(R.id.skintone1);
+        st1 = findViewById(R.id.skintone1);
+        st2 = findViewById(R.id.skintone2);
+        st3 = findViewById(R.id.skintone3);
+        st4 = findViewById(R.id.skintone4);
+        st5 = findViewById(R.id.skintone5);
+        st6 = findViewById(R.id.skintone6);
         st1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T1");
+                st1.setPadding(pd, pd, pd, pd);
+                st2.setPadding(0, 0, 0, 0);
+                st3.setPadding(0, 0, 0, 0);
+                st4.setPadding(0, 0, 0, 0);
+                st5.setPadding(0, 0, 0, 0);
+                st6.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ผิวขาวซีด", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView st2 = findViewById(R.id.skintone2);
+
         st2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T2");
+                st2.setPadding(pd, pd, pd, pd);
+                st1.setPadding(0, 0, 0, 0);
+                st3.setPadding(0, 0, 0, 0);
+                st4.setPadding(0, 0, 0, 0);
+                st5.setPadding(0, 0, 0, 0);
+                st6.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ผิวขาว", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView st3 = findViewById(R.id.skintone3);
+
         st3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T3");
+                st3.setPadding(pd, pd, pd, pd);
+                st2.setPadding(0, 0, 0, 0);
+                st1.setPadding(0, 0, 0, 0);
+                st4.setPadding(0, 0, 0, 0);
+                st5.setPadding(0, 0, 0, 0);
+                st6.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ผิวขาวอมเหลือง", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView st4 = findViewById(R.id.skintone4);
+
         st4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T4");
+                st4.setPadding(pd, pd, pd, pd);
+                st2.setPadding(0, 0, 0, 0);
+                st3.setPadding(0, 0, 0, 0);
+                st1.setPadding(0, 0, 0, 0);
+                st5.setPadding(0, 0, 0, 0);
+                st6.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ผิวสองสี", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView st5 = findViewById(R.id.skintone5);
+
         st5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T5");
+                st5.setPadding(pd, pd, pd, pd);
+                st2.setPadding(0, 0, 0, 0);
+                st3.setPadding(0, 0, 0, 0);
+                st4.setPadding(0, 0, 0, 0);
+                st1.setPadding(0, 0, 0, 0);
+                st6.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ผิวน้ำตาลเข้ม", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        ImageView st6 = findViewById(R.id.skintone6);
+
         st6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectableItem.setSkintone("T6");
+                st6.setPadding(pd, pd, pd, pd);
+                st2.setPadding(0, 0, 0, 0);
+                st3.setPadding(0, 0, 0, 0);
+                st4.setPadding(0, 0, 0, 0);
+                st5.setPadding(0, 0, 0, 0);
+                st1.setPadding(0, 0, 0, 0);
                 Snackbar.make(view,"ผิวคล้ำ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-
     }
 
     private void showFilter(){
@@ -230,6 +329,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                         switch (i) {
                             case 0: // name
                                 selectableItem.setMode(0);
+//                                dialogInterface.dismiss();
                                 startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
                                 break;
                             case 1: // city
@@ -260,11 +360,6 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview");
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        RecyclerView recyclerView = findViewById(R.id.ReView_hairtype);
-//        recyclerView.setLayoutManager(layoutManager);
-//        DetailListAdapter adapter = new DetailListAdapter(this, mNames, mImageUrls);
-//        recyclerView.setAdapter(adapter);
 
 //        Hair Type List
         RecyclerView recyclerView_hairType = findViewById(R.id.ReView_hairtype);

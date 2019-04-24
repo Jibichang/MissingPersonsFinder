@@ -12,10 +12,10 @@ import java.util.Locale;
 
 public class Lost {
 
-    private static ArrayList<String> listtype = new ArrayList<String>();
-    private static ArrayList<String> listgender = new ArrayList<String>();
-    private static ArrayList<String> listage = new ArrayList<String>();
-    private static ArrayList<String> listplace = new ArrayList<String>();
+    private static ArrayList<String> listtype;
+    private static ArrayList<String> listgender;
+    private static ArrayList<String> listage;
+    private static ArrayList<String> listplace;
 
     private static List<Lost> loadDataMain;
     private static List<Lost> loadDataMyLost;
@@ -24,7 +24,8 @@ public class Lost {
     public static boolean onStatusFound = true;
     public static boolean onStatusCreate = false;
 
-    private static final String BASE_URL = "https://8d9e64c4.ngrok.io";
+//    private static final String BASE_URL = "https://pilot.cp.su.ac.th/usr/u07580467";
+    private static final String BASE_URL = "https://53b7ec07.ngrok.io";
     private static final String IMG_URL = "http://2cee4cbc.ngrok.io";
 
     @SerializedName("plost_id")
@@ -117,6 +118,9 @@ public class Lost {
     @SerializedName("path_img")
     @Expose
     private String pathImg;
+    @SerializedName("sim")
+    @Expose
+    private String sim;
 
     public Lost() {
         this.fname = "";
@@ -145,6 +149,7 @@ public class Lost {
         this.status = "";
         this.typeId = "";
         this.pathImg = "";
+        this.sim = "";
 
     }
 
@@ -176,6 +181,7 @@ public class Lost {
         this.status = status;
         this.mode = mode;
     }
+
 
     /// Search
     public Lost(String fname, String lname, String gender, String age,
@@ -241,6 +247,42 @@ public class Lost {
         this.status = status;
         this.regDate = regDate;
         this.pathImg = pathImg;
+    }
+
+    /// Get data Result + sim
+    public Lost(String id, String pname, String fname, String lname, String gender, String age,
+                String city, String district, String subdistrict, String place, String height,
+                String shape, String hairtype, String haircolor,
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
+                String type_id, String status, String detail_etc, String special,String guestId,
+                String regDate, String pathImg, String sim) {
+        this.id = id;
+        this.pname = pname;
+        this.fname = fname;
+        this.lname = lname;
+        this.gender = gender;
+        this.age = age;
+        this.place = place;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.city = city;
+        this.height = height;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.upperwaist = upperwaist;
+        this.uppercolor = uppercolor;
+        this.lowerwaist = lowerwaist;
+        this.lowercolor = lowercolor;
+        this.detailEtc = detail_etc;
+        this.special = special;
+        this.typeId = type_id;
+        this.guestId = guestId;
+        this.status = status;
+        this.regDate = regDate;
+        this.pathImg = pathImg;
+        this.sim = sim;
     }
 
 //    create
@@ -669,6 +711,10 @@ public class Lost {
 
     public String getQuery() { return query; }
 
+    public String getSim() { return sim; }
+
+    public void setSim(String sim) { this.sim = sim; }
+
     public Lost(String fname, String lname, String detail, String date) {
         this.fname = fname;
         this.lname = lname;
@@ -678,7 +724,7 @@ public class Lost {
 
 
     public static void setListType() {
-        listtype.clear();
+        listtype = new ArrayList<>();
         listtype.add("ไม่ระบุ");
         listtype.add("ลักพาตัว");
         listtype.add("เด็กพลัดหลง");
@@ -697,7 +743,7 @@ public class Lost {
     }
 
     public static void setListGender() {
-        listgender.clear();
+        listgender = new ArrayList<>();
         listgender.add("หญิง");
         listgender.add("ชาย");
     }
@@ -707,7 +753,7 @@ public class Lost {
     }
 
     public static void setListAge() {
-        listage.clear();
+        listage = new ArrayList<>();
         listage.add("-");
         listage.add("0-10");
         listage.add("11-15");
@@ -722,7 +768,7 @@ public class Lost {
     }
 
     public static void setListplace() {
-        listage.clear();
+        listplace = new ArrayList<>();
         listplace.add("-");
         listplace.add("กรุงเทพมหานคร");
         listplace.add("สมุทรปราการ");

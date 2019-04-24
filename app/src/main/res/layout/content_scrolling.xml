@@ -353,7 +353,7 @@
                     android:id="@+id/text_lower"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="เสื้อผ้าส่วนล่าง : "
+                    android:text="ส่วนล่าง : "
                     android:textColor="@color/browser_actions_title_color" />
 
                 <ImageView
@@ -401,14 +401,15 @@
             android:layout_marginBottom="5dp"
             android:gravity="right">
 
-            <TextView
-                android:id="@+id/text_status"
+            <Button
+                android:id="@+id/button_i_found"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text=""
-                android:textColor="@color/blue"
-                android:textSize="14sp" />
+                android:layout_weight="1"
+                android:text="พบแล้ว"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
         </TableRow>
 
