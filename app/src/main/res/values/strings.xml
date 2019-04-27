@@ -149,6 +149,6 @@
     <string name="title_activity_main_menu">MainMenuActivity</string>
 
 
-     <string name="del_upload"><u>ลบรูปภาพ</u></string>
+    <string name="del_upload"><u>ลบรูปภาพ</u></string>
 
 </resources>

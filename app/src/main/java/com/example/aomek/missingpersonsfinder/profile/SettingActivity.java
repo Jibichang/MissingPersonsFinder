@@ -21,6 +21,7 @@ import com.example.aomek.missingpersonsfinder.adapter.LostListAdapter;
 import com.example.aomek.missingpersonsfinder.find.SelecterActivity;
 import com.example.aomek.missingpersonsfinder.home.SplashActivity;
 import com.example.aomek.missingpersonsfinder.login.LoginAppActivity;
+import com.example.aomek.missingpersonsfinder.model.Feedback;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
@@ -103,6 +104,19 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             }
         });
 
+        Button fbButton = findViewById(R.id.button_history);
+        fbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Lost.onStatusLogin) {
+                    startActivity(new Intent(SettingActivity.this, FeedbackActivity.class));
+                } else {
+                    startActivity(new Intent(SettingActivity.this, LoginAppActivity.class));
+                }
+
+            }
+        });
+
         memberButton = findViewById(R.id.button_member);
         setTextMember();
         memberButton.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +130,6 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                 }
             }
         });
-
     }
 
     @Override
@@ -128,9 +141,12 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
     protected void onResume() {
         super.onResume();
 
-        loadData();
+        if (Lost.onStatusLogin) {
+            loadData();
+        }else {
+            showNoResult(true);
+        }
         loadPhoneData();
-
 //        setupListView();
     }
 
@@ -163,6 +179,54 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                     }
                 })
                 .show();
+    }
+
+    private void showDialogDelete(@NonNull String msg) {
+        new AlertDialog.Builder(SettingActivity.this)
+                .setTitle("ต้องการลบข้อมูลนี้จากระบบใช่หรือไม่")
+                .setMessage(msg)
+                .setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteLost();
+                    }
+                })
+                .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
+    }
+
+    private void deleteLost() {
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+
+        Lost obLost = new Lost();
+        obLost.setId(lostContent.getId());
+
+        Call<Lost> call = retrofit.deleteLost(obLost);
+        call.enqueue(new Callback<Lost>() {
+            @Override
+            public void onResponse(Call<Lost> call, Response<Lost> response) {
+                if (response.body() != null) {
+                    loadData();
+                    Toast.makeText(getApplicationContext(), "ลบแล้ว",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "ลบข้อมูลล้มเหลว",Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     public void getUserNameFormDB() {
@@ -266,13 +330,88 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
         });
     }
 
+    private void loadFeedback() {
+        showNoResult(false);
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+
+        Feedback obFeedback = new Feedback();
+        obFeedback.setGuestId(selectableItem.getGuestId());
+
+        Call<LostModel> call = retrofit.readFeedback(obFeedback);
+        call.enqueue(new Callback<LostModel>() {
+            @Override
+            public void onResponse(Call<LostModel> call, Response<LostModel> response) {
+                if (response.body() != null) {
+                    LostModel lostmodel = response.body();
+                    List<Lost> lost = lostmodel.getBody();
+                    mLostItemList = new ArrayList<>();
+                    for (int i = 0; i < lost.size(); i++) {
+                        String id = lost.get(i).getId();
+                        String pname = lost.get(i).getPname();
+                        String fname = lost.get(i).getFname();
+                        String lname = lost.get(i).getLname();
+                        String gender = lost.get(i).getGender();
+                        String age = lost.get(i).getAge();
+
+                        String place = lost.get(i).getPlace();
+                        String sub = lost.get(i).getSubdistrict();
+                        String dis = lost.get(i).getDistrict();
+                        String city = lost.get(i).getCity();
+
+                        String height = lost.get(i).getHeight();
+                        String shape = lost.get(i).getShape();
+                        String hairtype = lost.get(i).getHairtype();
+                        String haircolor = lost.get(i).getHaircolor();
+
+                        String upperwaist = lost.get(i).getUpperwaist();
+                        String upperolor = lost.get(i).getUppercolor();
+                        String lowerwaist = lost.get(i).getLowerwaist();
+                        String lowercolor = lost.get(i).getLowercolor();
+
+                        String skintone = lost.get(i).getSkintone();
+                        String type_id = lost.get(i).getTypeId();
+                        String detail_etc = lost.get(i).getDetailEtc();
+                        String special = lost.get(i).getSpecial();
+
+                        String date = lost.get(i).getRegDate();
+                        String status = lost.get(i).getStatus();
+                        String guest = lost.get(i).getGuestId();
+                        String image = lost.get(i).getPathImg();
+
+                        Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
+                                shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
+                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date, image);
+                        mLostItemList.add(item);
+                    }
+                    setupListView();
+                    showNoResult(false);
+
+                } else {
+                    showNoResult(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                showNoResult(true);
+//                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
     private void setupListView() {
         final LostListAdapter adapter = new LostListAdapter(
                 SettingActivity.this,
                 R.layout.list_lost_small,
                 Lost.getLoadDataMyLost()
         );
-        SwipeMenuListView  lv = findViewById(R.id.list_my_lost);
+        final SwipeMenuListView  lv = findViewById(R.id.list_my_lost);
         setSwipeListView(lv);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -280,6 +419,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Lost item = Lost.getLoadDataMyLost().get(position);
 
+                lostContent.setId(item.getId());
                 lostContent.setFname(item.getFname());
                 lostContent.setLname(item.getLname());
                 lostContent.setAge(item.getAge());
@@ -314,13 +454,19 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                 startActivity(intent);
             }
         });
-        
+
         lv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                Lost item = Lost.getLoadDataMyLost().get(position);
+                lostContent.setId(item.getId());
+                lostContent.setFname(item.getFname());
+                if (lostContent.getFname().isEmpty()) { lostContent.setFname("ไม่ระบุชื่อ"); }
+                String msg = "ระบบจะทำการลบข้อมูลทั้งหมดของ " + lostContent.getFname() + " เมื่อกดยืนยันจะไม่สามารถดึงข้อมูลกลับมาได้อีก";
                 switch (index){
                     case 0:
-                        Toast.makeText(getApplicationContext(), "ลบแล้ว 0", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "ลบแล้ว 0 :" + lostContent.getId(), Toast.LENGTH_SHORT).show();
+                        showDialogDelete(msg);
                         return false;
                     case 1:
                         Toast.makeText(getApplicationContext(), "ลบแล้ว 1", Toast.LENGTH_SHORT).show();
@@ -328,25 +474,6 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                         default:
                             return false;
                 }
-
-//                if (Lost.onStatusLogin){
-//                    //                Toast.makeText(getApplicationContext(), "ลบแล้ว" + position + " : "+ index, Toast.LENGTH_SHORT).show();
-//                    String id =  mLostResultItemList.get(position).getId();
-//                    String gid = selectableItem.getGuestId();
-//
-//                    addFeedback(gid, id);
-//                    Toast.makeText(getApplicationContext(), "ลบแล้ว", Toast.LENGTH_SHORT).show();
-//
-//                    mLostResultItemList.remove(position);
-//                    adapterLost.notifyDataSetChanged();
-//                    lv.invalidateViews();
-//                    lv.setAdapter(adapterLost);
-//                    return false;
-//                }else {
-//                    Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_SHORT).show();
-//                    return false;
-//                }
-
             }
         });
     }

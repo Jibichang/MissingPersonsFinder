@@ -19,16 +19,17 @@ public class Lost {
 
     private static List<Lost> loadDataMain;
     private static List<Lost> loadDataMyLost;
+    private static List<Lost> loadDataMyFeedback;
 
     public static boolean onStatusLogin = false;
     public static boolean onStatusFound = true;
     public static boolean onStatusCreate = false;
 
 //    private static final String BASE_URL = "https://pilot.cp.su.ac.th/usr/u07580467";
-    private static final String BASE_URL = "https://53b7ec07.ngrok.io";
+    private static final String BASE_URL = "https://11073927.ngrok.io";
     private static final String IMG_URL = "http://2cee4cbc.ngrok.io";
 
-    @SerializedName("plost_id")
+    @SerializedName("id")
     @Expose
     private String id;
     @SerializedName("pname")
@@ -188,7 +189,7 @@ public class Lost {
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
-                String type_id, String status, String detail_etc, String special, Integer mode, String guestId) {
+                String type_id, String status, String detail_etc, String special, String guestId) {
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;
@@ -210,7 +211,6 @@ public class Lost {
         this.special = special;
         this.typeId = type_id;
         this.status = status;
-        this.mode = mode;
         this.guestId = guestId;
     }
 

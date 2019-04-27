@@ -183,9 +183,7 @@ public class ResultLostActivity extends AppCompatActivity implements ItemClickLi
                 "0",
                 ""+selectableItem.getDetailEtc(),
                 ""+selectableItem.getSpecial(),
-                selectableItem.getMode(),
                 ""+selectableItem.getGuestId()
-
         );
 
         Call<LostModel> call = retrofit.searchLost(obLost);

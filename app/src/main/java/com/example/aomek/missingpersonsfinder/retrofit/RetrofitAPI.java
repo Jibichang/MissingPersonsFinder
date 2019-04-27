@@ -48,10 +48,29 @@ public interface RetrofitAPI {
     @POST("/plost/api/persons/create.php")
     Call<Lost> createLost(@Body Lost body);
 
+    // delete lost
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/persons/delete.php")
+    Call<Lost> deleteLost(@Body Lost body);
+
     // Feedback
     @Headers("Content-Type: application/json")
     @POST("/plost/api/feedback/create.php")
     Call<Feedback> addFeedback(@Body Feedback body);
+
+    // read Feedback
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/feedback/read.php")
+    Call<LostModel> readFeedback(@Body Feedback body);
+
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/feedback/delete_all.php")
+    Call<LostModel> deleteAllFeedback(@Body Feedback body);
+
+    @Headers("Content-Type: application/json")
+    @POST("/plost/api/feedback/delete.php")
+    Call<LostModel> deleteFeedback(@Body Feedback body);
+
 
     // Guest Lost
     @Headers("Content-Type: application/json")
@@ -81,9 +100,6 @@ public interface RetrofitAPI {
     @Headers("Content-Type: application/json")
     @POST("/plost/api/persons/read_get.php")
     Call<LostModel> searchNormal(@Body Lost body);
-
-    @POST("/plost/api/persons/upload.php")
-    Call<Lost> uploadImage2(@Field("image") String image, @Field("plost_id") String id);
 
     //upload image
     @POST("/plost/api/imgupload/upload.php")
