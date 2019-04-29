@@ -9,6 +9,11 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import petrov.kristiyan.colorpicker.ColorPicker;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 import android.view.View;
@@ -23,14 +28,18 @@ import android.widget.Toast;
 import com.example.aomek.missingpersonsfinder.R;
 import com.example.aomek.missingpersonsfinder.adapter.DetailListAdapter;
 import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
+import com.example.aomek.missingpersonsfinder.home.SplashActivity;
 import com.example.aomek.missingpersonsfinder.model.Details;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.add.AddConfirmActivity;
 import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
+import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SelecterActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "SelecterActivity";
@@ -43,6 +52,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
     ImageView st1, st2, st3, st4, st5, st6;
     ImageView haircolor1, haircolor2, haircolor3, haircolor4, haircolor5, haircolor6;
+    Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +64,13 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
         etcEdittext = findViewById(R.id.editText_etc);
         speEdittext = findViewById(R.id.editText_spe);
+        submitButton = findViewById(R.id.button_submit);
 
         initRecyclerView();
-        setSpinnerHeight();
         initHairColor();
         initSkinTone();
+        setSpinnerHeight();
+
 
 //        Toast.makeText(getApplicationContext(), "ok"+selectableItem.getImage(), Toast.LENGTH_LONG).show();
 
@@ -71,13 +83,13 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                selectableItem.setHeight("-");
             }
         });
 //        isAddAct = intent.getBooleanExtra("isAddAct", false);
         isAddAct = getIntent().getBooleanExtra("isAddAct", false);
 
-        Button submitButton = findViewById(R.id.button_submit);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,8 +98,18 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
 //                Toast.makeText(SelecterActivity.this, "ff"+ isAddAct,Toast.LENGTH_LONG).show();
                 if (isAddAct){
                     startActivity(new Intent(getApplicationContext(), AddConfirmActivity.class));
-                }else {
-                    showFilter();
+                }else if (Lost.onStatusEdit) {
+
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = df.format(c.getTime());
+
+                    updateLost(formattedDate);
+
+                    Toast.makeText(SelecterActivity.this, "edit" + selectableItem.getDetailEtc() + " : " + selectableItem.getSkintone(),Toast.LENGTH_LONG).show();
+                } else {
+//                    showFilter();
+                    startActivity( new Intent(SelecterActivity.this, ResultLostActivity.class));
                 }
 
             }
@@ -108,8 +130,6 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                 pickColorLower();
             }
         });
-
-
 
     }
 
@@ -214,6 +234,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         });
 
     }
+
     private void initSkinTone(){
         // skin tone
         st1 = findViewById(R.id.skintone1);
@@ -225,7 +246,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         st1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setSkintone("T1");
+                selectableItem.setSkintone("#f4d0b1");
                 st1.setPadding(pd, pd, pd, pd);
                 st2.setPadding(0, 0, 0, 0);
                 st3.setPadding(0, 0, 0, 0);
@@ -240,7 +261,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         st2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setSkintone("T2");
+                selectableItem.setSkintone("#e7b48f");
                 st2.setPadding(pd, pd, pd, pd);
                 st1.setPadding(0, 0, 0, 0);
                 st3.setPadding(0, 0, 0, 0);
@@ -255,7 +276,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         st3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setSkintone("T3");
+                selectableItem.setSkintone("#d29e7c");
                 st3.setPadding(pd, pd, pd, pd);
                 st2.setPadding(0, 0, 0, 0);
                 st1.setPadding(0, 0, 0, 0);
@@ -270,7 +291,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         st4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setSkintone("T4");
+                selectableItem.setSkintone("#ba7750");
                 st4.setPadding(pd, pd, pd, pd);
                 st2.setPadding(0, 0, 0, 0);
                 st3.setPadding(0, 0, 0, 0);
@@ -285,7 +306,7 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         st5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectableItem.setSkintone("T5");
+                selectableItem.setSkintone("#a55d2b");
                 st5.setPadding(pd, pd, pd, pd);
                 st2.setPadding(0, 0, 0, 0);
                 st3.setPadding(0, 0, 0, 0);
@@ -356,11 +377,59 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
         ArrayAdapter<String> adapterHeigth = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, Details.getHeight_list());
         heightSpinner.setAdapter(adapterHeigth);
+
+        if (Lost.onStatusEdit) {
+            heightSpinner.setSelection(Details.getHeight_list().indexOf(lostContent.getHeight()));
+            etcEdittext.setText(lostContent.getDetailEtc());
+            speEdittext.setText(lostContent.getSpecial());
+
+            selectableItem.setUppercolor(lostContent.getUppercolor());
+            selectableItem.setLowercolor(lostContent.getLowercolor());
+
+            setDefaultSH();
+        }
+    }
+
+    public void setDefaultSH(){
+        String skin = lostContent.getSkintone();
+        switch (skin) {
+            case "#f4d0b1" :  st1.setPadding(pd, pd, pd, pd);
+                break;
+            case "#e7b48f" :  st2.setPadding(pd, pd, pd, pd);
+                break;
+            case "#d29e7c" :  st3.setPadding(pd, pd, pd, pd);
+                break;
+            case "#ba7750" :  st4.setPadding(pd, pd, pd, pd);
+                break;
+            case "#a55d2b" :  st5.setPadding(pd, pd, pd, pd);
+                break;
+            case "#3c201d" :  st6.setPadding(pd, pd, pd, pd);
+                break;
+            default :
+                break;
+        }
+
+        String hair = lostContent.getHaircolor();
+        switch (hair) {
+            case "#D3D3D3" :  haircolor6.setPadding(pd, pd, pd, pd);
+                break;
+            case "#d2c799" :  haircolor1.setPadding(pd, pd, pd, pd);
+                break;
+            case "#dab358" :  haircolor2.setPadding(pd, pd, pd, pd);
+                break;
+            case "#885f4d" :  haircolor3.setPadding(pd, pd, pd, pd);
+                break;
+            case "#5c3f3b" :  haircolor4.setPadding(pd, pd, pd, pd);
+                break;
+            case "#0b090a" :  haircolor5.setPadding(pd, pd, pd, pd);
+                break;
+            default :
+                break;
+        }
     }
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview");
-
 //        Hair Type List
         RecyclerView recyclerView_hairType = findViewById(R.id.ReView_hairtype);
         recyclerView_hairType.setLayoutManager(new LinearLayoutManager(this,
@@ -397,7 +466,25 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                 Details.getUpperwaist_list_img(), Details.getUpperwaist_list_code());
         recyclerView_Upper.setAdapter(Upper);
 
+        if (Lost.onStatusEdit) {
+            if (!lostContent.getHairtype().isEmpty()){
+                hairType.setSelected(Details.getHairtype_list().indexOf(lostContent.getHairtype()));
+            }
 
+            if (!lostContent.getShape().isEmpty()){
+                Shape.setSelected(Details.getShape_list().indexOf(lostContent.getShape()));
+            }
+
+            String upper = lostContent.getUpperwaist();
+            if (!upper.isEmpty() && !upper.equals("U00")){
+                Upper.setSelected(Details.getUpperwaist_list().indexOf(upper));
+            }
+
+            String lower = lostContent.getLowerwaist();
+            if (!lower.isEmpty() && !lower.equals("L00")){
+                Lower.setSelected(Details.getLowerwaist_list().indexOf(lower));
+            }
+        }
     }
 
     private ArrayList<String> arrayColor(){
@@ -481,5 +568,59 @@ public class SelecterActivity extends AppCompatActivity implements ItemClickList
                 .show();
     }
 
+    private void updateLost(String time) {
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+        Lost obLost = new Lost(
+                ""+selectableItem.getId(),
+                ""+selectableItem.getFname(),
+                ""+selectableItem.getLname(),
+                ""+selectableItem.getGender(),
+                ""+selectableItem.getAge(),
+                ""+selectableItem.getCity(),
+                ""+selectableItem.getDistrict(),
+                ""+selectableItem.getSubdistrict(),
+                ""+selectableItem.getPlace(),
+                ""+selectableItem.getHeight(),
+                ""+selectableItem.getShape(),
+                ""+selectableItem.getHairtype(),
+                ""+selectableItem.getHaircolor(),
+                ""+selectableItem.getUpperwaist(),
+                ""+selectableItem.getUppercolor(),
+                ""+selectableItem.getLowerwaist(),
+                ""+selectableItem.getLowercolor(),
+                ""+selectableItem.getSkintone(),
+                ""+selectableItem.getTypeId(),
+                "0",
+                ""+selectableItem.getDetailEtc(),
+                ""+selectableItem.getSpecial(),
+                ""+selectableItem.getGuestId(),
+                ""+time
+        );
+
+        Call<Lost> call = retrofit.updateLost(obLost);
+        call.enqueue(new Callback<Lost>() {
+            @Override
+            public void onResponse(Call<Lost> call, Response<Lost> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "แก้ไขข้อมูลแล้ว", Toast.LENGTH_LONG).show();
+//                    Lost.onStatusCreate = true;
+                    selectableItem.clearData();
+                    Lost.onStatusEdit = false;
+                    startActivity(new Intent(SelecterActivity.this, SettingActivity.class));
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "ล้มเหลว", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 
 }

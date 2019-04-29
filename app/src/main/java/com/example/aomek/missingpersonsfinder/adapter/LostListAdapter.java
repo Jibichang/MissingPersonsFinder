@@ -94,7 +94,7 @@ public class LostListAdapter extends ArrayAdapter<Lost>{
         cityTextView.setText(City);
         simText.setText(Sim);
 
-        if (!Path.isEmpty() ){
+        if (!Path.isEmpty() && !Path.equals("pic0")){
             String imgURL = Lost.getBASE_URL()+ "/plost/api/imgupload/" + Path;
 
             new DownloadImageFromInternet(pathImageView).execute(imgURL);

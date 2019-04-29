@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 lostContent.setHairtype(item.getHairtype());
                 lostContent.setHaircolor(item.getHaircolor());
                 lostContent.setSkintone(item.getSkintone());
+                lostContent.setHeight(item.getHeight());
 
                 lostContent.setUpperwaist(item.getUpperwaist());
                 lostContent.setUppercolor(item.getUppercolor());

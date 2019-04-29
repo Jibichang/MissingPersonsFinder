@@ -12,6 +12,7 @@ import com.example.aomek.missingpersonsfinder.adapter.ItemClickListener;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
+import com.example.aomek.missingpersonsfinder.profile.SettingActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.DownloadImageFromInternet;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,17 +53,36 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
     private String tel;
     private Guest obContact = new Guest();
     private FloatingActionButton fab;
+    private Button iFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
+
+        Intent mylost = getIntent();
+        Boolean onStatusMylost = mylost.getBooleanExtra("mylost", false);
+        fab = (FloatingActionButton) findViewById(R.id.tel);
+        iFound = findViewById(R.id.button_i_found);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("ข้อมูลบุคคลสูญหาย");
         setSupportActionBar(toolbar);
 
         getContact();
         setTextView();
+
+        if (onStatusMylost) {
+            fab.setEnabled(false);
+            iFound.setVisibility(View.VISIBLE);
+        }
+
+        iFound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveLost();
+            }
+        });
 
 
     }
@@ -101,8 +122,41 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
     }
 
+    private void approveLost() {
+        Retrofit restAdapter = new Retrofit.Builder()
+                .baseUrl(Lost.getBASE_URL())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
+        Lost obLost = new Lost();
+
+        obLost.setId(lostContent.getId());
+
+        Call<Lost> call = retrofit.approveLost(obLost);
+        call.enqueue(new Callback<Lost>() {
+            @Override
+            public void onResponse(Call<Lost> call, Response<Lost> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "ยืนยันแล้ว", Toast.LENGTH_LONG).show();
+                    iFound.setVisibility(View.GONE);
+
+                    Intent goSetting = new Intent(ScrollingActivity.this, SettingActivity.class);
+//                    goSetting.putExtra("approveID", lostContent.getId());
+                    startActivity(goSetting);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
     private void telUser(){
-        fab = (FloatingActionButton) findViewById(R.id.tel);
+
         tel = obContact.getPhone();
 //        if (tel.isEmpty()){
 //            fab.setEnabled(false);
@@ -242,22 +296,35 @@ public class ScrollingActivity extends AppCompatActivity implements ItemClickLis
 
     }
 
-
     private String setStrDetails(){
+        String msg = "";
         //TODO get text value not code from database
-        String msg = "รูปร่าง : " + lostContent.getShape() + "\n"
-                + "ผม : " + lostContent.getHairtype() + "\n"
-                + "เสื้อผ้า : " + lostContent.getUpperwaist()
-                + lostContent.getLowerwaist();
+        if (!lostContent.getHairtype().isEmpty()) {
+            msg += "ผม : " + lostContent.getHairtype() + "\n";
+        }
+        if (!lostContent.getShape().isEmpty()) {
+            msg += "รูปร่าง : " + lostContent.getShape() + "\n";
+        }
+        if (!lostContent.getHeight().isEmpty()) {
+            msg += "ส่วนสูง : " + lostContent.getHeight() + "\n";
+        }
+        if (!lostContent.getUpperwaist().isEmpty() && !lostContent.getUpperwaist().equals("U00")) {
+            msg += "เสื้อผ้า : " + lostContent.getUpperwaist();
+            if (!lostContent.getLowerwaist().isEmpty() && !lostContent.getLowerwaist().equals("L00")) {
+                msg += " " + lostContent.getLowerwaist() + "\n";
+            }
+        }
+        if (!lostContent.getLowerwaist().isEmpty() && !lostContent.getLowerwaist().equals("L00")) {
+            msg += "เสื้อผ้า : " + lostContent.getLowerwaist() + "\n";
+        }
+        if (!lostContent.getDetailEtc().isEmpty() && lostContent.getDetailEtc().equals("-")){
+            msg += "ลักษณะ : " + lostContent.getDetailEtc() + "\n";
+        }
+        if (!lostContent.getSpecial().isEmpty() && lostContent.getSpecial().equals("-")){
+            msg += "ลักษณะชี้เฉพาะ : " + lostContent.getSpecial();
+        }
+
         return msg;
-
-
-
-//        String msg = "รูปร่าง : " + selectableItemDetail.getShape()+ " สีผิว : " + selectableItem.getSkintone() + "\n"
-//                + "ผม : " + selectableItemDetail.getHairtype() + " " + selectableItem.getHaircolor() + "\n"
-//                + "เสื้อผ้า : " + selectableItemDetail.getUpperwaist() + " " + selectableItem.getUppercolor() +"\n"
-//                + selectableItemDetail.getLowerwaist() + " " + selectableItem.getLowercolor() +"\n";
-//        return msg;
     }
 
 }

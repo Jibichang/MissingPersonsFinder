@@ -38,12 +38,6 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_details, parent, false);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                notifyDataSetChanged();
-//            }
-//        });
         return new ViewHolder(view);
     }
 
@@ -82,9 +76,6 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 //                        holder.name.setTextColor(view.getResources().getColor(R.color.black_de));
                     }
                 }
-//                notifyItemChanged(position);
-
-//                notifyDataSetChanged();
                 String Code = mCodes.get(position);
                 String Name = mNames.get(position);
 
@@ -140,5 +131,6 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.Vi
 
     public void setSelected(int selected) {
         this.selected = selected;
+        getTypeData(mCodes.get(selected), mNames.get(selected));
     }
 }

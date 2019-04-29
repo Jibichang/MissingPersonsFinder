@@ -24,9 +24,11 @@ public class Lost {
     public static boolean onStatusLogin = false;
     public static boolean onStatusFound = true;
     public static boolean onStatusCreate = false;
+    public static boolean onStatusEdit = false;
 
-//    private static final String BASE_URL = "https://pilot.cp.su.ac.th/usr/u07580467";
-    private static final String BASE_URL = "https://11073927.ngrok.io";
+
+    //    private static final String BASE_URL = "https://pilot.cp.su.ac.th/usr/u07580467";
+    private static final String BASE_URL = "https://70747ad0.ngrok.io";
     private static final String IMG_URL = "http://2cee4cbc.ngrok.io";
 
     @SerializedName("id")
@@ -249,6 +251,38 @@ public class Lost {
         this.pathImg = pathImg;
     }
 
+    /// Update
+    public Lost(String id, String fname, String lname, String gender, String age,
+                String city, String district, String subdistrict, String place, String height,
+                String shape, String hairtype, String haircolor,
+                String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
+                String type_id, String status, String detail_etc, String special,String guestId, String regDate) {
+        this.id = id;
+        this.fname = fname;
+        this.lname = lname;
+        this.gender = gender;
+        this.age = age;
+        this.place = place;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.city = city;
+        this.height = height;
+        this.shape = shape;
+        this.hairtype = hairtype;
+        this.haircolor = haircolor;
+        this.skintone = skintone;
+        this.upperwaist = upperwaist;
+        this.uppercolor = uppercolor;
+        this.lowerwaist = lowerwaist;
+        this.lowercolor = lowercolor;
+        this.detailEtc = detail_etc;
+        this.special = special;
+        this.typeId = type_id;
+        this.guestId = guestId;
+        this.status = status;
+        this.regDate = regDate;
+    }
+
     /// Get data Result + sim
     public Lost(String id, String pname, String fname, String lname, String gender, String age,
                 String city, String district, String subdistrict, String place, String height,
@@ -286,12 +320,11 @@ public class Lost {
     }
 
 //    create
-    public Lost(String pname, String fname, String lname, String gender, String age,
+    public Lost(String fname, String lname, String gender, String age,
                 String city, String district, String subdistrict, String place, String height,
                 String shape, String hairtype, String haircolor,
                 String upperwaist, String uppercolor, String lowerwaist, String lowercolor, String skintone,
                 String type_id, String status, String detail_etc, String special,String guest_id, String regDate) {
-        this.pname = pname;
         this.fname = fname;
         this.lname = lname;
         this.gender = gender;

@@ -25,6 +25,7 @@ import com.example.aomek.missingpersonsfinder.model.Feedback;
 import com.example.aomek.missingpersonsfinder.model.Guest;
 import com.example.aomek.missingpersonsfinder.model.Lost;
 import com.example.aomek.missingpersonsfinder.model.LostModel;
+import com.example.aomek.missingpersonsfinder.result.EditLostActivity;
 import com.example.aomek.missingpersonsfinder.result.ResultLostActivity;
 import com.example.aomek.missingpersonsfinder.result.ScrollingActivity;
 import com.example.aomek.missingpersonsfinder.retrofit.RetrofitAPI;
@@ -80,6 +81,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
 
         mNoResult = findViewById(R.id.textView_no_result);
         mDataLostView = findViewById(R.id.list_my_lost);
@@ -330,81 +332,6 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
         });
     }
 
-    private void loadFeedback() {
-        showNoResult(false);
-        Retrofit restAdapter = new Retrofit.Builder()
-                .baseUrl(Lost.getBASE_URL())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitAPI retrofit = restAdapter.create(RetrofitAPI.class);
-
-        Feedback obFeedback = new Feedback();
-        obFeedback.setGuestId(selectableItem.getGuestId());
-
-        Call<LostModel> call = retrofit.readFeedback(obFeedback);
-        call.enqueue(new Callback<LostModel>() {
-            @Override
-            public void onResponse(Call<LostModel> call, Response<LostModel> response) {
-                if (response.body() != null) {
-                    LostModel lostmodel = response.body();
-                    List<Lost> lost = lostmodel.getBody();
-                    mLostItemList = new ArrayList<>();
-                    for (int i = 0; i < lost.size(); i++) {
-                        String id = lost.get(i).getId();
-                        String pname = lost.get(i).getPname();
-                        String fname = lost.get(i).getFname();
-                        String lname = lost.get(i).getLname();
-                        String gender = lost.get(i).getGender();
-                        String age = lost.get(i).getAge();
-
-                        String place = lost.get(i).getPlace();
-                        String sub = lost.get(i).getSubdistrict();
-                        String dis = lost.get(i).getDistrict();
-                        String city = lost.get(i).getCity();
-
-                        String height = lost.get(i).getHeight();
-                        String shape = lost.get(i).getShape();
-                        String hairtype = lost.get(i).getHairtype();
-                        String haircolor = lost.get(i).getHaircolor();
-
-                        String upperwaist = lost.get(i).getUpperwaist();
-                        String upperolor = lost.get(i).getUppercolor();
-                        String lowerwaist = lost.get(i).getLowerwaist();
-                        String lowercolor = lost.get(i).getLowercolor();
-
-                        String skintone = lost.get(i).getSkintone();
-                        String type_id = lost.get(i).getTypeId();
-                        String detail_etc = lost.get(i).getDetailEtc();
-                        String special = lost.get(i).getSpecial();
-
-                        String date = lost.get(i).getRegDate();
-                        String status = lost.get(i).getStatus();
-                        String guest = lost.get(i).getGuestId();
-                        String image = lost.get(i).getPathImg();
-
-                        Lost item = new Lost(id, pname, fname, lname, gender, age, city, dis, sub, place, height,
-                                shape, hairtype, haircolor, upperwaist, upperolor, lowerwaist,
-                                lowercolor, skintone, type_id, status, detail_etc, special, guest, date, image);
-                        mLostItemList.add(item);
-                    }
-                    setupListView();
-                    showNoResult(false);
-
-                } else {
-                    showNoResult(true);
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                showNoResult(true);
-//                Toast.makeText(getApplicationContext(), "Failure",Toast.LENGTH_LONG).show();
-
-            }
-        });
-    }
-
     private void setupListView() {
         final LostListAdapter adapter = new LostListAdapter(
                 SettingActivity.this,
@@ -418,6 +345,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Lost item = Lost.getLoadDataMyLost().get(position);
+                lostContent.clearData();
 
                 lostContent.setId(item.getId());
                 lostContent.setFname(item.getFname());
@@ -434,6 +362,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                 lostContent.setHairtype(item.getHairtype());
                 lostContent.setHaircolor(item.getHaircolor());
                 lostContent.setSkintone(item.getSkintone());
+                lostContent.setHeight(item.getHeight());
 
                 lostContent.setUpperwaist(item.getUpperwaist());
                 lostContent.setUppercolor(item.getUppercolor());
@@ -450,7 +379,7 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                 lostContent.setPathImg(item.getPathImg());
 
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
-//                intent.putExtra("stringLost", item.toString());
+                intent.putExtra("mylost", true);
                 startActivity(intent);
             }
         });
@@ -469,7 +398,45 @@ public class SettingActivity extends AppCompatActivity implements ItemClickListe
                         showDialogDelete(msg);
                         return false;
                     case 1:
-                        Toast.makeText(getApplicationContext(), "ลบแล้ว 1", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "แก้ไขข้อมูล", Toast.LENGTH_SHORT).show();
+                        lostContent.clearData();
+                        selectableItem.clearData();
+
+                        selectableItem.setId(item.getId());
+                        selectableItem.setGuestId(item.getGuestId());
+
+                        lostContent.setFname(item.getFname());
+                        lostContent.setLname(item.getLname());
+                        lostContent.setAge(item.getAge());
+                        lostContent.setGender(item.getGender());
+
+                        lostContent.setCity(item.getCity());
+                        lostContent.setDistrict(item.getDistrict());
+                        lostContent.setSubdistrict(item.getSubdistrict());
+                        lostContent.setPlace(item.getPlace());
+
+                        lostContent.setShape(item.getShape());
+                        lostContent.setHairtype(item.getHairtype());
+                        lostContent.setHaircolor(item.getHaircolor());
+                        lostContent.setSkintone(item.getSkintone());
+                        lostContent.setHeight(item.getHeight());
+
+                        lostContent.setUpperwaist(item.getUpperwaist());
+                        lostContent.setUppercolor(item.getUppercolor());
+                        lostContent.setLowerwaist(item.getLowerwaist());
+                        lostContent.setLowercolor(item.getLowercolor());
+
+                        lostContent.setDetailEtc(item.getDetailEtc());
+                        lostContent.setSpecial(item.getSpecial());
+                        lostContent.setTypeId(item.getTypeId());
+//                        lostContent.setGuestId(item.getGuestId());
+
+                        lostContent.setStatus(item.getStatus());
+                        lostContent.setRegDate(item.getRegDate());
+
+                        selectableItem.setPathImg(item.getPathImg());
+
+                        startActivity(new Intent(SettingActivity.this, EditLostActivity.class));
                         return false;
                         default:
                             return false;

@@ -35,16 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindMoreActivity extends AppCompatActivity implements ItemClickListener {
-    EditText fnameEdittext;
-    EditText lnameEdittext;
-    EditText placeEdittext;
+    EditText fnameEdittext, lnameEdittext, placeEdittext;
 
-    Spinner ageSpinner;
-    Spinner genderSpinner;
-    Spinner placeSpinner;
-    Spinner typeSpinner;
-    Spinner disSpinner;
-    Spinner subSpinner;
+    Spinner ageSpinner, genderSpinner, placeSpinner, typeSpinner, disSpinner,subSpinner;
 
     ArrayList<String> mlistDistrict = new ArrayList<>();
     ArrayList<String> mlistSubDistrict = new ArrayList<>();
